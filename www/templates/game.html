@@ -1,18 +1,12 @@
-
-
-
 <ion-view title="Hi Oriol, ready to Play?">
-<div class="bar bar-header">
-    <div class="h1 title">Board Game</div>
-</div>
-    <ion-content>
+    <div class="bar bar-header">
+        <div class="h1 title">Board Game</div>
+    </div>
+    <ion-content class="padding has-header">
         <ion-scroll zooming="true" direction="xy" style="height:100%; width: 100%;">
-
             <table class="boardgame" >
                 <tr ng-repeat="squares in board">
-                    <td class="square" ng-repeat="square in squares">
-
-                    </td>
+                    <td class="square" ng-repeat="square in squares"></td>
                 </tr>
             </table>
         </ion-scroll>
