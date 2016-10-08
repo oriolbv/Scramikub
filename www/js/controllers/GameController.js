@@ -4,21 +4,21 @@ angular.module('starter.controllers')
 
 
     $scope.board = [
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-        [{value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}, {value:"0"}],
-    ];
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+    [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
+  ];
 
 });

@@ -31,7 +31,7 @@
     width: 1500px;
     height: 1500px;
     max-width: 100%;
-}*/
+}
 
 .square {
     width: 100px;
@@ -39,4 +39,17 @@
     outline: 1px solid;
     float: left;
     max-width: 100%;
+}*/
+
+.boardgame {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    outline: 1px solid;
+    float: left;
+    margin: 5px;   
 }
