@@ -1,20 +1,46 @@
 <ion-view title="Hi Oriol, ready to Play?">
+    <ion-pane>
     <div class="bar bar-header">
         <div class="h1 title">Board Game</div>
     </div>
-    <ion-content class="padding has-header">
-        <ion-scroll zooming="true" direction="xy" style="height:100%; width: 100%;">
+    <ion-content>
+        <!--<div class="page-wrap">
+
+        </div>
+        <div class="bar bar-footer bar-balanced">
+            <div class="title">Footer</div>
+        </div>-->
+        <!--<ion-scroll zooming="true" direction="xy" style="height:80%; width: 100%;">
             <table class="boardgame" >
                 <tr ng-repeat="squares in board">
                     <td class="square" ng-repeat="square in squares"></td>
                 </tr>
             </table>
+            
+        </ion-scroll>-->
+        
+    <ion-scroll zooming = "true" direction = "xy" style = "height: 550px">
+          <div class = "scroll-container">
+            <table class="boardgame" >
+                <tr ng-repeat="squares in board">
+                    <td class="square" ng-repeat="square in squares"></td>
+                </tr>
+            </table>
+          </div>
         </ion-scroll>
+
+
     </ion-content>
+
+    <ion-footer-bar align-title="left" class="bar-assertive">
+        <div class="buttons">
+          <button class="button">Left Button</button>
+        </div>
+        <h1 class="title">Title!</h1>
+        <div class="buttons" ng-click="doSomething()">
+          <button class="button">Right Button</button>
+        </div>
+      </ion-footer-bar>
+    </ion-pane>
 </ion-view>
 
-<!--<div ng-repeat="items in split_items" class="row">
-    <div ng-repeat="item in items" class="col-md-4">
-        item
-    </div>
-</div>-->
