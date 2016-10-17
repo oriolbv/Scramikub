@@ -3,7 +3,7 @@
 var firebaseUrl = "https://scramikub.firebaseio.com";
 var userConnected = null;
 
-angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'ngDraggable'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

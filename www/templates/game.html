@@ -4,41 +4,34 @@
         <div class="h1 title">Board Game</div>
     </div>
     <ion-content>
-        <!--<div class="page-wrap">
-
-        </div>
-        <div class="bar bar-footer bar-balanced">
-            <div class="title">Footer</div>
-        </div>-->
-        <!--<ion-scroll zooming="true" direction="xy" style="height:80%; width: 100%;">
-            <table class="boardgame" >
-                <tr ng-repeat="squares in board">
-                    <td class="square" ng-repeat="square in squares"></td>
-                </tr>
-            </table>
-            
-        </ion-scroll>-->
-        
-    <ion-scroll zooming = "true" direction = "xy" style = "height: 550px">
-          <div class = "scroll-container">
-            <table class="boardgame" >
-                <tr ng-repeat="squares in board">
-                    <td class="square" ng-repeat="square in squares"></td>
-                </tr>
-            </table>
-          </div>
+        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px">
+            <div class = "scroll-container">
+                <table class="boardgame" >
+                    <tr ng-repeat="squares in board">
+                        <td class="square" ng-repeat="square in squares"></td>
+                    </tr>
+                </table>
+            </div>
         </ion-scroll>
-
-
     </ion-content>
 
-    <ion-footer-bar align-title="left" class="bar-assertive">
-        <div class="buttons">
-          <button class="button">Left Button</button>
+    <ion-footer-bar align-title="left" class="bar" style="height: 20%; border:1px solid black;">
+        <div>
+            <ion-scroll direction = "x" style = "width: 85%; border:1px solid black;">
+                <div class="scroll-container" style="">
+                    <div draggable="true" ng-drag="true" on-touch="stopIonicScroll()" on-release="startIonicScroll()" class="square-chip" style="border:1px solid black;">
+                        <img src="img/ftx_blanc_01.png" width="100px" height="100px"/>
+
+                    </div>
+                    <div class="square-chip" style="border:1px solid black;"></div>
+                    <div class="square-chip" style="border:1px solid black;"></div>
+                </div>               
+            </ion-scroll>
         </div>
-        <h1 class="title">Title!</h1>
+    
+
         <div class="buttons" ng-click="doSomething()">
-          <button class="button">Right Button</button>
+            <button class="button">Right Button</button>
         </div>
       </ion-footer-bar>
     </ion-pane>

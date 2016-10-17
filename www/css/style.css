@@ -55,6 +55,15 @@
     margin: 5px;   
 }
 
+.square-chip {
+    width: 100px;
+    height: 100px;
+    outline: 1px solid;
+    float: left;
+    margin: 5px;
+     
+}
+
 * {
   margin: 0;
 }
