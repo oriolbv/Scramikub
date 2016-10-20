@@ -1,5 +1,5 @@
 <ion-view title="Hi Oriol, ready to Play?">
-    <ion-pane>
+    <!--<ion-pane>-->
     <div class="bar bar-header">
         <div class="h1 title">Board Game</div>
     </div>
@@ -16,24 +16,29 @@
     </ion-content>
 
     <ion-footer-bar align-title="left" class="bar" style="height: 20%; border:1px solid black;">
-        <div>
-            <ion-scroll direction = "x" style = "width: 85%; border:1px solid black;">
-                <div class="scroll-container" style="">
-                    <div draggable="true" ng-drag="true" on-touch="stopIonicScroll()" on-release="startIonicScroll()" class="square-chip" style="border:1px solid black;">
-                        <img src="img/ftx_blanc_01.png" width="100px" height="100px"/>
-
+            <!--<ion-scroll direction="x" style = "width: 85%; border:1px solid black;">
+                <div class="row" style="">
+                    <div class="col" ng-repeat="obj in draggableObjects"> 
+                        <div ng-drag="true" g-drag-data="obj" data-allow-transform="true" class="square-chip" style="border:1px solid black;">
+                            <img src="img/ftx_blanc_01.png" width="100px" height="100px"/>
+                            {{obj.name}}
+                        </div>
                     </div>
-                    <div class="square-chip" style="border:1px solid black;"></div>
-                    <div class="square-chip" style="border:1px solid black;"></div>
                 </div>               
-            </ion-scroll>
+            </ion-scroll>-->
+            
+        <div class="row">
+            <div class="col" ng-repeat="obj in draggableObjects">
+                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
+            </div>
         </div>
     
 
         <div class="buttons" ng-click="doSomething()">
             <button class="button">Right Button</button>
         </div>
+
       </ion-footer-bar>
-    </ion-pane>
+    <!--</ion-pane>-->
 </ion-view>
 
