@@ -35,7 +35,8 @@
                 <ion-item ng-repeat="game in games" ng-click="clickGame(game)">
 
                   <h2>{{game.name}}</h2>
-                  <h3>{{game.players[0]}}</h3>
+                  <h3>{{game.players[0]}} VS {{game.players[1]}}</h3>
+                  <h3>{{game.gameState}}</h3>
 
                   <!--<ion-option-button class="button-positive"
                                     ng-click="editar(todo)">

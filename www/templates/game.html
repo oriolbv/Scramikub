@@ -29,10 +29,10 @@
             
         <div class="row">
             <div class="col" ng-repeat="obj in draggableObjects">
-                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
+                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" ng-center-anchor="true" ng-drag-success="onDragComplete($data,$event)" class="square-chip"> {{obj.name}} </div>
             </div>
         </div>
-    
+
 
         <div class="buttons" ng-click="doSomething()">
             <button class="button">Right Button</button>

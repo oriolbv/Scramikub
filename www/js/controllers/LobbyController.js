@@ -9,15 +9,27 @@ angular.module('starter.controllers')
     $scope.games.$loaded().then(function (games) {
         console.log($scope.games);
         var auxGames = [];
-        // for (var i = 0; i < $scope.games.size(); ++i) {
-            
-        // }
-
+        for (var i = 0; i < $scope.games.length; ++i) {
+            var game = $scope.games[i];
+            for (var j = 0; j < game.players.length; ++j) {
+                if (game.players[j] == userConnected.password.email) {
+                    if (game.userTurn == userConnected.password.email) {
+                        game.gameState = "It's your turn! Click to play!"
+                    }
+                    else {
+                        game.gameState = "It's not your turn. Waiting for other users..."
+                    }
+                    auxGames.push(game);
+                }
+            }
+        }
+        $scope.games = auxGames;
     });
 
 
-    $scope.clickGame = function(item){
-        alert('Clicked: '+item.id)
+    $scope.clickGame = function(game){
+        alert('Clicked: '+game.userTurn)
+        $state.go('game');
     };
 
 

@@ -11,13 +11,11 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 			.state('login', {
 				url: '/',
 				cache: false,
-				//templateUrl: 'templates/login.html',
-				templateUrl: 'templates/game.html',
-				// controller: 'LoginCtrl',
-				controller: 'GameCtrl',
+				templateUrl: 'templates/login.html',
+				controller: 'LoginCtrl',
 				// controllerAs: 'vm'
 			})
-      .state('lobby', {
+			.state('lobby', {
 				url: '/lobby',
 				cache: false,
 				templateUrl: 'templates/lobby.html',
@@ -25,13 +23,20 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				// controllerAs: 'vm'
 
 			})
-      .state('create-game', {
+			.state('create-game', {
 				url: '/create-game',
 				cache: false,
 				templateUrl: 'templates/create-game.html',
 				controller: 'CreateGameCtrl',
 				// controllerAs: 'vm'
-			});
+			})
+			.state('game', {
+				url: '/game',
+				cache: false,
+				templateUrl: 'templates/game.html',
+				controller: 'GameCtrl'
+
+		});
 
 
   // if none of the above states are matched, use this as the fallback

@@ -35,7 +35,7 @@ angular.module('starter.controllers')
         if (index == -1)
             $scope.droppedObjects1.push(data);
     }
-    $scope.onDragSuccess1 = function (data, evt) {
+    $scope.onDragComplete = function (data, evt) {
         console.log("133", "$scope", "onDragSuccess1", "", evt);
         var index = $scope.droppedObjects1.indexOf(data);
         if (index > -1) {
