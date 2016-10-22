@@ -83,14 +83,8 @@ angular.module('starter.controllers')
             }
             $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
             // Normalize board
-            // var board = [];
-            // for (var i = 0; i < $scope.board.length; ++i) {
-            //     for (var j = 0; j < $scope.board[i].length; ++j) {
-            //         board[i][j] = {
-            //             "value" : $scope.board[i][j].value
-            //         };
-            //     }
-            // }
+            $scope.actualGame.board = $scope.board;
+            $scope.actualGame = angular.copy($scope.actualGame);
             games.$ref().child($scope.actualGame.$id).set({
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
