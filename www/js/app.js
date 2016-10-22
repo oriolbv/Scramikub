@@ -31,7 +31,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				// controllerAs: 'vm'
 			})
 			.state('game', {
-				url: '/game',
+				url: '/game?actualGame',
 				cache: false,
 				templateUrl: 'templates/game.html',
 				controller: 'GameCtrl'

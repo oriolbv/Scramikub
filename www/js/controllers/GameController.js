@@ -1,7 +1,8 @@
 angular.module('starter.controllers')
 
-.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate) {
+.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games) {
 
+    $scope.games = Games;
 
     $scope.board = [
         [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
@@ -23,7 +24,7 @@ angular.module('starter.controllers')
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{name:"1", color:"red"},{name:"2", color:"blue"},{name:"3", color:"blue"}];
+    $scope.draggableObjects = [{name:"1", color:"red"},{name:"2", color:"blue"}];
 
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2 = [];
@@ -46,5 +47,23 @@ angular.module('starter.controllers')
     var inArray = function (array, obj) {
         var index = array.indexOf(obj);
     }
+
+    $scope.playMove = function(){
+
+        $scope.games.$loaded().then(function (games) {
+            var actualGame = angular.fromJson($stateParams.actualGame);
+            actualGame = actualGame.actualGame;
+            actualGame.name = "Puta merda";
+            games.$ref().child(actualGame.$id).set({
+                "name": actualGame.name,
+                "players": actualGame.players,
+                "userTurn": actualGame.userTurn,
+                "gameState": actualGame.gameState,
+                "board": actualGame.board
+            });
+        });
+
+        
+    };
 
 });

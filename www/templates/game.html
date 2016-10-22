@@ -8,7 +8,7 @@
             <div class = "scroll-container">
                 <table class="boardgame" >
                     <tr ng-repeat="squares in board">
-                        <td class="square" ng-repeat="square in squares"></td>
+                        <td class="square" ng-repeat="square in squares">{{square.value}}</td>
                     </tr>
                 </table>
             </div>
@@ -34,7 +34,7 @@
         </div>
 
 
-        <div class="buttons" ng-click="doSomething()">
+        <div class="buttons" ng-click="playMove()">
             <button class="button">Right Button</button>
         </div>
 

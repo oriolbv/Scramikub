@@ -29,7 +29,8 @@ angular.module('starter.controllers')
 
     $scope.clickGame = function(game){
         alert('Clicked: '+game.userTurn)
-        $state.go('game');
+        var actualGame = angular.toJson({ "actualGame": game});
+        $state.go('game', { 'actualGame': actualGame });
     };
 
 
