@@ -28,9 +28,14 @@ angular.module('starter.controllers')
 
 
     $scope.clickGame = function(game){
-        alert('Clicked: '+game.userTurn)
-        var actualGame = angular.toJson({ "actualGame": game});
-        $state.go('game', { 'actualGame': actualGame });
+        
+        if (game.players[game.userTurn] == userConnected.password.email) {
+            var actualGame = angular.toJson({ "actualGame": game});
+            $state.go('game', { 'actualGame': actualGame });
+        } else {
+            alert("It's not your turn! Wait for the other players ...");
+        }
+        
     };
 
 
