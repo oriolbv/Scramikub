@@ -3,13 +3,13 @@
 </ion-header-bar>
 
 <ion-view view-title="Login" name="login-view">
-	<ion-content class="padding">
+	<ion-content class="padding" scroll="false" delegate-handle="myScroll">
 		<div class="list list-inset">
 			<label class="item item-input">
-				<input type="text" placeholder="Username" ng-model="user.email">
+				<input type="text" placeholder="Username" value="a@a.com" ng-model="user.email">
 			</label>
 			<label class="item item-input">
-				<input type="password" placeholder="Password" ng-model="user.password">
+				<input type="password" placeholder="Password" value="a" ng-model="user.password">
 			</label>
 		</div>
 		<button class="button button-block button-calm" ng-click="login(user)">Login</button>
@@ -18,5 +18,28 @@
                 Create New Account
             </button>
         </div>
+
+		<!--<div class="div-scroll" ng-drop="true" on-drop="onDropComplete1($data,$event)">
+			
+		</div>
+		<div class="row">
+            <div class="col" ng-repeat="obj in draggableObjects">
+                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
+            </div>
+        </div>-->
+		<div class="row">
+            <div class="col" ng-repeat="obj in draggableObjects">
+                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true"> {{obj.name}} </div>
+            </div>
+        </div>
+
+        <span class="title">Drop area #1</span>
+        <div class="row" ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
+            <div class="col" ng-repeat="obj in droppedObjects1">
+                <div ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}"> {{obj.name}} </div>
+            </div>
+        </div>
+
+
 	</ion-content>
 </ion-view>

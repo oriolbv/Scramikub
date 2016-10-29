@@ -1,21 +1,54 @@
 <ion-view title="Hi Oriol, ready to Play?">
-    <!--<ion-pane>-->
     <div class="bar bar-header">
         <div class="h1 title">Board Game</div>
     </div>
-    <ion-content>
-        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px">
+    
+    <ion-content scroll="false">
+        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px" delegate-handle="myScroll" scroll="false">
             <div class = "scroll-container">
                 <table class="boardgame" >
-                    <tr ng-repeat="squares in board">
+                    <tr ng-repeat="(i,squares) in board" >
+                        <td class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)">{{droppedObjects[0].name}}</td>
+                    </tr>
+                </table>
+            </div>
+        </ion-scroll>
+        <div class="div-scroll">
+            <div class="row">
+                <div class="col" ng-repeat="obj in draggableObjects">
+                    <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    
+    
+    
+    
+    
+    
+
+    
+    <!--<ion-content scroll="false">
+        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px" delegate-handle="myScroll" scroll="false">
+            <div class = "scroll-container">
+                <table class="boardgame" >
+                    <tr ng-repeat="squares in board" >
                         <td class="square" ng-repeat="square in squares">{{square.value}}</td>
                     </tr>
                 </table>
             </div>
         </ion-scroll>
-    </ion-content>
+        <div class="div-scroll">
+            <div class="row">
+                <div class="col" ng-repeat="obj in draggableObjects">
+                    <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" ng-center-anchor="true" on-drag= "onDragStart($data, $event)" ng-drag-success="onDragComplete($data,$event)" class="square-chip"> {{obj.name}} </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>-->
 
-    <ion-footer-bar align-title="left" class="bar" style="height: 20%; border:1px solid black;">
+    <!--<ion-footer-bar align-title="left" class="bar" style="height: 20%; border:1px solid black;" scroll="false">-->
             <!--<ion-scroll direction="x" style = "width: 85%; border:1px solid black;">
                 <div class="row" style="">
                     <div class="col" ng-repeat="obj in draggableObjects"> 
@@ -27,18 +60,8 @@
                 </div>               
             </ion-scroll>-->
             
-        <div class="row">
-            <div class="col" ng-repeat="obj in draggableObjects">
-                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" ng-center-anchor="true" ng-drag-success="onDragComplete($data,$event)" class="square-chip"> {{obj.name}} </div>
-            </div>
-        </div>
+        
 
 
-        <div class="buttons" ng-click="playMove()">
-            <button class="button">Right Button</button>
-        </div>
-
-      </ion-footer-bar>
-    <!--</ion-pane>-->
 </ion-view>
 
