@@ -8,7 +8,7 @@
             <div class = "scroll-container">
                 <table class="boardgame" >
                     <tr ng-repeat="(i,squares) in board" >
-                        <td class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)">{{droppedObjects[0].name}}</td>
+                        <td class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)">{{square.value}}</td>
                     </tr>
                 </table>
             </div>

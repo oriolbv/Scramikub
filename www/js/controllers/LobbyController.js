@@ -13,7 +13,7 @@ angular.module('starter.controllers')
             var game = $scope.games[i];
             for (var j = 0; j < game.players.length; ++j) {
                 if (game.players[j] == userConnected.password.email) {
-                    if (game.userTurn == userConnected.password.email) {
+                    if (game.players[game.userTurn] == userConnected.password.email) {
                         game.gameState = "It's your turn! Click to play!"
                     }
                     else {

@@ -23,9 +23,8 @@ angular.module('starter.controllers')
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
-        var index = $scope.droppedObjects1.indexOf(data);
-        if (index == -1)
-            $scope.droppedObjects1.push(data);
+        var board = $scope.actualGame.board;
+        board[i][j].value = data.name + " " + data.color;
     }
     $scope.onDragComplete = function (data, evt) {
         console.log("133", "$scope", "onDragSuccess1", "", evt);
