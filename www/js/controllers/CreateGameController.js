@@ -17,13 +17,15 @@ var GreenSuit = [{color: "green", num: "1"}, {color: "green", num: "2"}, {color:
 
 angular.module('starter.controllers')
 
-.controller('CreateGameCtrl', function($scope, $state, $stateParams, Users, Games) {
+.controller('CreateGameCtrl', function($scope, $state, $stateParams, Users, Games, Chats) {
     
     $scope.userConnected = userConnected.auth.token;
 
     $scope.users = Users;
 
     $scope.games = Games;
+
+    $scope.chats = Chats;
 
     $scope.data = {
         userSelected: []
@@ -82,6 +84,15 @@ angular.module('starter.controllers')
                             ],
                 "playersChips": [player1Chips, player2Chips],
                 "gameChips": allChips
+            });
+
+            $scope.chats.$add({
+                "gameName" : $scope.game.name,
+                "users" : [$scope.userConnected.email, $scope.data.userSelected],
+                "messages" : [{
+                    "sender_username" : $scope.userConnected.email,
+                    "content" : "Hello! Hello"
+                }]
             });
         $state.go('lobby');
         } else {

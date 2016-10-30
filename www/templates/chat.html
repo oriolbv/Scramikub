@@ -1,0 +1,46 @@
+<div class="bar bar-header">
+  <div class="h1 title">Chat</div>
+
+</div>
+
+<ion-view class="chats-view" style="padding-top:10px">
+    <ion-content has-subheader="false" delegate-handle="chatScroll">
+		<div class="chat-content">
+			<div class="chat-msg-items">
+				<div class="chat-item"
+					ng-repeat="message in messages"
+					>
+					<!-- <div class="time">
+						11: 20
+					</div> -->
+					<div class="user-info">
+						<a href="javascript:;" class="avatar">
+							<img src="img/ftx_blanc_01.png" width="100%"/>
+						</a>
+						<p class="name">{{ message.sender_username }}</p>
+					</div>
+					<div class="msg-panel">
+						<div class="msg-text">
+							{{ message.content }}
+						</div>
+						<div class="triangle-arrow"></div>
+						<div class="triangle-arrow2"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </ion-content>
+	<ion-footer-bar keyboard-attach>
+		<form name="chatForm">
+			<div class="chat-input">
+				<div class="input-area">
+					<input type="text" ng-model="newMessage" placeholder="Type in your message..." required>
+					<button class="send-msg-btn"
+						ng-disabled="!chatForm.$valid"
+						ng-click="sendMessage(newMessage)"> Send
+					</button>
+				</div>
+			</div>
+		</form>
+	</ion-footer-bar>
+</ion-view>

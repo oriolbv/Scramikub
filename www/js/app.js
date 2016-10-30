@@ -36,7 +36,13 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				templateUrl: 'templates/game.html',
 				controller: 'GameCtrl'
 
-		});
+			})
+			.state('chat', {
+				url: '/chat?actualGame',
+				cache: false,
+				templateUrl: 'templates/chat.html',
+				controller: 'ChatCtrl'
+			});
 
 
   // if none of the above states are matched, use this as the fallback
@@ -44,6 +50,16 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 })
 .run(function($rootScope, $state, $ionicPlatform) {
 	$ionicPlatform.ready(function() {
+		// window.AndroidFullScreen.immersiveMode(successFunction, errorFunction);
+
+		// function successFunction() {
+		// 	console.log("It worked!");
+		// }
+
+		// function errorFunction(error) {
+		// 	console.log(error);
+		// }
+
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
 		if (window.cordova && window.cordova.plugins.Keyboard) {

@@ -29,8 +29,19 @@ angular.module('starter.controllers')
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
         cell.appendChild(evt.element[0]);
-        
     }
+
+    $scope.onDropComplete = function(data,evt) {
+        var chipsDiv = document.getElementById("chips-div");
+        chipsDiv.appendChild(evt.element[0]);
+    }
+
+    $scope.onDrag = function() {
+        console.log("onDrag!");
+    }
+
+
+
     $scope.onDragComplete = function (data, evt) {
         console.log("133", "$scope", "onDragSuccess1", "", evt);
         var index = $scope.droppedObjects1.indexOf(data);
@@ -41,6 +52,15 @@ angular.module('starter.controllers')
 
     var inArray = function (array, obj) {
         var index = array.indexOf(obj);
+    }
+
+    $scope.gameChat = function() {
+        $scope.actualGame = angular.fromJson($stateParams.actualGame);
+        $scope.actualGame = $scope.actualGame.actualGame;
+
+        var actualGame = angular.toJson({ "actualGame": $scope.actualGame});
+        $state.go('chat', { 'actualGame': actualGame });
+
     }
 
     $scope.games.$loaded().then(function (games) {
@@ -80,5 +100,4 @@ angular.module('starter.controllers')
             $state.go('lobby');
         });
     };
-
 });
