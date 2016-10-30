@@ -4,9 +4,9 @@
     </div>
     
     <ion-content scroll="false">
-        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px" delegate-handle="myScroll" scroll="false">
+        <ion-scroll zooming="true" overflow-scroll="false" direction="xy" style = "height: 525px" delegate-handle="myScroll" scroll="false">
             <div class = "scroll-container">
-                <table class="boardgame" >
+                <table id="table-board" class="boardgame" >
                     <tr ng-repeat="(i,squares) in board" >
                         <td class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)">{{square.value}}</td>
                     </tr>
@@ -16,7 +16,7 @@
         <div class="div-scroll">
             <div class="row">
                 <div class="col" ng-repeat="obj in draggableObjects">
-                    <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
+                    <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="true"> {{obj.name}} </div>
                 </div>
             </div>
         </div>

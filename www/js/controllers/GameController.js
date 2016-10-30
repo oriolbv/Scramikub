@@ -25,6 +25,11 @@ angular.module('starter.controllers')
     $scope.onDropComplete1 = function (data, evt, i, j) {
         var board = $scope.actualGame.board;
         board[i][j].value = data.name + " " + data.color;
+        
+        var table = document.getElementById("table-board");
+        var cell = table.rows[i].cells[j];
+        cell.appendChild(evt.element[0]);
+        
     }
     $scope.onDragComplete = function (data, evt) {
         console.log("133", "$scope", "onDragSuccess1", "", evt);
