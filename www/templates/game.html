@@ -19,54 +19,11 @@
         <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
             <div class="row">
                 <div class="col" ng-repeat="obj in draggableObjects">
-                    <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> {{obj.name}} </div>
+                    <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> {{obj.value}} </div>
                 </div>
                 <button class="button button-positive">Play!</button>
-
             </div>
         </div>
     </ion-content>
-    
-    
-    
-    
-    
-    
-
-    
-    <!--<ion-content scroll="false">
-        <ion-scroll zooming = "true" direction = "xy" style = "height: 525px" delegate-handle="myScroll" scroll="false">
-            <div class = "scroll-container">
-                <table class="boardgame" >
-                    <tr ng-repeat="squares in board" >
-                        <td class="square" ng-repeat="square in squares">{{square.value}}</td>
-                    </tr>
-                </table>
-            </div>
-        </ion-scroll>
-        <div class="div-scroll">
-            <div class="row">
-                <div class="col" ng-repeat="obj in draggableObjects">
-                    <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" ng-center-anchor="true" on-drag= "onDragStart($data, $event)" ng-drag-success="onDragComplete($data,$event)" class="square-chip"> {{obj.name}} </div>
-                </div>
-            </div>
-        </div>
-    </ion-content>-->
-
-    <!--<ion-footer-bar align-title="left" class="bar" style="height: 20%; border:1px solid black;" scroll="false">-->
-            <!--<ion-scroll direction="x" style = "width: 85%; border:1px solid black;">
-                <div class="row" style="">
-                    <div class="col" ng-repeat="obj in draggableObjects"> 
-                        <div ng-drag="true" g-drag-data="obj" data-allow-transform="true" class="square-chip" style="border:1px solid black;">
-                            <img src="img/ftx_blanc_01.png" width="100px" height="100px"/>
-                            {{obj.name}}
-                        </div>
-                    </div>
-                </div>               
-            </ion-scroll>-->
-            
-        
-
-
 </ion-view>
 

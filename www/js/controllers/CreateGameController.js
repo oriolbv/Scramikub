@@ -1,18 +1,18 @@
-var BlueSuit =  [{color: "blue", num: "1"}, {color: "blue", num: "2"}, {color: "blue", num: "3"}, {color: "blue", num: "4"}, {color: "blue", num: "5"}, 
-                {color: "blue", num: "6"}, {color: "blue", num: "7"}, {color: "blue", num: "8"}, {color: "blue", num: "9"}, {color: "blue", num: "10"}, 
-                {color: "blue", num: "11"}, {color: "blue", num: "12"}, {color: "blue", num: "13"}, {color: "blue", num: "14"}, {color: "blue", num: "15"}];
+var BlueSuit =  [{color: "blue", value: "1"}, {color: "blue", value: "2"}, {color: "blue", value: "3"}, {color: "blue", value: "4"}, {color: "blue", value: "5"}, 
+                {color: "blue", value: "6"}, {color: "blue", value: "7"}, {color: "blue", value: "8"}, {color: "blue", value: "9"}, {color: "blue", value: "10"}, 
+                {color: "blue", value: "11"}, {color: "blue", value: "12"}, {color: "blue", value: "13"}, {color: "blue", value: "14"}, {color: "blue", value: "15"}];
 
-var RedSuit =   [{color: "red", num: "1"}, {color: "red", num: "2"}, {color: "red", num: "3"}, {color: "red", num: "4"}, {color: "red", num: "5"}, 
-                {color: "red", num: "6"}, {color: "red", num: "7"}, {color: "red", num: "8"}, {color: "red", num: "9"}, {color: "red", num: "10"}, 
-                {color: "red", num: "11"}, {color: "red", num: "12"}, {color: "red", num: "13"}, {color: "red", num: "14"}, {color: "red", num: "15"}];
+var RedSuit =   [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}, {color: "red", value: "4"}, {color: "red", value: "5"}, 
+                {color: "red", value: "6"}, {color: "red", value: "7"}, {color: "red", value: "8"}, {color: "red", value: "9"}, {color: "red", value: "10"}, 
+                {color: "red", value: "11"}, {color: "red", value: "12"}, {color: "red", value: "13"}, {color: "red", value: "14"}, {color: "red", value: "15"}];
 
-var YellowSuit = [{color: "yellow", num: "1"}, {color: "yellow", num: "2"}, {color: "yellow", num: "3"}, {color: "yellow", num: "4"}, {color: "yellow", num: "5"}, 
-                {color: "yellow", num: "6"}, {color: "yellow", num: "7"}, {color: "yellow", num: "8"}, {color: "yellow", num: "9"}, {color: "yellow", num: "10"}, 
-                {color: "yellow", num: "11"}, {color: "yellow", num: "12"}, {color: "yellow", num: "13"}, {color: "yellow", num: "14"}, {color: "yellow", num: "15"}];
+var YellowSuit = [{color: "yellow", value: "1"}, {color: "yellow", value: "2"}, {color: "yellow", value: "3"}, {color: "yellow", value: "4"}, {color: "yellow", value: "5"}, 
+                {color: "yellow", value: "6"}, {color: "yellow", value: "7"}, {color: "yellow", value: "8"}, {color: "yellow", value: "9"}, {color: "yellow", value: "10"}, 
+                {color: "yellow", value: "11"}, {color: "yellow", value: "12"}, {color: "yellow", value: "13"}, {color: "yellow", value: "14"}, {color: "yellow", value: "15"}];
 
-var GreenSuit = [{color: "green", num: "1"}, {color: "green", num: "2"}, {color: "green", num: "3"}, {color: "green", num: "4"}, {color: "green", num: "5"}, 
-                {color: "green", num: "6"}, {color: "green", num: "7"}, {color: "green", num: "8"}, {color: "green", num: "9"}, {color: "green", num: "10"}, 
-                {color: "green", num: "11"}, {color: "green", num: "12"}, {color: "green", num: "13"}, {color: "green", num: "14"}, {color: "green", num: "15"}];
+var GreenSuit = [{color: "green", value: "1"}, {color: "green", value: "2"}, {color: "green", value: "3"}, {color: "green", value: "4"}, {color: "green", value: "5"}, 
+                {color: "green", value: "6"}, {color: "green", value: "7"}, {color: "green", value: "8"}, {color: "green", value: "9"}, {color: "green", value: "10"}, 
+                {color: "green", value: "11"}, {color: "green", value: "12"}, {color: "green", value: "13"}, {color: "green", value: "14"}, {color: "green", value: "15"}];
 
 
 angular.module('starter.controllers')
@@ -59,29 +59,29 @@ angular.module('starter.controllers')
             player2Chips.push(allChips[i]);
             allChips.shift();
         }
+        var board = [];
+        for (var i = 0; i < 15; ++i) {
+            var row = [];
+            for (var j = 0; j < 15; ++j) {
+                row.push({
+                    "color" : "",
+                    "value" : 0
+                });
+            }
+            board.push(row);
+        }
+
+        /* Workarround to implement the checker algorithm */
+        player1Chips = [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}];
+
+
         if ($scope.data.userSelected != null) {
             $scope.games.$add({
                 "name": $scope.game.name,
                 "players": [$scope.userConnected.email, $scope.data.userSelected],
                 "userTurn": 0,
                 "gameState": "",
-                "board":    [
-                                [{value:"1"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"1"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"1"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"1"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"1"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"1"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"1"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"1"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"1"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"1"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"1"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"1"}, {value:"0"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"1"} , {value:"0"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"1"}, {value:"0"}],
-                                [{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"},{value:"0"}, {value:"0"}, {value:"0"} , {value:"0"}, {value:"0"} , {value:"0"}, {value:"1"}],
-                            ],
+                "board": board,
                 "playersChips": [player1Chips, player2Chips],
                 "gameChips": allChips
             });
@@ -121,3 +121,23 @@ angular.module('starter.controllers')
     }
     
 });
+
+
+
+// "board":    [
+//                                 [{color:"", color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
+//                             ],

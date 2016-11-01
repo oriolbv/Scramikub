@@ -15,7 +15,7 @@ angular.module('starter.controllers')
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{name:"1", color:"red"},{name:"2", color:"blue"}];
+    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1}, {id:"1r2" ,color: "red", value: 2}, {id:"1r3" ,color: "red", value: 3}];
 
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2 = [];
@@ -24,12 +24,128 @@ angular.module('starter.controllers')
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
         var board = $scope.actualGame.board;
-        board[i][j].value = data.name + " " + data.color;
+        board[i][j].id = data.id;
+        board[i][j].value = data.value;
+        board[i][j].color = data.color;
         
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
         cell.appendChild(evt.element[0]);
+
+        var isCorrect = checkBoardGame(board);
+        console.log("Is Board Game Correct? ----> " + isCorrect);
     }
+
+    /* Check Board Game Algorithm */
+    function checkBoardGame(boardgame) {
+        var isBoardGameCorrect = true;
+        var boardSets = [];
+        for (var i = 0; i < 15; ++i) {
+            for (var j = 0; j < 15; ++j) {
+                // If there is a chip in actual position...
+                if (boardgame[i][j].value != 0) {
+                    var actualCell = {
+                        "color" : boardgame[i][j].color,
+                        "value" : boardgame[i][j].value
+                    };
+                    // Check all the row positions
+                    var rowSet = [actualCell];
+                    // ---->
+                    for (var rowRight = j+1; rowRight < 15; ++rowRight) {
+                        if (boardgame[i][rowRight].value == 0) { break; }
+                        else {
+                            var rightCell = {
+                                "color" : boardgame[i][rowRight].color,
+                                "value" : boardgame[i][rowRight].value
+                            };
+                            
+                            var previousCell = rowSet[rowSet.length - 1];
+                            // STRAIGHT OF SAME COLOR
+                            if (previousCell.color == rightCell.color) {
+                                if (rightCell.value == previousCell.value + 1) {
+                                    rowSet.push(rightCell);
+                                }
+                            }
+                        }
+                    }
+                    // <----
+                    for (var rowLeft = j-1; rowLeft >= 0; --rowLeft) {
+                        if (boardgame[i][rowLeft].value == 0) { break; }
+                        else {
+                            var leftCell = {
+                                "color" : boardgame[i][rowLeft].color,
+                                "value" : boardgame[i][rowLeft].value
+                            }
+                            var nextCell = rowSet[0];
+                            // STRAIGHT OF SAME COLOR
+                            if (nextCell.color == leftCell.color) {
+                                if (leftCell.value == nextCell.value - 1) {
+                                    rowSet.unshift(leftCell);
+                                }
+                            }
+                        }
+                    }
+                    if (isSetCorrect(rowSet)) {
+                        if (!containsSet(boardSets, rowSet)) {
+                            boardSets.push(rowSet);
+                        }
+                    } else {
+                        isBoardGameCorrect = false;
+                    }
+                    
+
+                    // Check all the column positions
+                    var columnSet = [actualCell];
+                    // DOWN
+                    for (var columnDown = i+1; columnDown < 15; ++columnDown) {
+                        if (boardgame[columnDown][j].value == 0) { break; }
+                    }
+                    // UP
+                    for (var columnUp = i-1; columnUp >= 0; --columnUp) {
+                        if (boardgame[columnUp][j].value == 0) { break; }
+                    }
+                }
+            }
+        }
+        console.log(boardSets);
+        return isBoardGameCorrect;
+    }
+
+    function isSetCorrect(set) {
+        var isCorrect = false;
+        if (set.length >= 3) {
+            isCorrect = true;
+        }
+        return isCorrect;
+    }
+
+    function containsSet(array, obj) {
+        for (var i = 0; i < array.length; ++i) {
+            if (array[i].length = obj.length) {
+                for (var j = 0; j < array[i].length; ++j) {
+                    if (arraysIdentical(array[i], obj)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    function arraysIdentical(a, b) {
+        var i = a.length;
+        if (i != b.length) return false;
+            while (i--) {
+                if ((a[i].color != b[i].color) || (a[i].value != b[i].value)) return false;
+            }
+        return true;
+    };
+
+    
+
+
+
+
 
     $scope.onDropComplete = function(data,evt) {
         var chipsDiv = document.getElementById("chips-div");
