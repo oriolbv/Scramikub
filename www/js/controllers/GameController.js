@@ -15,7 +15,7 @@ angular.module('starter.controllers')
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1}, {id:"1r2" ,color: "red", value: 2}, {id:"1r3" ,color: "red", value: 3}];
+    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1, row: "", column: ""}, {id:"1r2" ,color: "red", value: 2, row: "", column: ""}, {id:"1r3" ,color: "red", value: 3, row: "", column: ""}];
 
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2 = [];
@@ -23,10 +23,22 @@ angular.module('starter.controllers')
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
+
+        if ((data.row == "") && (data.column == "")) {
+            
+        } else {
+            $scope.actualGame.board[data.row][data.column].chipId = "";
+            $scope.actualGame.board[data.row][data.column].value = "";
+            $scope.actualGame.board[data.row][data.column].color = "";
+        }
+
         var board = $scope.actualGame.board;
-        board[i][j].id = data.id;
+        board[i][j].chipId = data.id;
         board[i][j].value = data.value;
         board[i][j].color = data.color;
+
+        data.row = i;
+        data.column = j;
         
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
@@ -141,12 +153,6 @@ angular.module('starter.controllers')
         return true;
     };
 
-    
-
-
-
-
-
     $scope.onDropComplete = function(data,evt) {
         var chipsDiv = document.getElementById("chips-div");
         chipsDiv.appendChild(evt.element[0]);
@@ -188,7 +194,6 @@ angular.module('starter.controllers')
 
     $scope.playMove = function(){
         $scope.games.$loaded().then(function (games) {
-
             // We need the position in players array of the actual player
             $scope.actualGame = angular.copy($scope.actualGame);
             var userTurnPos = 0;

@@ -64,6 +64,7 @@ angular.module('starter.controllers')
             var row = [];
             for (var j = 0; j < 15; ++j) {
                 row.push({
+                    "chipId" : "",
                     "color" : "",
                     "value" : 0
                 });
