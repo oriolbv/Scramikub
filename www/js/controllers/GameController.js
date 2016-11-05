@@ -3,7 +3,7 @@ angular.module('starter.controllers')
 .controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
 
     var isBoardGameCorrect = true;
-
+    $scope.userConnected = userConnected.auth.token;
 
     $scope.games = Games;
 
@@ -19,7 +19,7 @@ angular.module('starter.controllers')
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1, row: "", column: ""}, {id:"1r2" ,color: "red", value: 2, row: "", column: ""}, {id:"1r3" ,color: "red", value: 3, row: "", column: ""}];
+    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1, row: "", column: ""}, {id:"1r2" ,color: "red", value: 2, row: "", column: ""}, {id:"1r3" ,color: "red", value: 3, row: "", column: ""}, {id:"1r4" ,color: "red", value: 4, row: "", column: ""}, {id:"1r5" ,color: "red", value: 5, row: "", column: ""}];
 
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2 = [];
@@ -115,10 +115,45 @@ angular.module('starter.controllers')
                     // DOWN
                     for (var columnDown = i+1; columnDown < 15; ++columnDown) {
                         if (boardgame[columnDown][j].value == 0) { break; }
+                        else {
+                            var downCell = {
+                                "color" : boardgame[columnDown][j].color,
+                                "value" : boardgame[columnDown][j].value
+                            };
+                            
+                            var previousCell = columnSet[columnSet.length - 1];
+                            // STRAIGHT OF SAME COLOR
+                            if (previousCell.color == downCell.color) {
+                                if (downCell.value == previousCell.value + 1) {
+                                    columnSet.push(downCell);
+                                }
+                            }
+                        }
                     }
                     // UP
                     for (var columnUp = i-1; columnUp >= 0; --columnUp) {
                         if (boardgame[columnUp][j].value == 0) { break; }
+                        else {
+                            var upCell = {
+                                "color" : boardgame[columnUp][j].color,
+                                "value" : boardgame[columnUp][j].value
+                            }
+                            var nextCell = columnSet[0];
+                            // STRAIGHT OF SAME COLOR
+                            if (nextCell.color == upCell.color) {
+                                if (upCell.value == nextCell.value - 1) {
+                                    columnSet.unshift(upCell);
+                                }
+                            }
+                        }
+                    }
+
+                    if (isSetCorrect(columnSet)) {
+                        if (!containsSet(boardSets, columnSet)) {
+                            boardSets.push(columnSet);
+                        }
+                    } else {
+                        isCorrect = false;
                     }
                 }
             }
@@ -202,52 +237,82 @@ angular.module('starter.controllers')
 
     $scope.playMove = function(){
         if (isBoardGameCorrect) {
+            if ($scope.draggableObjects.length == 0) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'You have won this game!',
+                    template: 'It might taste good'
+                });
 
-            var confirmPopup = $ionicPopup.confirm({
-                title: 'Consume Ice Cream',
-                template: $scope.correctBoardSets
-            });
-
-            confirmPopup.then(function(res) {
-                if(res) {
-                    console.log('You are sure');
-                    $scope.games.$loaded().then(function (games) {
-                        // We need the position in players array of the actual player
-                        $scope.actualGame = angular.copy($scope.actualGame);
-                        var userTurnPos = 0;
-                        for (var i = 0; i < $scope.actualGame.players.length; ++i) {
-                            if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
-                                // If userTurn is the last of the list ...
-                                if (i == $scope.actualGame.players.length-1) {
-                                    userTurnPos = 0;
-                                } else {
-                                    userTurnPos = i + 1;
-                                }
-                            }
-                        }
-                        $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
-                        // Normalize board
-                        $scope.actualGame.board = $scope.board;
-                        $scope.actualGame = angular.copy($scope.actualGame);
-                        games.$ref().child($scope.actualGame.$id).set({
-                            "name": $scope.actualGame.name,
-                            "players": $scope.actualGame.players,
-                            "userTurn": $scope.actualGame.userTurn,
-                            "gameState": $scope.actualGame.gameState,
-                            "board": $scope.actualGame.board
-                        });
-                        $state.go('lobby');
-                    });
-                } else {
-                console.log('You are not sure');
-                }
-            });
-
-
-            
-        }
-        
+                alertPopup.then(function(res) {
+                    saveActualGameWithWinner()
+                });
+            } else {
+                saveActualGame()
+            }
+        }   
     };
+
+    function saveActualGame() {
+        $scope.games.$loaded().then(function (games) {
+            // We need the position in players array of the actual player
+            $scope.actualGame = angular.copy($scope.actualGame);
+            var userTurnPos = 0;
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
+                    // If userTurn is the last of the list ...
+                    if (i == $scope.actualGame.players.length-1) {
+                        userTurnPos = 0;
+                    } else {
+                        userTurnPos = i + 1;
+                    }
+                }
+            }
+            $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
+            // Normalize board
+            $scope.actualGame.board = $scope.board;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            games.$ref().child($scope.actualGame.$id).set({
+                "name": $scope.actualGame.name,
+                "players": $scope.actualGame.players,
+                "userTurn": $scope.actualGame.userTurn,
+                "gameState": $scope.actualGame.gameState,
+                "board": $scope.actualGame.board,
+                "winner": ""
+            });
+            $state.go('lobby');
+        });
+    }
+
+    function saveActualGameWithWinner() {
+        $scope.games.$loaded().then(function (games) {
+            // We need the position in players array of the actual player
+            $scope.actualGame = angular.copy($scope.actualGame);
+            var userTurnPos = 0;
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
+                    // If userTurn is the last of the list ...
+                    if (i == $scope.actualGame.players.length-1) {
+                        userTurnPos = 0;
+                    } else {
+                        userTurnPos = i + 1;
+                    }
+                }
+            }
+            $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
+            // Normalize board
+            $scope.actualGame.board = $scope.board;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            games.$ref().child($scope.actualGame.$id).set({
+                "name": $scope.actualGame.name,
+                "players": $scope.actualGame.players,
+                "userTurn": $scope.actualGame.userTurn,
+                "gameState": $scope.actualGame.gameState,
+                "board": $scope.actualGame.board,
+                "winner": $scope.userConnected.email
+            });
+            $state.go('lobby');
+        });
+    }
 
     $scope.passMove = function() {
         var confirmPopup = $ionicPopup.confirm({

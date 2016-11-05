@@ -84,7 +84,8 @@ angular.module('starter.controllers')
                 "gameState": "",
                 "board": board,
                 "playersChips": [player1Chips, player2Chips],
-                "gameChips": allChips
+                "gameChips": allChips,
+                "winner": ""
             });
 
             $scope.chats.$add({
