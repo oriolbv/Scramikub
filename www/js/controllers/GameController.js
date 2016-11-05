@@ -1,6 +1,9 @@
 angular.module('starter.controllers')
 
-.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games) {
+.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
+
+    var isBoardGameCorrect = true;
+
 
     $scope.games = Games;
 
@@ -10,6 +13,7 @@ angular.module('starter.controllers')
     }
 
     $scope.board = [];
+    $scope.correctBoardSets = [];
 
     $scope.actualGame = {};
 
@@ -44,13 +48,13 @@ angular.module('starter.controllers')
         var cell = table.rows[i].cells[j];
         cell.appendChild(evt.element[0]);
 
-        var isCorrect = checkBoardGame(board);
-        console.log("Is Board Game Correct? ----> " + isCorrect);
+        isBoardGameCorrect = checkBoardGame(board);
+        console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
     }
 
     /* Check Board Game Algorithm */
     function checkBoardGame(boardgame) {
-        var isBoardGameCorrect = true;
+        var isCorrect = true;
         var boardSets = [];
         for (var i = 0; i < 15; ++i) {
             for (var j = 0; j < 15; ++j) {
@@ -102,7 +106,7 @@ angular.module('starter.controllers')
                             boardSets.push(rowSet);
                         }
                     } else {
-                        isBoardGameCorrect = false;
+                        isCorrect = false;
                     }
                     
 
@@ -119,8 +123,12 @@ angular.module('starter.controllers')
                 }
             }
         }
+
         console.log(boardSets);
-        return isBoardGameCorrect;
+        if (boardSets.length > 0) {
+            $scope.correctBoardSets = boardSets;
+        }
+        return isCorrect;
     }
 
     function isSetCorrect(set) {
@@ -193,32 +201,66 @@ angular.module('starter.controllers')
     });
 
     $scope.playMove = function(){
-        $scope.games.$loaded().then(function (games) {
-            // We need the position in players array of the actual player
-            $scope.actualGame = angular.copy($scope.actualGame);
-            var userTurnPos = 0;
-            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
-                if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
-                    // If userTurn is the last of the list ...
-                    if (i == $scope.actualGame.players.length-1) {
-                        userTurnPos = 0;
-                    } else {
-                        userTurnPos = i + 1;
-                    }
-                }
-            }
-            $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
-            // Normalize board
-            $scope.actualGame.board = $scope.board;
-            $scope.actualGame = angular.copy($scope.actualGame);
-            games.$ref().child($scope.actualGame.$id).set({
-                "name": $scope.actualGame.name,
-                "players": $scope.actualGame.players,
-                "userTurn": $scope.actualGame.userTurn,
-                "gameState": $scope.actualGame.gameState,
-                "board": $scope.actualGame.board
+        if (isBoardGameCorrect) {
+
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Consume Ice Cream',
+                template: $scope.correctBoardSets
             });
-            $state.go('lobby');
+
+            confirmPopup.then(function(res) {
+                if(res) {
+                    console.log('You are sure');
+                    $scope.games.$loaded().then(function (games) {
+                        // We need the position in players array of the actual player
+                        $scope.actualGame = angular.copy($scope.actualGame);
+                        var userTurnPos = 0;
+                        for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                            if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
+                                // If userTurn is the last of the list ...
+                                if (i == $scope.actualGame.players.length-1) {
+                                    userTurnPos = 0;
+                                } else {
+                                    userTurnPos = i + 1;
+                                }
+                            }
+                        }
+                        $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
+                        // Normalize board
+                        $scope.actualGame.board = $scope.board;
+                        $scope.actualGame = angular.copy($scope.actualGame);
+                        games.$ref().child($scope.actualGame.$id).set({
+                            "name": $scope.actualGame.name,
+                            "players": $scope.actualGame.players,
+                            "userTurn": $scope.actualGame.userTurn,
+                            "gameState": $scope.actualGame.gameState,
+                            "board": $scope.actualGame.board
+                        });
+                        $state.go('lobby');
+                    });
+                } else {
+                console.log('You are not sure');
+                }
+            });
+
+
+            
+        }
+        
+    };
+
+    $scope.passMove = function() {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Consume Ice Cream',
+            template: 'Are you sure you want to eat this ice cream?'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+            console.log('You are sure');
+            } else {
+            console.log('You are not sure');
+            }
         });
     };
 });

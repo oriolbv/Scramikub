@@ -21,7 +21,8 @@
                 <div class="col" ng-repeat="obj in draggableObjects">
                     <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> {{obj.value}} </div>
                 </div>
-                <button class="button button-positive">Play!</button>
+                <button class="button button-positive" ng-click="passMove()">Pass</button>
+                <button class="button button-positive" ng-click="playMove()">Play!</button>
             </div>
         </div>
     </ion-content>
