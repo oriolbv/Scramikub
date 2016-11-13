@@ -106,7 +106,9 @@ angular.module('starter.controllers')
                             boardSets.push(rowSet);
                         }
                     } else {
-                        isCorrect = false;
+                        if (rowSet.length > 1) {
+                            isCorrect = false;
+                        }
                     }
                     
 
@@ -153,7 +155,9 @@ angular.module('starter.controllers')
                             boardSets.push(columnSet);
                         }
                     } else {
-                        isCorrect = false;
+                        if (columnSet.length > 1) {
+                            isCorrect = false;
+                        }                   
                     }
                 }
             }
@@ -258,7 +262,7 @@ angular.module('starter.controllers')
             $scope.actualGame = angular.copy($scope.actualGame);
             var userTurnPos = 0;
             for (var i = 0; i < $scope.actualGame.players.length; ++i) {
-                if ($scope.actualGame.userTurn == $scope.actualGame.players[i]) {
+                if ($scope.actualGame.userTurn == i) {
                     // If userTurn is the last of the list ...
                     if (i == $scope.actualGame.players.length-1) {
                         userTurnPos = 0;
@@ -267,14 +271,14 @@ angular.module('starter.controllers')
                     }
                 }
             }
-            $scope.actualGame.userTurn = $scope.actualGame.players[userTurnPos];
+
             // Normalize board
             $scope.actualGame.board = $scope.board;
             $scope.actualGame = angular.copy($scope.actualGame);
             games.$ref().child($scope.actualGame.$id).set({
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
-                "userTurn": $scope.actualGame.userTurn,
+                "userTurn": userTurnPos,
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
                 "winner": ""
