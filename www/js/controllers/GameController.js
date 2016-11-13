@@ -46,6 +46,9 @@ angular.module('starter.controllers')
         
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
+
+        angular.element(cell).removeClass("square").addClass("square-done");
+
         cell.appendChild(evt.element[0]);
 
         isBoardGameCorrect = checkBoardGame(board);
