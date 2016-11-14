@@ -1,6 +1,9 @@
 angular.module('starter.controllers')
 
-.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games) {
+.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
+
+    var isBoardGameCorrect = true;
+    $scope.userConnected = userConnected.auth.token;
 
     $scope.games = Games;
 
@@ -10,12 +13,13 @@ angular.module('starter.controllers')
     }
 
     $scope.board = [];
+    $scope.correctBoardSets = [];
 
     $scope.actualGame = {};
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1}, {id:"1r2" ,color: "red", value: 2}, {id:"1r3" ,color: "red", value: 3}];
+    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1, row: "", column: ""}, {id:"1r2" ,color: "red", value: 2, row: "", column: ""}, {id:"1r3" ,color: "red", value: 3, row: "", column: ""}, {id:"1r4" ,color: "red", value: 4, row: "", column: ""}, {id:"1r5" ,color: "red", value: 5, row: "", column: ""}];
 
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2 = [];
@@ -23,22 +27,37 @@ angular.module('starter.controllers')
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
+
+        if ((data.row == "") && (data.column == "")) {
+            
+        } else {
+            $scope.actualGame.board[data.row][data.column].chipId = "";
+            $scope.actualGame.board[data.row][data.column].value = "";
+            $scope.actualGame.board[data.row][data.column].color = "";
+        }
+
         var board = $scope.actualGame.board;
-        board[i][j].id = data.id;
+        board[i][j].chipId = data.id;
         board[i][j].value = data.value;
         board[i][j].color = data.color;
+
+        data.row = i;
+        data.column = j;
         
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
+
+        angular.element(cell).removeClass("square").addClass("square-done");
+
         cell.appendChild(evt.element[0]);
 
-        var isCorrect = checkBoardGame(board);
-        console.log("Is Board Game Correct? ----> " + isCorrect);
+        isBoardGameCorrect = checkBoardGame(board);
+        console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
     }
 
     /* Check Board Game Algorithm */
     function checkBoardGame(boardgame) {
-        var isBoardGameCorrect = true;
+        var isCorrect = true;
         var boardSets = [];
         for (var i = 0; i < 15; ++i) {
             for (var j = 0; j < 15; ++j) {
@@ -90,7 +109,9 @@ angular.module('starter.controllers')
                             boardSets.push(rowSet);
                         }
                     } else {
-                        isBoardGameCorrect = false;
+                        if (rowSet.length > 1) {
+                            isCorrect = false;
+                        }
                     }
                     
 
@@ -99,16 +120,57 @@ angular.module('starter.controllers')
                     // DOWN
                     for (var columnDown = i+1; columnDown < 15; ++columnDown) {
                         if (boardgame[columnDown][j].value == 0) { break; }
+                        else {
+                            var downCell = {
+                                "color" : boardgame[columnDown][j].color,
+                                "value" : boardgame[columnDown][j].value
+                            };
+                            
+                            var previousCell = columnSet[columnSet.length - 1];
+                            // STRAIGHT OF SAME COLOR
+                            if (previousCell.color == downCell.color) {
+                                if (downCell.value == previousCell.value + 1) {
+                                    columnSet.push(downCell);
+                                }
+                            }
+                        }
                     }
                     // UP
                     for (var columnUp = i-1; columnUp >= 0; --columnUp) {
                         if (boardgame[columnUp][j].value == 0) { break; }
+                        else {
+                            var upCell = {
+                                "color" : boardgame[columnUp][j].color,
+                                "value" : boardgame[columnUp][j].value
+                            }
+                            var nextCell = columnSet[0];
+                            // STRAIGHT OF SAME COLOR
+                            if (nextCell.color == upCell.color) {
+                                if (upCell.value == nextCell.value - 1) {
+                                    columnSet.unshift(upCell);
+                                }
+                            }
+                        }
+                    }
+
+                    if (isSetCorrect(columnSet)) {
+                        if (!containsSet(boardSets, columnSet)) {
+                            boardSets.push(columnSet);
+                        }
+                    } else {
+                        if (columnSet.length > 1) {
+                            isCorrect = false;
+                        }                   
                     }
                 }
             }
         }
+
         console.log(boardSets);
-        return isBoardGameCorrect;
+        if (boardSets.length > 0) {
+            $scope.correctBoardSets = boardSets;
+        }
+        return isCorrect;
     }
 
     function isSetCorrect(set) {
@@ -140,12 +202,6 @@ angular.module('starter.controllers')
             }
         return true;
     };
-
-    
-
-
-
-
 
     $scope.onDropComplete = function(data,evt) {
         var chipsDiv = document.getElementById("chips-div");
@@ -187,8 +243,55 @@ angular.module('starter.controllers')
     });
 
     $scope.playMove = function(){
-        $scope.games.$loaded().then(function (games) {
+        if (isBoardGameCorrect) {
+            if ($scope.draggableObjects.length == 0) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'You have won this game!',
+                    template: 'It might taste good'
+                });
 
+                alertPopup.then(function(res) {
+                    saveActualGameWithWinner()
+                });
+            } else {
+                saveActualGame()
+            }
+        }   
+    };
+
+    function saveActualGame() {
+        $scope.games.$loaded().then(function (games) {
+            // We need the position in players array of the actual player
+            $scope.actualGame = angular.copy($scope.actualGame);
+            var userTurnPos = 0;
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                if ($scope.actualGame.userTurn == i) {
+                    // If userTurn is the last of the list ...
+                    if (i == $scope.actualGame.players.length-1) {
+                        userTurnPos = 0;
+                    } else {
+                        userTurnPos = i + 1;
+                    }
+                }
+            }
+
+            // Normalize board
+            $scope.actualGame.board = $scope.board;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            games.$ref().child($scope.actualGame.$id).set({
+                "name": $scope.actualGame.name,
+                "players": $scope.actualGame.players,
+                "userTurn": userTurnPos,
+                "gameState": $scope.actualGame.gameState,
+                "board": $scope.actualGame.board,
+                "winner": ""
+            });
+            $state.go('lobby');
+        });
+    }
+
+    function saveActualGameWithWinner() {
+        $scope.games.$loaded().then(function (games) {
             // We need the position in players array of the actual player
             $scope.actualGame = angular.copy($scope.actualGame);
             var userTurnPos = 0;
@@ -211,9 +314,25 @@ angular.module('starter.controllers')
                 "players": $scope.actualGame.players,
                 "userTurn": $scope.actualGame.userTurn,
                 "gameState": $scope.actualGame.gameState,
-                "board": $scope.actualGame.board
+                "board": $scope.actualGame.board,
+                "winner": $scope.userConnected.email
             });
             $state.go('lobby');
+        });
+    }
+
+    $scope.passMove = function() {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Consume Ice Cream',
+            template: 'Are you sure you want to eat this ice cream?'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+            console.log('You are sure');
+            } else {
+            console.log('You are not sure');
+            }
         });
     };
 });

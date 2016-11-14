@@ -1,5 +1,7 @@
 .boardgame td {
     border: 2px solid #000;
+    width: 50px;
+    height: 50px;
 }
 
 .boardgame {
@@ -8,55 +10,70 @@
 }
 
 .square {
-    /*padding: 50px;*/
+    padding: 50px;
+    width: 50px;
+    height: 50px;
+    margin: 5px;   
+}
+
+.square-done {
+    padding: 0px;
     width: 50px;
     height: 50px;
     margin: 5px;   
 }
 
 .square-chip {
-      width: 40px;
-      height: 40px;
-      background: rgba(155,222,0, 0.5);
-      color:white;
-      text-align: center;
-      padding-top:40px;
-      display: inline-block;
-      margin:0 10px;
-      cursor: move;
-      position: relative;
-      overflow: hidden;
+    /*width: 40px;
+    height: 40px;*/
+    width: 100%;
+    height: 100%;
+
+    background: rgba(155,222,0, 0.5);
+    color:white;
+    
+    /*display: inline-block;
+    margin:0 0px;
+    cursor: move;
+    position: relative;
+    overflow: hidden;*/
 }
+
+[ng-drag].square-chip {
+    background: #ef473a;
+    color: white;
+    width: 100%;
+    height: 100%;
+}
+
+
 
 .div-chips {
-  border: solid 1px #000000;  
+    border: solid 1px #000000;  
+    height: 15%;
 }
 
-/** {
-  margin: 0;
-}*/
-
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 .page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -142px; 
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -142px; 
 }
 
 .page-wrap:after {
-  content: "";
-  display: block;
+    content: "";
+    display: block;
 }
 
 
 .site-footer, .page-wrap:after {
-  height: 142px; 
+    height: 142px; 
 }
 .site-footer {
-  background: orange;
+    background: orange;
 }
 
 * {
@@ -67,100 +84,108 @@ html, body {
 
 
 [ng-drag] {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
 
 [ng-drag] {
-  background: #ef473a;
-  color: white;
-  text-align: center;
-  padding-top: 20px;
-  display: inline-block;
-  cursor: move;
-  /*width: 100%;
-  height: 100%; }*/
-  width: 40px;
-  height: 40px;
-  }
+    background: #ef473a;
+    color: white;
+    text-align: center;
+    /*padding-top: 20px;*/
+    display: inline-block;
+    cursor: move;
+    width: 100%;
+    height: 100%;
+    /*width: 40px;
+    height: 40px;*/
+}
+
 ul.draggable-objects:after {
-  display: block;
-  content: "";
-  clear: both; }
+    display: block;
+    content: "";
+    clear: both; 
+}
 
 .draggable-objects li {
-  float: left;
-  display: block; }
+    float: left;
+    display: block; 
+}
 
 [ng-drag].drag-over {
-  border: solid 1px #ffc900; }
+    border: solid 1px #ffc900; 
+}
 
 [ng-drag].dragging {
-  opacity: 0.5;
-  border: solid 3px #ffc900;
-  width: 50px;
-  height: 50px }
+    opacity: 0.5;
+    border: solid 3px #ffc900;
+    width: 50px;
+    height: 50px 
+}
 
 [ng-drop].square {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  background: rgba(0, 255, 0, 0.5);
-  text-align: center;
-  /*width: 100%;
-  height: 100px;*/
-  width: 80px;
-  height: 80px;
-  /*padding-top: 90px;*/
-  /*margin: 20px auto;*/
-  min-height:100%;
-  min-width:100%;
-  position: relative; 
-  }
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(0, 255, 0, 0.5);
+    text-align: center;
+    /*width: 100%;
+    height: 100px;*/
+    width: 80px;
+    height: 80px;
+    /*padding-top: 90px;*/
+    /*margin: 20px auto;*/
+    min-height:100%;
+    min-width:100%;
+    position: relative; 
+}
 
 [ng-drop].drag-enter.square {
-  border: solid 1px #ffc900; 
-  background-color: deepskyblue;
-  }
+    border: solid 1px #ffc900; 
+    background-color: deepskyblue;
+}
 
 [ng-drop].square span.title {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200px;
-  height: 20px;
-  margin-left: -100px;
-  margin-top: -10px; }
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 20px;
+    margin-left: -100px;
+    margin-top: -10px; 
+}
 
 [ng-drop].div-chips div {
-  position: relative;
-  /*z-index: 5;*/
-  /*padding: 50px;
-    margin: 5px;*/
-  }
+    position: relative;
+    /*z-index: 5;*/
+    /*padding: 50px;
+      margin: 5px;*/
+}
 
-  [ng-drop].div-chips {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  background: rgba(180, 100, 100, 0.5);
-  text-align: center;
-  /*width: 100%;
-  height: 100px;*/
-  width: 80px;
-  height: 80px;
-  /*padding-top: 90px;*/
-  /*margin: 20px auto;*/
-  min-height:100%;
-  min-width:100%;
-  position: relative; 
-  }
+[ng-drop].div-chips {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(180, 100, 100, 0.5);
+    text-align: center;
+    /*width: 100%;
+    height: 100px;*/
+    /*width: 80px;
+    height: 20px;*/
+    /*padding-top: 90px;*/
+    /*margin: 20px auto;*/
+    /*min-height:100%;
+    min-width:100%;*/
+    position: relative; 
+    
+}
 
 [ng-drop].drag-enter.div-chips {
-  border: solid 1px #ffc900; 
-  background-color: deepskyblue;
-  }
+    border: solid 1px #ffc900; 
+    background-color: deepskyblue;
+}
 
 [ng-drop].div-chips span.title {
     display: block;
@@ -170,7 +195,8 @@ ul.draggable-objects:after {
     width: 200px;
     height: 20px;
     margin-left: -100px;
-    margin-top: -10px; }
+    margin-top: -10px; 
+}
 
 [ng-drop].div-chips div {
     position: relative;
@@ -180,161 +206,215 @@ ul.draggable-objects:after {
 }
 
 .row {
-  padding: 0; }
+    padding: 0; 
+}
 
 .row + .row {
-  margin-top: 10px;
-  padding-top: 0; }
+    margin-top: 10px;
+    padding-top: 0; 
+}
 
 .col {
-  height: 100px;
-  padding: 0 5px; }
+    height: 20px;
+    padding: 0 5px; 
+}
 
 .my-view, .my-other-view {
-  background: #444;
-  color: #11c1f3; }
+    background: #444;
+    color: #11c1f3; 
+}
 
 .my-other-view {
-  font-size: 20px; }
+    font-size: 20px; 
+}
 
 /* Chat */
-
 .chat-content {
-  padding: 20px 10px 0;
-  width: 100%;
-  background: #fff;
-  overflow: hidden; }
-  .chat-content .chat-msg-items .chat-item {
-    padding: 10px 0; }
-    .chat-content .chat-msg-items .chat-item .user-info .avatar {
-      width: 42px;
-      height: 42px;
-      border: 1px solid #EADDDD;
-      position: relative;
-      display: block; }
-      .chat-content .chat-msg-items .chat-item .user-info .avatar img {
-        max-width: 100%; }
-    .chat-content .chat-msg-items .chat-item .user-info .name {
-      text-align: center; }
-  .chat-content .chat-msg-items .msg-text {
+    padding: 20px 10px 0;
+    width: 100%;
+    background: #fff;
+    overflow: hidden; 
+}
+
+.chat-content .chat-msg-items .chat-item {
+    padding: 10px 0; 
+}
+
+.chat-content .chat-msg-items .chat-item .user-info .avatar {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #EADDDD;
+    position: relative;
+    display: block; 
+}
+
+.chat-content .chat-msg-items .chat-item .user-info .avatar img {
+    max-width: 100%; 
+}
+
+.chat-content .chat-msg-items .chat-item .user-info .name {
+    text-align: center; 
+}
+
+.chat-content .chat-msg-items .msg-text {
     table-layout: fixed;
     word-break: break-all;
     overflow: hidden;
-    font-size: 15px; }
-  .chat-content .chat-msg-items .me {
+    font-size: 15px; 
+}
+
+.chat-content .chat-msg-items .me {
     float: right;
-    width: 100%; }
-    .chat-content .chat-msg-items .me .user-info {
-      float: right; }
-    .chat-content .chat-msg-items .me .msg-panel {
-      float: right;
-      min-width: 50px;
-      max-width: 200px;
-      margin: 0 15px 0 0;
-      padding: 0.5em 2.27%;
-      background-color: #53a4da;
-      border-radius: 5px;
-      color: #fff;
-      min-height: 30px;
-      position: relative; }
-      .chat-content .chat-msg-items .me .msg-panel .dop-icon {
-        position: absolute;
-        left: -8px;
-        bottom: -16px;
-        width: 24px;
-        height: 24px; }
-        .chat-content .chat-msg-items .me .msg-panel .dop-icon img {
-          width: 100%; }
-    .chat-content .chat-msg-items .me .triangle-arrow {
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-left: 10px solid #53a4da;
-      border-bottom: 8px solid transparent;
-      position: absolute;
-      right: -9px;
-      top: 22%; }
-  .chat-content .chat-msg-items .you {
+    width: 100%; 
+}
+
+.chat-content .chat-msg-items .me .user-info {
+    float: right; 
+}
+
+.chat-content .chat-msg-items .me .msg-panel {
+    float: right;
+    min-width: 50px;
+    max-width: 200px;
+    margin: 0 15px 0 0;
+    padding: 0.5em 2.27%;
+    background-color: #53a4da;
+    border-radius: 5px;
+    color: #fff;
+    min-height: 30px;
+    position: relative; 
+}
+
+.chat-content .chat-msg-items .me .msg-panel .dop-icon {
+    position: absolute;
+    left: -8px;
+    bottom: -16px;
+    width: 24px;
+    height: 24px; 
+}
+
+.chat-content .chat-msg-items .me .msg-panel .dop-icon img {
+    width: 100%; 
+}
+
+.chat-content .chat-msg-items .me .triangle-arrow {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 10px solid #53a4da;
+    border-bottom: 8px solid transparent;
+    position: absolute;
+    right: -9px;
+    top: 22%; 
+}
+
+.chat-content .chat-msg-items .you {
     float: left;
-    width: 100%; }
-    .chat-content .chat-msg-items .you .user-info {
-      float: left; }
-    .chat-content .chat-msg-items .you .msg-panel {
-      float: left;
-      min-width: 50px;
-      max-width: 200px;
-      margin: 0 0 0 15px;
-      padding: 7px;
-      background-color: #f2f2f2;
-      border-radius: 5px;
-      color: #42515f;
-      position: relative;
-      border: 1px solid #EAE6E6; }
-      .chat-content .chat-msg-items .you .msg-panel .dop-icon {
-        position: absolute;
-        right: -8px;
-        bottom: -16px;
-        width: 24px;
-        height: 24px; }
-        .chat-content .chat-msg-items .you .msg-panel .dop-icon img {
-          width: 100%; }
-    .chat-content .chat-msg-items .you .triangle-arrow, .chat-content .chat-msg-items .you .triangle-arrow2 {
-      position: absolute;
-      top: 22%;
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent; }
-    .chat-content .chat-msg-items .you .triangle-arrow {
-      border-right: 10px solid #f2f2f2;
-      left: -9px;
-      z-index: 2; }
-    .chat-content .chat-msg-items .you .triangle-arrow2 {
-      border-right: 10px solid #f2f2f2;
-      left: -11px;
-      z-index: 1; }
-  .chat-content .chat-msg-items .time {
+    width: 100%; 
+}
+
+.chat-content .chat-msg-items .you .user-info {
+    float: left; 
+}
+
+.chat-content .chat-msg-items .you .msg-panel {
+    float: left;
+    min-width: 50px;
+    max-width: 200px;
+    margin: 0 0 0 15px;
+    padding: 7px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    color: #42515f;
+    position: relative;
+    border: 1px solid #EAE6E6; 
+}
+
+.chat-content .chat-msg-items .you .msg-panel .dop-icon {
+    position: absolute;
+    right: -8px;
+    bottom: -16px;
+    width: 24px;
+    height: 24px; 
+}
+
+.chat-content .chat-msg-items .you .msg-panel .dop-icon img {
+    width: 100%; 
+}
+
+.chat-content .chat-msg-items .you .triangle-arrow, .chat-content .chat-msg-items .you .triangle-arrow2 {
+    position: absolute;
+    top: 22%;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent; 
+}
+
+.chat-content .chat-msg-items .you .triangle-arrow {
+    border-right: 10px solid #f2f2f2;
+    left: -9px;
+    z-index: 2; 
+}
+
+.chat-content .chat-msg-items .you .triangle-arrow2 {
+    border-right: 10px solid #f2f2f2;
+    left: -11px;
+    z-index: 1; 
+}
+
+.chat-content .chat-msg-items .time {
     font-size: 12px;
     padding: 2px 0;
     margin: 0px auto 10px;
     border-radius: 20px;
     color: #ECF6ED;
     text-align: center;
-    text-shadow: 0 1px 0 #fff; }
+    text-shadow: 0 1px 0 #fff; 
+}
 
 
 .chat-input {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
-  background: #f2f2f2;
-  border-top: 1px solid #c9c8c7; }
-  .chat-input .input-area {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    background: #f2f2f2;
+    border-top: 1px solid #c9c8c7; 
+}
+
+.chat-input .input-area {
     margin: 8px;
-    height: 30px; }
-    .chat-input .input-area input {
-      float: left;
-      width: 80%;
-      height: 30px;
-      outline: none;
-      border-radius: 2px;
-      padding-left: 6px;
-      display: inline-block;
-      border: 1px solid #c9c8c7;
-      border-radius: 5px; }
-    .chat-input .input-area .send-msg-btn {
-      float: right;
-      width: 18%;
-      height: 30px;
-      line-height: 30px;
-      border: none;
-      background: #53a4da;
-      border-radius: 5px;
-      position: relative;
-      top: 0;
-      color: #fff;
-      outline: none;
-      text-align: center; }
+    height: 30px; 
+}
+
+.chat-input .input-area input {
+    float: left;
+    width: 80%;
+    height: 30px;
+    outline: none;
+    border-radius: 2px;
+    padding-left: 6px;
+    display: inline-block;
+    border: 1px solid #c9c8c7;
+    border-radius: 5px; 
+}
+
+.chat-input .input-area .send-msg-btn {
+    float: right;
+    width: 18%;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    background: #53a4da;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    color: #fff;
+    outline: none;
+    text-align: center; 
+}
+
+/* ------------------------------------------------------------ */

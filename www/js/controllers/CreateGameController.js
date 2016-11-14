@@ -64,6 +64,7 @@ angular.module('starter.controllers')
             var row = [];
             for (var j = 0; j < 15; ++j) {
                 row.push({
+                    "chipId" : "",
                     "color" : "",
                     "value" : 0
                 });
@@ -83,7 +84,8 @@ angular.module('starter.controllers')
                 "gameState": "",
                 "board": board,
                 "playersChips": [player1Chips, player2Chips],
-                "gameChips": allChips
+                "gameChips": allChips,
+                "winner": ""
             });
 
             $scope.chats.$add({
