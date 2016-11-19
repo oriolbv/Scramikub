@@ -12,6 +12,8 @@ angular.module('starter.controllers')
         
     }
 
+    $scope.elem = [];
+
     $scope.board = [];
     $scope.correctBoardSets = [];
 
@@ -19,11 +21,9 @@ angular.module('starter.controllers')
 
     // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
 
-    $scope.draggableObjects = [{id: "1r1", color: "red", value: 1, row: "", column: ""}, {id:"1r2" ,color: "red", value: 2, row: "", column: ""}, {id:"1r3" ,color: "red", value: 3, row: "", column: ""}, {id:"1r4" ,color: "red", value: 4, row: "", column: ""}, {id:"1r5" ,color: "red", value: 5, row: "", column: ""}];
+    //$scope.draggableObjects = [{chipId: "1r1", color: "red", value: 1, row: "", column: "", imgLink: "img/1r.png"}, {chipId:"1r2" ,color: "red", value: 2, row: "", column: "", imgLink: "img/2r.png"}, {chipId:"1r3" ,color: "red", value: 3, row: "", column: "", imgLink: "img/3r.png"}, {chipId:"1r4" ,color: "red", value: 4, row: "", column: "", imgLink: "img/4r.png"}, {chipId:"1r5" ,color: "red", value: 5, row: "", column: "", imgLink: "img/5r.png"}];
 
-    $scope.droppedObjects1 = [];
-    $scope.droppedObjects2 = [];
-    $scope.centerAnchor = true;
+    $scope.draggableObjects = [];
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
@@ -37,12 +37,28 @@ angular.module('starter.controllers')
         }
 
         var board = $scope.actualGame.board;
-        board[i][j].chipId = data.id;
+        board[i][j].chipId = data.chipId;
         board[i][j].value = data.value;
         board[i][j].color = data.color;
+        board[i][j].imgLink = data.imgLink;
+        board[i][j].row = i;
+        board[i][j].column = j;
+        //board[i][j].elem = evt.element;
+        $scope.elem = evt.element;
 
         data.row = i;
         data.column = j;
+
+        var numberOfChips = $scope.actualGame.playersChips[$scope.actualGame.userTurn].length;
+        for (var pos = 0; pos < numberOfChips; ++pos) {
+            if ($scope.actualGame.playersChips[$scope.actualGame.userTurn][pos].chipId == data.chipId) {
+                $scope.actualGame.playersChips[$scope.actualGame.userTurn].splice(pos, 1);
+                break;
+            }
+        }
+        
+
+       
         
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
@@ -240,7 +256,57 @@ angular.module('starter.controllers')
         $scope.actualGame = angular.fromJson($stateParams.actualGame);
         $scope.actualGame = $scope.actualGame.actualGame;
         $scope.board = $scope.actualGame.board;
+        
+        $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
+
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            console.log("ngRepeatFinished");
+            for (var i = 0; i < $scope.board.length; ++i) {
+                for (var j = 0; j < $scope.board[0].length; ++j) {
+                    if ($scope.board[i][j].chipId != "") {
+                        insertChipToCell($scope.board[i][j])
+                    }
+                }
+            }
+        });
     });
+
+    function insertChipToCell(boardCell) {
+        var table = document.getElementById("table-board");
+        var cell = table.rows[boardCell.row].cells[boardCell.column];
+
+        angular.element(cell).removeClass("square").addClass("square-done");
+        var element = document.createElement('div');
+
+        // if we want to clone
+        // var div = document.getElementById("chips-div").childNodes[1].childNodes[2].childNodes[1];
+        // var clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+        // clone.id = boardCell.chipId;
+        // cell.appendChild(clone);
+
+        
+        element.setAttribute("class","square-chip disable-user-behavior");
+        angular.element(element).addClass("square-chip disable-user-behavior");
+        angular.element(element).addClass("gas");
+        element.setAttribute("ng-drag", "true");
+        element.setAttribute("ng-drag-data", "obj");
+        element.setAttribute("data-allow-transform", "false");
+        element.setAttribute("on-drag", "onDrag()");
+        element.setAttribute("ng-drag-scroll", "");
+        element.setAttribute("horizontalScroll", "false");
+        element.setAttribute("verticalScroll", "false");
+        element.setAttribute("draggable", "false");
+
+        var img = document.createElement('img');
+        img.setAttribute("ng-src", boardCell.imgLink);
+        img.setAttribute("src", boardCell.imgLink);
+        img.setAttribute("height", "100%");
+        img.setAttribute("width", "100%");
+        element.appendChild(img);
+
+        cell.appendChild(element);
+       
+    }
 
     $scope.playMove = function(){
         if (isBoardGameCorrect) {
@@ -259,9 +325,13 @@ angular.module('starter.controllers')
         }   
     };
 
+    
+
+
     function saveActualGame() {
         $scope.games.$loaded().then(function (games) {
             // We need the position in players array of the actual player
+            //var element = $scope.actualGame.elem;
             $scope.actualGame = angular.copy($scope.actualGame);
             var userTurnPos = 0;
             for (var i = 0; i < $scope.actualGame.players.length; ++i) {
@@ -284,7 +354,9 @@ angular.module('starter.controllers')
                 "userTurn": userTurnPos,
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
-                "winner": ""
+                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "winner": "",
+                "element": $scope.elem
             });
             $state.go('lobby');
         });
@@ -315,6 +387,7 @@ angular.module('starter.controllers')
                 "userTurn": $scope.actualGame.userTurn,
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
+                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
                 "winner": $scope.userConnected.email
             });
             $state.go('lobby');

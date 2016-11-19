@@ -10,7 +10,7 @@
         <ion-scroll zooming="true" overflow-scroll="false" direction="xy" style = "height: 70%" delegate-handle="myScroll" scroll="false">
             <div class = "scroll-container">
                 <table id="table-board" class="boardgame" >
-                    <tr ng-repeat="(i,squares) in board" >
+                    <tr ng-repeat="(i,squares) in board" on-finish-render="ngRepeatFinished">
                         <td id="cell-drop" class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)"></td>
                     </tr>
                 </table>
@@ -20,8 +20,8 @@
             <div class="row">
                 <div class="col" ng-repeat="obj in draggableObjects">
                     <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
-                        <!--{{obj.value}}-->
-                        <img src="img/1r.png" width="100%" height="100%"/>
+                        <!--src="img/1r.png"-->
+                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
                     </div>
                 </div>
             </div>

@@ -48,6 +48,19 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 })
+
+.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit(attr.onFinishRender);
+                });
+            }
+        }
+    }
+})
 .run(function($rootScope, $state, $ionicPlatform) {
 	$ionicPlatform.ready(function() {
 		// window.AndroidFullScreen.immersiveMode(successFunction, errorFunction);

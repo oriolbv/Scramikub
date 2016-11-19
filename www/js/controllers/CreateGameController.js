@@ -1,20 +1,3 @@
-var BlueSuit =  [{color: "blue", value: "1"}, {color: "blue", value: "2"}, {color: "blue", value: "3"}, {color: "blue", value: "4"}, {color: "blue", value: "5"}, 
-                {color: "blue", value: "6"}, {color: "blue", value: "7"}, {color: "blue", value: "8"}, {color: "blue", value: "9"}, {color: "blue", value: "10"}, 
-                {color: "blue", value: "11"}, {color: "blue", value: "12"}, {color: "blue", value: "13"}, {color: "blue", value: "14"}, {color: "blue", value: "15"}];
-
-var RedSuit =   [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}, {color: "red", value: "4"}, {color: "red", value: "5"}, 
-                {color: "red", value: "6"}, {color: "red", value: "7"}, {color: "red", value: "8"}, {color: "red", value: "9"}, {color: "red", value: "10"}, 
-                {color: "red", value: "11"}, {color: "red", value: "12"}, {color: "red", value: "13"}, {color: "red", value: "14"}, {color: "red", value: "15"}];
-
-var YellowSuit = [{color: "yellow", value: "1"}, {color: "yellow", value: "2"}, {color: "yellow", value: "3"}, {color: "yellow", value: "4"}, {color: "yellow", value: "5"}, 
-                {color: "yellow", value: "6"}, {color: "yellow", value: "7"}, {color: "yellow", value: "8"}, {color: "yellow", value: "9"}, {color: "yellow", value: "10"}, 
-                {color: "yellow", value: "11"}, {color: "yellow", value: "12"}, {color: "yellow", value: "13"}, {color: "yellow", value: "14"}, {color: "yellow", value: "15"}];
-
-var GreenSuit = [{color: "green", value: "1"}, {color: "green", value: "2"}, {color: "green", value: "3"}, {color: "green", value: "4"}, {color: "green", value: "5"}, 
-                {color: "green", value: "6"}, {color: "green", value: "7"}, {color: "green", value: "8"}, {color: "green", value: "9"}, {color: "green", value: "10"}, 
-                {color: "green", value: "11"}, {color: "green", value: "12"}, {color: "green", value: "13"}, {color: "green", value: "14"}, {color: "green", value: "15"}];
-
-
 angular.module('starter.controllers')
 
 .controller('CreateGameCtrl', function($scope, $state, $stateParams, Users, Games, Chats) {
@@ -73,7 +56,7 @@ angular.module('starter.controllers')
         }
 
         /* Workarround to implement the checker algorithm */
-        player1Chips = [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}];
+        //player1Chips = [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}];
 
 
         if ($scope.data.userSelected != null) {
@@ -105,7 +88,7 @@ angular.module('starter.controllers')
 
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
-
+        
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
 
@@ -125,21 +108,66 @@ angular.module('starter.controllers')
 });
 
 
+var BlueSuit =  [   {chipId: "1b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
+                    {chipId: "1b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 
+                    {chipId: "1b3", color: "blue", value: 3, row: "", column: "", imgLink: "img/3b.png"}, 
+                    {chipId: "1b4", color: "blue", value: 4, row: "", column: "", imgLink: "img/4b.png"}, 
+                    {chipId: "1b5", color: "blue", value: 5, row: "", column: "", imgLink: "img/5b.png"}, 
+                    {chipId: "1b6", color: "blue", value: 6, row: "", column: "", imgLink: "img/6b.png"}, 
+                    {chipId: "1b7", color: "blue", value: 7, row: "", column: "", imgLink: "img/7b.png"},  
+                    {chipId: "1b8", color: "blue", value: 8, row: "", column: "", imgLink: "img/8b.png"},  
+                    {chipId: "1b9", color: "blue", value: 9, row: "", column: "", imgLink: "img/9b.png"},  
+                    {chipId: "1b10", color: "blue", value: 10, row: "", column: "", imgLink: "img/10b.png"},  
+                    {chipId: "1b11", color: "blue", value: 11, row: "", column: "", imgLink: "img/11b.png"},
+                    {chipId: "1b12", color: "blue", value: 12, row: "", column: "", imgLink: "img/12b.png"},  
+                    {chipId: "1b13", color: "blue", value: 13, row: "", column: "", imgLink: "img/13b.png"},  
+                    {chipId: "1b14", color: "blue", value: 14, row: "", column: "", imgLink: "img/14b.png"},  
+                    {chipId: "1b15", color: "blue", value: 15, row: "", column: "", imgLink: "img/15b.png"} ];
 
-// "board":    [
-//                                 [{color:"", color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                                 [{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"},{color:"", value:"0"}, {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"} , {color:"", value:"0"}, {color:"", value:"0"}],
-//                             ],
+var RedSuit =  [    {chipId: "1r1", color: "red", value: 1, row: "", column: "", imgLink: "img/1r.png"}, 
+                    {chipId: "1r2", color: "red", value: 2, row: "", column: "", imgLink: "img/2r.png"}, 
+                    {chipId: "1r3", color: "red", value: 3, row: "", column: "", imgLink: "img/3r.png"}, 
+                    {chipId: "1r4", color: "red", value: 4, row: "", column: "", imgLink: "img/4r.png"}, 
+                    {chipId: "1r5", color: "red", value: 5, row: "", column: "", imgLink: "img/5r.png"}, 
+                    {chipId: "1r6", color: "red", value: 6, row: "", column: "", imgLink: "img/6r.png"}, 
+                    {chipId: "1r7", color: "red", value: 7, row: "", column: "", imgLink: "img/7r.png"},  
+                    {chipId: "1r8", color: "red", value: 8, row: "", column: "", imgLink: "img/8r.png"},  
+                    {chipId: "1r9", color: "red", value: 9, row: "", column: "", imgLink: "img/9r.png"},  
+                    {chipId: "1r10", color: "red", value: 10, row: "", column: "", imgLink: "img/10r.png"},  
+                    {chipId: "1r11", color: "red", value: 11, row: "", column: "", imgLink: "img/11r.png"},
+                    {chipId: "1r12", color: "red", value: 12, row: "", column: "", imgLink: "img/12r.png"},  
+                    {chipId: "1r13", color: "red", value: 13, row: "", column: "", imgLink: "img/13r.png"},  
+                    {chipId: "1r14", color: "red", value: 14, row: "", column: "", imgLink: "img/14r.png"},  
+                    {chipId: "1r15", color: "red", value: 15, row: "", column: "", imgLink: "img/15r.png"} ];
+
+var YellowSuit =  [ {chipId: "1y1", color: "yellow", value: 1, row: "", column: "", imgLink: "img/1y.png"}, 
+                    {chipId: "1y2", color: "yellow", value: 2, row: "", column: "", imgLink: "img/2y.png"}, 
+                    {chipId: "1y3", color: "yellow", value: 3, row: "", column: "", imgLink: "img/3y.png"}, 
+                    {chipId: "1y4", color: "yellow", value: 4, row: "", column: "", imgLink: "img/4y.png"}, 
+                    {chipId: "1y5", color: "yellow", value: 5, row: "", column: "", imgLink: "img/5y.png"}, 
+                    {chipId: "1y6", color: "yellow", value: 6, row: "", column: "", imgLink: "img/6y.png"}, 
+                    {chipId: "1y7", color: "yellow", value: 7, row: "", column: "", imgLink: "img/7y.png"},  
+                    {chipId: "1y8", color: "yellow", value: 8, row: "", column: "", imgLink: "img/8y.png"},  
+                    {chipId: "1y9", color: "yellow", value: 9, row: "", column: "", imgLink: "img/9y.png"},  
+                    {chipId: "1y10", color: "yellow", value: 10, row: "", column: "", imgLink: "img/10y.png"},  
+                    {chipId: "1y11", color: "yellow", value: 11, row: "", column: "", imgLink: "img/11y.png"},
+                    {chipId: "1y12", color: "yellow", value: 12, row: "", column: "", imgLink: "img/12y.png"},  
+                    {chipId: "1y13", color: "yellow", value: 13, row: "", column: "", imgLink: "img/13y.png"},  
+                    {chipId: "1y14", color: "yellow", value: 14, row: "", column: "", imgLink: "img/14y.png"},  
+                    {chipId: "1y15", color: "yellow", value: 15, row: "", column: "", imgLink: "img/15y.png"} ];
+
+var GreenSuit =  [  {chipId: "1g1", color: "green", value: 1, row: "", column: "", imgLink: "img/1g.png"}, 
+                    {chipId: "1g2", color: "green", value: 2, row: "", column: "", imgLink: "img/2g.png"}, 
+                    {chipId: "1g3", color: "green", value: 3, row: "", column: "", imgLink: "img/3g.png"}, 
+                    {chipId: "1g4", color: "green", value: 4, row: "", column: "", imgLink: "img/4g.png"}, 
+                    {chipId: "1g5", color: "green", value: 5, row: "", column: "", imgLink: "img/5g.png"}, 
+                    {chipId: "1g6", color: "green", value: 6, row: "", column: "", imgLink: "img/6g.png"}, 
+                    {chipId: "1g7", color: "green", value: 7, row: "", column: "", imgLink: "img/7g.png"},  
+                    {chipId: "1g8", color: "green", value: 8, row: "", column: "", imgLink: "img/8g.png"},  
+                    {chipId: "1g9", color: "green", value: 9, row: "", column: "", imgLink: "img/9g.png"},  
+                    {chipId: "1g10", color: "green", value: 10, row: "", column: "", imgLink: "img/10g.png"},  
+                    {chipId: "1g11", color: "green", value: 11, row: "", column: "", imgLink: "img/11g.png"},
+                    {chipId: "1g12", color: "green", value: 12, row: "", column: "", imgLink: "img/12g.png"},  
+                    {chipId: "1g13", color: "green", value: 13, row: "", column: "", imgLink: "img/13g.png"},  
+                    {chipId: "1g14", color: "green", value: 14, row: "", column: "", imgLink: "img/14g.png"},  
+                    {chipId: "1g15", color: "green", value: 15, row: "", column: "", imgLink: "img/15g.png"} ];
