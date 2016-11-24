@@ -11,20 +11,31 @@
             <div class = "scroll-container">
                 <table id="table-board" class="boardgame" >
                     <tr ng-repeat="(i,squares) in board" on-finish-render="ngRepeatFinished">
-                        <td id="cell-drop" class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)"></td>
+                        <td id="cell-drop" class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)" ng-click="changeChipPosition($data,$event,i,j)"></td>
                     </tr>
                 </table>
             </div>
         </ion-scroll>
-        <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
-            <div class="row">
-                <div class="col" ng-repeat="obj in draggableObjects">
-                    <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
-                        <!--src="img/1r.png"-->
-                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+        <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)" scroll="true">
+            <div class = "scroll-container">
+                <div class="row">
+                    <div class="col" ng-repeat="obj in draggableObjects">
+                        <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!--<div class="row" ng-repeat="obj in draggableObjects">
+                <div class="col" style="overflow:hidden;width: 2000px">
+                    <div class="square-chip" style="float:left; width:50px; height:50px;" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
+                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+                    </div>
+                </div>
+            </div>    -->
+
+            
+            
         </div>
         <div class="div-chips">
             <button class="button button-positive" ng-click="passMove()">Pass</button>

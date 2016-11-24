@@ -19,11 +19,25 @@ angular.module('starter.controllers')
 
     $scope.actualGame = {};
 
-    // $scope.chips = [{number:"1", color:"red"},{number:"2", color:"blue"},{number:"3", color:"blue"}];
-
-    //$scope.draggableObjects = [{chipId: "1r1", color: "red", value: 1, row: "", column: "", imgLink: "img/1r.png"}, {chipId:"1r2" ,color: "red", value: 2, row: "", column: "", imgLink: "img/2r.png"}, {chipId:"1r3" ,color: "red", value: 3, row: "", column: "", imgLink: "img/3r.png"}, {chipId:"1r4" ,color: "red", value: 4, row: "", column: "", imgLink: "img/4r.png"}, {chipId:"1r5" ,color: "red", value: 5, row: "", column: "", imgLink: "img/5r.png"}];
-
     $scope.draggableObjects = [];
+
+    $scope.ChipInitialPosition = null;
+
+    $scope.changeChipPosition = function(data, event, i, j) {
+        // console.log(event.currentTarget);
+        // console.log(event.currentTarget.id);
+        // event.currentTarget.id = "gas";
+        // console.log(event.currentTarget.id);
+        if (event.currentTarget.id == "cell-drop-selected") {
+            if ($scope.ChipInitialPosition != null) {
+                
+            }
+        } else {
+            if ($scope.ChipInitialPosition != null) {
+
+            }
+        }
+    }
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
@@ -56,17 +70,15 @@ angular.module('starter.controllers')
                 break;
             }
         }
-        
-
-       
-        
+ 
         var table = document.getElementById("table-board");
         var cell = table.rows[i].cells[j];
 
         angular.element(cell).removeClass("square").addClass("square-done");
-
+        angular.element(evt.element[0]).removeClass("squareChip").addClass("square-chip-done");
         cell.appendChild(evt.element[0]);
 
+        printBoard(board);
         isBoardGameCorrect = checkBoardGame(board);
         console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
     }
@@ -228,6 +240,10 @@ angular.module('starter.controllers')
         console.log("onDrag!");
     }
 
+    $scope.onDragBoardGameChip = function() {
+        console.log("DRAG DRAG");
+    }
+
 
 
     $scope.onDragComplete = function (data, evt) {
@@ -271,6 +287,70 @@ angular.module('starter.controllers')
         });
     });
 
+    
+
+    $scope.playMove = function(){
+        if (isBoardGameCorrect) {
+            if ($scope.draggableObjects.length == 0) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'You have won this game!',
+                    template: 'It might taste good'
+                });
+
+                alertPopup.then(function(res) {
+                    saveActualGameWithWinner()
+                });
+            } else {
+                saveActualGame()
+            }
+        }   
+    };
+
+    
+
+
+    
+
+    $scope.passMove = function() {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Pass Turn',
+            template: 'Are you sure? You will get an extra chip!'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log('You are sure');
+                if ($scope.actualGame.gameChips.length > 0) {
+                    $scope.actualGame.playersChips[$scope.actualGame.userTurn].push($scope.actualGame.gameChips[0]);
+                    $scope.actualGame.gameChips.shift();
+                }
+                
+                saveActualGame();
+
+            } else {
+                console.log('You are not sure');
+            }
+        });
+    };
+
+    /* Private Methods */
+
+    function printBoard(board) {
+        //console.log(board);
+        for (var i = 0; i < board.length; ++i) {
+            var s = "";
+            for (var j = 0; j < board[i].length; ++j) {
+                if (board[i][j].chipId == "") {
+                     s += "0, ";
+                } else {
+                    s += board[i][j].chipId + ", ";
+                }
+            }
+            console.log(s);
+        }
+    }
+
+
     function insertChipToCell(boardCell) {
         var table = document.getElementById("table-board");
         var cell = table.rows[boardCell.row].cells[boardCell.column];
@@ -308,25 +388,6 @@ angular.module('starter.controllers')
        
     }
 
-    $scope.playMove = function(){
-        if (isBoardGameCorrect) {
-            if ($scope.draggableObjects.length == 0) {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'You have won this game!',
-                    template: 'It might taste good'
-                });
-
-                alertPopup.then(function(res) {
-                    saveActualGameWithWinner()
-                });
-            } else {
-                saveActualGame()
-            }
-        }   
-    };
-
-    
-
 
     function saveActualGame() {
         $scope.games.$loaded().then(function (games) {
@@ -355,6 +416,7 @@ angular.module('starter.controllers')
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
                 "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "gameChips": $scope.actualGame.gameChips,
                 "winner": "",
                 "element": $scope.elem
             });
@@ -388,24 +450,12 @@ angular.module('starter.controllers')
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
                 "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "gameChips": $scope.actualGame.gameChips,
                 "winner": $scope.userConnected.email
             });
             $state.go('lobby');
         });
     }
 
-    $scope.passMove = function() {
-        var confirmPopup = $ionicPopup.confirm({
-            title: 'Consume Ice Cream',
-            template: 'Are you sure you want to eat this ice cream?'
-        });
-
-        confirmPopup.then(function(res) {
-            if(res) {
-            console.log('You are sure');
-            } else {
-            console.log('You are not sure');
-            }
-        });
-    };
+    /* ------------------------------------------ */
 });

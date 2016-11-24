@@ -23,14 +23,30 @@
     margin: 5px;   
 }
 
-.square-chip {
-    /*width: 40px;
-    height: 40px;*/
-    width: 100%;
-    height: 100%;
+.square-chip-done {
+    width: 100px;
+    height: 100px;
 
     background: rgba(155,222,0, 0.5);
     color:white;
+    
+    outline: 1px solid;
+    float: left;
+
+}
+
+.square-chip {
+
+    width: 50px;
+    height: 50px;
+
+    background: rgba(155,222,0, 0.5);
+    color:white;
+    
+    outline: 1px solid;
+    float: left;
+
+
     
     /*display: inline-block;
     margin:0 0px;
@@ -122,6 +138,10 @@ html, body {
     width: 100%;
     height: 100%;
     z-index: 100;
+}
+
+.chips {
+    max-width: 100%;
 }
 
 ul.draggable-objects:after {
