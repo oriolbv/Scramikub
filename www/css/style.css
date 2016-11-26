@@ -35,6 +35,11 @@
 
 }
 
+.selected-cell {
+    border: 8px solid red !important;
+    color:blue;
+}
+
 .square-chip {
 
     width: 50px;

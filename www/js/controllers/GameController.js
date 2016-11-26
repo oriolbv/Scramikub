@@ -22,21 +22,70 @@ angular.module('starter.controllers')
     $scope.draggableObjects = [];
 
     $scope.ChipInitialPosition = null;
+    $scope.ElementSelected = null;
 
     $scope.changeChipPosition = function(data, event, i, j) {
-        // console.log(event.currentTarget);
-        // console.log(event.currentTarget.id);
-        // event.currentTarget.id = "gas";
-        // console.log(event.currentTarget.id);
-        if (event.currentTarget.id == "cell-drop-selected") {
-            if ($scope.ChipInitialPosition != null) {
-                
-            }
-        } else {
-            if ($scope.ChipInitialPosition != null) {
 
+        // GOOD TRY
+        // var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
+        // scrollView.freezeAllScrolls(true);
+        
+
+        if (event.currentTarget.id == "cell-drop-selected") {
+                angular.element(event.currentTarget).removeClass("selected-cell");
+                $scope.ChipInitialPosition = null;
+                event.currentTarget.id = "cell-drop";
+        // Cell is not selected
+        } else {
+            // Selecting
+            if ($scope.ChipInitialPosition == null) {
+                if ($scope.board[i][j].chipId != "") {
+                    //$scope.ChipInitialPosition = $scope.board[i][j];
+                    $scope.ChipInitialPosition = {i: i, j: j};
+                    angular.element(event.currentTarget).addClass("selected-cell");
+                    event.currentTarget.id = "cell-drop-selected";
+                    $scope.ElementSelected = event.currentTarget;
+                    
+                }
+                
+            // New position
+            } else {
+                angular.element($scope.ElementSelected).removeClass("selected-cell");
+                $scope.ElementSelected.id = "cell-drop";
+                var table = document.getElementById("table-board");
+                var cell = table.rows[i].cells[j];
+
+                angular.element(cell).removeClass("square").addClass("square-done");
+                angular.element($scope.ElementSelected.childNodes[0]).removeClass("squareChip").addClass("square-chip-done");
+                cell.appendChild($scope.ElementSelected.childNodes[0]);
+                $scope.ElementSelected = null;
+                
+                $scope.board[i][j] = $scope.board[$scope.ChipInitialPosition.i][$scope.ChipInitialPosition.j];
+                var obj = {chipId: "", color: "", value: 0};
+                $scope.board[$scope.ChipInitialPosition.i][$scope.ChipInitialPosition.j]= obj;
+                // insertChipToCell($scope.board[i][j], i, j);
+                //deleteChip($scope.ChipInitialPosition.i, $scope.ChipInitialPosition.j);
+                //deleteChip(1, 0);
+                
+                
+
+                printBoard($scope.board);
+                isBoardGameCorrect = checkBoardGame($scope.board);
+                console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
+ 
+                $scope.ChipInitialPosition = null;
             }
         }
+    }
+
+
+
+    function deleteChip(iPos, jPos) {
+        $scope.board[iPos][jPos].chipId = "";
+        $scope.board[iPos][jPos].color = "";
+        $scope.board[iPos][jPos].imgLink = "";
+        $scope.board[iPos][jPos].value = 0;
+        $scope.board = angular.copy($scope.board);
     }
 
 
@@ -82,6 +131,7 @@ angular.module('starter.controllers')
         isBoardGameCorrect = checkBoardGame(board);
         console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
     }
+    
 
     /* Check Board Game Algorithm */
     function checkBoardGame(boardgame) {
@@ -139,7 +189,12 @@ angular.module('starter.controllers')
                     } else {
                         if (rowSet.length > 1) {
                             isCorrect = false;
-                        }
+                            var sIncHorit = "";
+                            for (var iHor = 0; iHor < rowSet.length; ++iHor) {
+                                sIncHorit += rowSet[iHor].value + " " + rowSet[iHor].color + ", "
+                            }
+                            console.log("Incorrect Horizontal Set => [ " + sIncHorit + " ]");  
+                        }  
                     }
                     
 
@@ -188,7 +243,13 @@ angular.module('starter.controllers')
                     } else {
                         if (columnSet.length > 1) {
                             isCorrect = false;
-                        }                   
+                            var sIncVert = "";
+                            for (var iVert = 0; iVert < columnSet.length; ++iVert) {
+                                sIncVert += columnSet[iVert].value + " " + columnSet[iVert].color + ", "
+                            }
+                            console.log("Incorrect Vertical Set => [ " + sIncVert + " ]");        
+                        }
+                          
                     }
                 }
             }
@@ -280,7 +341,7 @@ angular.module('starter.controllers')
             for (var i = 0; i < $scope.board.length; ++i) {
                 for (var j = 0; j < $scope.board[0].length; ++j) {
                     if ($scope.board[i][j].chipId != "") {
-                        insertChipToCell($scope.board[i][j])
+                        insertChipToCell($scope.board[i][j], i, j)
                     }
                 }
             }
@@ -351,9 +412,9 @@ angular.module('starter.controllers')
     }
 
 
-    function insertChipToCell(boardCell) {
+    function insertChipToCell(boardCell, iPos, jPos) {
         var table = document.getElementById("table-board");
-        var cell = table.rows[boardCell.row].cells[boardCell.column];
+        var cell = table.rows[iPos].cells[jPos];
 
         angular.element(cell).removeClass("square").addClass("square-done");
         var element = document.createElement('div');

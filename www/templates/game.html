@@ -11,7 +11,7 @@
             <div class = "scroll-container">
                 <table id="table-board" class="boardgame" >
                     <tr ng-repeat="(i,squares) in board" on-finish-render="ngRepeatFinished">
-                        <td id="cell-drop" class="square" ng-repeat="(j,square) in squares" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)" ng-click="changeChipPosition($data,$event,i,j)"></td>
+                        <td id="cell-drop" class="square" ng-repeat="(j,square) in squares track by $index" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)" ng-click="changeChipPosition($data,$event,i,j)"></td>
                     </tr>
                 </table>
             </div>
