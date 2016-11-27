@@ -32,7 +32,9 @@ angular.module('starter.controllers')
         var elemSelected = document.getElementById("cell-drop-selected");
         // If some element of the board is selected ...
         if (elemSelected != null) {
-            
+            var row = elemSelected.parentNode.rowIndex;
+            var col = elemSelected.cellIndex;
+
         }
     }
 
@@ -293,7 +295,7 @@ angular.module('starter.controllers')
     }
 
     function checkBoardSets() {
-        
+
     }
 
     function isSetCorrect(set) {
