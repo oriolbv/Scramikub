@@ -16,7 +16,7 @@
                 </table>
             </div>
         </ion-scroll>
-        <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)" scroll="true">
+        <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)" scroll="true" ng-click="returnChipToDock($data,$event)">
             <div class = "scroll-container">
                 <div class="row">
                     <div class="col" ng-repeat="obj in draggableObjects">

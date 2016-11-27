@@ -15,6 +15,9 @@ angular.module('starter.controllers')
     $scope.elem = [];
 
     $scope.board = [];
+    $scope.previousBoard = [];
+    $scope.previousChips = [];
+    
     $scope.correctBoardSets = [];
 
     $scope.actualGame = {};
@@ -23,6 +26,15 @@ angular.module('starter.controllers')
 
     $scope.ChipInitialPosition = null;
     $scope.ElementSelected = null;
+
+    $scope.returnChipToDock = function($data,$event) {
+        console.log("DOCK");
+        var elemSelected = document.getElementById("cell-drop-selected");
+        // If some element of the board is selected ...
+        if (elemSelected != null) {
+            
+        }
+    }
 
     $scope.changeChipPosition = function(data, event, i, j) {
 
@@ -63,12 +75,7 @@ angular.module('starter.controllers')
                 $scope.board[i][j] = $scope.board[$scope.ChipInitialPosition.i][$scope.ChipInitialPosition.j];
                 var obj = {chipId: "", color: "", value: 0};
                 $scope.board[$scope.ChipInitialPosition.i][$scope.ChipInitialPosition.j]= obj;
-                // insertChipToCell($scope.board[i][j], i, j);
-                //deleteChip($scope.ChipInitialPosition.i, $scope.ChipInitialPosition.j);
-                //deleteChip(1, 0);
                 
-                
-
                 printBoard($scope.board);
                 isBoardGameCorrect = checkBoardGame($scope.board);
                 console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
@@ -162,6 +169,11 @@ angular.module('starter.controllers')
                                 if (rightCell.value == previousCell.value + 1) {
                                     rowSet.push(rightCell);
                                 }
+                            // STRAIGHT OF SAME VALUE DIFFERENT COLOR
+                            } else {
+                                if (rightCell.value == previousCell.value) {
+                                    rowSet.push(rightCell);
+                                }
                             }
                         }
                     }
@@ -179,12 +191,18 @@ angular.module('starter.controllers')
                                 if (leftCell.value == nextCell.value - 1) {
                                     rowSet.unshift(leftCell);
                                 }
+                            // STRAIGHT OF SAME VALUE DIFFERENT COLOR
+                            } else {
+                                if (leftCell.value == nextCell.value) {
+                                    rowSet.unshift(leftCell);
+                                }
                             }
                         }
                     }
                     if (isSetCorrect(rowSet)) {
                         if (!containsSet(boardSets, rowSet)) {
                             boardSets.push(rowSet);
+                            
                         }
                     } else {
                         if (rowSet.length > 1) {
@@ -215,7 +233,13 @@ angular.module('starter.controllers')
                                 if (downCell.value == previousCell.value + 1) {
                                     columnSet.push(downCell);
                                 }
+                            // STRAIGHT OF SAME VALUE DIFFERENT COLOR
+                            } else {
+                                if (downCell.value == previousCell.value) {
+                                    columnSet.push(downCell);
+                                }
                             }
+
                         }
                     }
                     // UP
@@ -230,6 +254,11 @@ angular.module('starter.controllers')
                             // STRAIGHT OF SAME COLOR
                             if (nextCell.color == upCell.color) {
                                 if (upCell.value == nextCell.value - 1) {
+                                    columnSet.unshift(upCell);
+                                }
+                            // STRAIGHT OF SAME VALUE DIFFERENT COLOR
+                            } else {
+                                if (upCell.value == nextCell.value) {
                                     columnSet.unshift(upCell);
                                 }
                             }
@@ -258,8 +287,13 @@ angular.module('starter.controllers')
         console.log(boardSets);
         if (boardSets.length > 0) {
             $scope.correctBoardSets = boardSets;
+            checkBoardSets();
         }
         return isCorrect;
+    }
+
+    function checkBoardSets() {
+        
     }
 
     function isSetCorrect(set) {
@@ -283,10 +317,17 @@ angular.module('starter.controllers')
         return false;
     }
 
+    // Returns the array to push
     function arraysIdentical(a, b) {
+        var iCount = 0;
+        var jCount = 0;
+        
+        
         var i = a.length;
+
         if (i != b.length) return false;
             while (i--) {
+                if (a[i] == null) return false;
                 if ((a[i].color != b[i].color) || (a[i].value != b[i].value)) return false;
             }
         return true;
@@ -333,6 +374,9 @@ angular.module('starter.controllers')
         $scope.actualGame = angular.fromJson($stateParams.actualGame);
         $scope.actualGame = $scope.actualGame.actualGame;
         $scope.board = $scope.actualGame.board;
+        $scope.previousBoard = (JSON.parse(JSON.stringify($scope.board)));
+        $scope.previousChips = (JSON.parse(JSON.stringify($scope.actualGame.playersChips[$scope.actualGame.userTurn])));
+
         
         $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
 
@@ -367,10 +411,6 @@ angular.module('starter.controllers')
         }   
     };
 
-    
-
-
-    
 
     $scope.passMove = function() {
         var confirmPopup = $ionicPopup.confirm({
@@ -382,11 +422,12 @@ angular.module('starter.controllers')
             if(res) {
                 console.log('You are sure');
                 if ($scope.actualGame.gameChips.length > 0) {
+                    $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
                     $scope.actualGame.playersChips[$scope.actualGame.userTurn].push($scope.actualGame.gameChips[0]);
                     $scope.actualGame.gameChips.shift();
                 }
                 
-                saveActualGame();
+                passActualGame();
 
             } else {
                 console.log('You are not sure');
@@ -513,6 +554,43 @@ angular.module('starter.controllers')
                 "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
                 "gameChips": $scope.actualGame.gameChips,
                 "winner": $scope.userConnected.email
+            });
+            $state.go('lobby');
+        });
+    }
+
+    function passActualGame() {
+        $scope.games.$loaded().then(function (games) {
+            // We need the position in players array of the actual player
+            //var element = $scope.actualGame.elem;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            var userTurnPos = 0;
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                if ($scope.actualGame.userTurn == i) {
+                    // If userTurn is the last of the list ...
+                    if (i == $scope.actualGame.players.length-1) {
+                        userTurnPos = 0;
+                    } else {
+                        userTurnPos = i + 1;
+                    }
+                }
+            }
+
+            // Board return to initial state
+            $scope.board = $scope.previousBoard;
+            // Normalize board
+            $scope.actualGame.board = $scope.board;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            games.$ref().child($scope.actualGame.$id).set({
+                "name": $scope.actualGame.name,
+                "players": $scope.actualGame.players,
+                "userTurn": userTurnPos,
+                "gameState": $scope.actualGame.gameState,
+                "board": $scope.actualGame.board,
+                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "gameChips": $scope.actualGame.gameChips,
+                "winner": "",
+                "element": $scope.elem
             });
             $state.go('lobby');
         });
