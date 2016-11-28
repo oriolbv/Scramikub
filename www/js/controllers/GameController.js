@@ -34,7 +34,14 @@ angular.module('starter.controllers')
         if (elemSelected != null) {
             var row = elemSelected.parentNode.rowIndex;
             var col = elemSelected.cellIndex;
+            var chip = $scope.board[row][col];
+            // chip.row = "";
+            // chip.column = "";
 
+            $scope.actualGame.playersChips[$scope.actualGame.userTurn].push(chip);
+            $scope.draggableObjects.push(chip);
+            var obj = {chipId: "", color: "", value: 0};
+            $scope.board[row][col]= obj;
         }
     }
 
