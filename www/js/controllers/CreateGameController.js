@@ -49,7 +49,11 @@ angular.module('starter.controllers')
                 row.push({
                     "chipId" : "",
                     "color" : "",
-                    "value" : 0
+                    "value" : 0,
+                    "imgLink" : "",
+                    "row" : "",
+                    "column" : ""
+
                 });
             }
             board.push(row);

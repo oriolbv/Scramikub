@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('GameCtrl', function($scope, $state, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
+.controller('GameCtrl', function($scope, $state, $window, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
 
     var isBoardGameCorrect = true;
     $scope.userConnected = userConnected.auth.token;
@@ -27,21 +27,98 @@ angular.module('starter.controllers')
     $scope.ChipInitialPosition = null;
     $scope.ElementSelected = null;
 
-    $scope.returnChipToDock = function($data,$event) {
-        console.log("DOCK");
-        var elemSelected = document.getElementById("cell-drop-selected");
-        // If some element of the board is selected ...
-        if (elemSelected != null) {
-            var row = elemSelected.parentNode.rowIndex;
-            var col = elemSelected.cellIndex;
-            var chip = $scope.board[row][col];
-            // chip.row = "";
-            // chip.column = "";
+    // $scope.returnChipToDock = function($data,$event) {
+    //     console.log("DOCK");
+    //     var elemSelected = document.getElementById("cell-drop-selected");
+    //     // If some element of the board is selected ...
+    //     if (elemSelected != null) {
+    //         var row = elemSelected.parentNode.rowIndex;
+    //         var col = elemSelected.cellIndex;
+    //         var chip = $scope.board[row][col];
+    //         chip.row = "";
+    //         chip.column = "";
+    //         var chipClone = (JSON.parse(JSON.stringify(chip)));
 
-            $scope.actualGame.playersChips[$scope.actualGame.userTurn].push(chip);
-            $scope.draggableObjects.push(chip);
-            var obj = {chipId: "", color: "", value: 0};
-            $scope.board[row][col]= obj;
+    //         $scope.actualGame.playersChips[$scope.actualGame.userTurn].push(chipClone);
+    //         delete chip;
+    //         elemSelected.remove();
+    //         //$scope.draggableObjects.push(chip);
+    //         $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
+    //         angular.element(elemSelected).removeClass("selected-cell");
+    //         $scope.ChipInitialPosition = null;
+    //         elemSelected.id = "cell-drop";
+    //         $scope.ElementSelected = elemSelected;
+
+    //         var obj = {chipId: "", color: "", value: 0, imgLink: "", row: "", column: ""};
+            
+            
+
+    //         // var table = document.getElementById("table-board");
+    //         // var cell = table.rows[row].cells[col];
+    //         // angular.element(cell).removeClass("square").addClass("square-done");
+    //         // angular.element($scope.ElementSelected.childNodes[0]).removeClass("squareChip").addClass("square-chip-done");
+    //         // cell.appendChild($scope.ElementSelected.childNodes[0]);
+
+    //         //var obj = {chipId: "", color: "", value: 0};
+    //         $scope.actualGame.board[row][col]= obj;
+    //         // $scope.board[row][col].chipId = "";
+    //         // $scope.board[row][col].color = "";
+    //         // $scope.board[row][col].value = 0;
+    //         // $scope.board[row][col].imgLink = "";
+    //         // $scope.board[row][col].row = "";
+    //         // $scope.board[row][col].column = "";
+
+    //         $scope.ChipInitialPosition = null;
+
+    //         //delete $scope.board[row][col];
+    //         //$scope.actualGame.board = $scope.board;
+    //         ///deleteChip(row, col);
+            
+    //         printBoard($scope.board);
+    //         refreshGame($scope.board);
+    //     }
+    // }
+
+    $scope.returnChipsToDock = function($data,$event) {
+        $state.go($state.current, {}, {reload: true});
+        
+        //$state.go($state.current, {}, {reload: false});
+        
+        // $scope.board = $scope.previousBoard;
+        // $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
+        // for (var i = 0; i < $scope.board.length; ++i) {
+        //     for (var j = 0; j < $scope.board[0].length; ++j) {
+        //         if ($scope.board[i][j].chipId != "") {
+        //             insertChipToCell($scope.board[i][j], i, j)
+        //         }
+        //     }
+        // }
+        // $scope.board = $scope.previousBoard;
+        // $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
+
+
+        // passActualGameWithRefresh()
+
+        //  setTimeout(function(){
+            //$state.go($state.current, {}, {reload: true});
+        // }, 100);  
+        
+        //$window.location.reload();
+    }
+
+    function refreshGame(board) {
+        for(var i = 0; i < board.length; ++i) {
+            for (var j = 0; j < board[0].length; ++j) {
+                console.log($scope.board[i][j].imgLink);
+            }
+        }
+    }
+    function sleep(milliseconds) {
+    var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+            break;
+            }
         }
     }
 
@@ -101,51 +178,64 @@ angular.module('starter.controllers')
         $scope.board[iPos][jPos].color = "";
         $scope.board[iPos][jPos].imgLink = "";
         $scope.board[iPos][jPos].value = 0;
-        $scope.board = angular.copy($scope.board);
+        //$scope.board = angular.copy($scope.board);
     }
 
 
     $scope.onDropComplete1 = function (data, evt, i, j) {
-
-        if ((data.row == "") && (data.column == "")) {
-            
-        } else {
-            $scope.actualGame.board[data.row][data.column].chipId = "";
-            $scope.actualGame.board[data.row][data.column].value = "";
-            $scope.actualGame.board[data.row][data.column].color = "";
-        }
-
-        var board = $scope.actualGame.board;
-        board[i][j].chipId = data.chipId;
-        board[i][j].value = data.value;
-        board[i][j].color = data.color;
-        board[i][j].imgLink = data.imgLink;
-        board[i][j].row = i;
-        board[i][j].column = j;
-        //board[i][j].elem = evt.element;
-        $scope.elem = evt.element;
-
-        data.row = i;
-        data.column = j;
-
-        var numberOfChips = $scope.actualGame.playersChips[$scope.actualGame.userTurn].length;
-        for (var pos = 0; pos < numberOfChips; ++pos) {
-            if ($scope.actualGame.playersChips[$scope.actualGame.userTurn][pos].chipId == data.chipId) {
-                $scope.actualGame.playersChips[$scope.actualGame.userTurn].splice(pos, 1);
-                break;
+        var isChipInBoard = false;
+        for (var irow = 0; irow < $scope.board.length; ++irow) {
+            for (var jcol = 0; jcol < $scope.board[irow].length; ++jcol) {
+                if ($scope.board[irow][jcol].chipId == data.chipId) {
+                    isChipInBoard = true;
+                }
             }
         }
- 
-        var table = document.getElementById("table-board");
-        var cell = table.rows[i].cells[j];
 
-        angular.element(cell).removeClass("square").addClass("square-done");
-        angular.element(evt.element[0]).removeClass("squareChip").addClass("square-chip-done");
-        cell.appendChild(evt.element[0]);
+        if (!isChipInBoard) {
+            if ($scope.board[i][j].chipId == "") {
+                if ((data.row == "") && (data.column == "")) {
+                    
+                } else {
+                    $scope.actualGame.board[data.row][data.column].chipId = "";
+                    $scope.actualGame.board[data.row][data.column].value = "";
+                    $scope.actualGame.board[data.row][data.column].color = "";
+                }
 
-        printBoard(board);
-        isBoardGameCorrect = checkBoardGame(board);
-        console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
+                var board = $scope.actualGame.board;
+                board[i][j].chipId = data.chipId;
+                board[i][j].value = data.value;
+                board[i][j].color = data.color;
+                board[i][j].imgLink = data.imgLink;
+                board[i][j].row = i;
+                board[i][j].column = j;
+                //board[i][j].elem = evt.element;
+                $scope.elem = evt.element;
+
+                data.row = i;
+                data.column = j;
+
+                var numberOfChips = $scope.actualGame.playersChips[$scope.actualGame.userTurn].length;
+                for (var pos = 0; pos < numberOfChips; ++pos) {
+                    if ($scope.actualGame.playersChips[$scope.actualGame.userTurn][pos].chipId == data.chipId) {
+                        $scope.actualGame.playersChips[$scope.actualGame.userTurn].splice(pos, 1);
+                        break;
+                    }
+                }
+        
+                var table = document.getElementById("table-board");
+                var cell = table.rows[i].cells[j];
+
+                angular.element(cell).removeClass("square").addClass("square-done");
+                angular.element(evt.element[0]).removeClass("squareChip").addClass("square-chip-done");
+                cell.appendChild(evt.element[0]);
+
+                printBoard(board);
+                isBoardGameCorrect = checkBoardGame(board);
+                console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
+            }
+            
+        }
     }
     
 
@@ -380,6 +470,12 @@ angular.module('starter.controllers')
 
     $scope.games.$loaded().then(function (games) {
         // actualGame passed by parameter
+        //sleep(1000);
+        
+        var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
+        //scrollView.freezeAllScrolls(true);
+        scrollView.zoomBy(0.2);
+
         $scope.actualGame = angular.fromJson($stateParams.actualGame);
         $scope.actualGame = $scope.actualGame.actualGame;
         $scope.board = $scope.actualGame.board;
@@ -388,8 +484,10 @@ angular.module('starter.controllers')
 
         
         $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
+        
 
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            //sleep(1000);
             console.log("ngRepeatFinished");
             for (var i = 0; i < $scope.board.length; ++i) {
                 for (var j = 0; j < $scope.board[0].length; ++j) {
@@ -398,7 +496,8 @@ angular.module('starter.controllers')
                     }
                 }
             }
-        });
+        }); 
+        
     });
 
     
@@ -408,7 +507,7 @@ angular.module('starter.controllers')
             if ($scope.draggableObjects.length == 0) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'You have won this game!',
-                    template: 'It might taste good'
+                    template: 'You are the winner of this game!'
                 });
 
                 alertPopup.then(function(res) {
@@ -494,8 +593,10 @@ angular.module('starter.controllers')
         img.setAttribute("height", "100%");
         img.setAttribute("width", "100%");
         element.appendChild(img);
-
-        cell.appendChild(element);
+        if (cell.childNodes.length == 0) {
+            cell.appendChild(element);
+        }
+        
        
     }
 
@@ -558,7 +659,7 @@ angular.module('starter.controllers')
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
                 "userTurn": $scope.actualGame.userTurn,
-                "gameState": $scope.actualGame.gameState,
+                "gameState": "The game has finished. Winner : " + $scope.userConnected.email,
                 "board": $scope.actualGame.board,
                 "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
                 "gameChips": $scope.actualGame.gameChips,
@@ -602,6 +703,43 @@ angular.module('starter.controllers')
                 "element": $scope.elem
             });
             $state.go('lobby');
+        });
+    }
+
+    function passActualGameWithRefresh() {
+        $scope.games.$loaded().then(function (games) {
+            // We need the position in players array of the actual player
+            //var element = $scope.actualGame.elem;
+            $scope.actualGame = angular.copy($scope.actualGame);
+            var userTurnPos = 0;
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                if ($scope.actualGame.userTurn == i) {
+                    // If userTurn is the last of the list ...
+                    if (i == $scope.actualGame.players.length-1) {
+                        userTurnPos = 0;
+                    } else {
+                        userTurnPos = i + 1;
+                    }
+                }
+            }
+
+            // Board return to initial state
+            $scope.board = $scope.previousBoard;
+            // Normalize board
+            $scope.actualGame.board = $scope.board;
+            // $scope.actualGame = angular.copy($scope.actualGame);
+            // games.$ref().child($scope.actualGame.$id).set({
+            //     "name": $scope.actualGame.name,
+            //     "players": $scope.actualGame.players,
+            //     "userTurn": userTurnPos,
+            //     "gameState": $scope.actualGame.gameState,
+            //     "board": $scope.actualGame.board,
+            //     "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+            //     "gameChips": $scope.actualGame.gameChips,
+            //     "winner": "",
+            //     "element": $scope.elem
+            // });
+            $state.go($state.current, {}, {reload: true});
         });
     }
 
