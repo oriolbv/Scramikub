@@ -15,14 +15,45 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				controller: 'LoginCtrl',
 				// controllerAs: 'vm'
 			})
-			.state('lobby', {
-				url: '/lobby',
+			.state('initial', {
+				url: '/initial',
 				cache: false,
-				templateUrl: 'templates/lobby.html',
-				controller: 'LobbyCtrl',
+				templateUrl: 'templates/initial-page.html',
+				controller: 'InitialPageCtrl',
 				// controllerAs: 'vm'
 
 			})
+			.state('initial.lobby', {
+				url: '/lobby',
+				views: {
+					'lobby-tab': {
+						cache: false,
+						templateUrl: 'templates/lobby.html',
+						controller: 'LobbyCtrl'
+					}
+				}
+			})
+			.state('initial.settings', {
+				url: '/settings',
+				views: {
+					'settings-tab': {
+						cache: false,
+						templateUrl: 'templates/settings.html'
+						//controller: 'LobbyCtrl'
+					}
+				}
+			})
+			.state('initial.analytics', {
+				url: '/analytics',
+				views: {
+					'analytics-tab': {
+						cache: false,
+						templateUrl: 'templates/analytics.html'
+						//controller: 'LobbyCtrl'
+					}
+				}
+			})
+
 			.state('create-game', {
 				url: '/create-game',
 				cache: false,

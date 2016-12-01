@@ -104,7 +104,7 @@ angular.module('starter.controllers')
                 });
                 $ionicLoading.hide();
                 userConnected = authData;
-                $state.go('lobby');
+                $state.go('initial');
             }).catch(function (error) {
                 alert("Authentication failed:" + error.message);
                 $ionicLoading.hide();
