@@ -632,7 +632,7 @@ angular.module('starter.controllers')
                 "winner": "",
                 "element": $scope.elem
             });
-            $state.go('lobby');
+            $state.go('initial');
         });
     }
 
@@ -665,7 +665,7 @@ angular.module('starter.controllers')
                 "gameChips": $scope.actualGame.gameChips,
                 "winner": $scope.userConnected.email
             });
-            $state.go('lobby');
+            $state.go('initial');
         });
     }
 
@@ -702,7 +702,7 @@ angular.module('starter.controllers')
                 "winner": "",
                 "element": $scope.elem
             });
-            $state.go('lobby');
+            $state.go('initial');
         });
     }
 

@@ -1,11 +1,11 @@
 <div class="bar bar-header">
   <div class="h1 title">Initial Page</div>
-  <button class="button button-clear button-positive" ng-click="addGame()">
+  
     <i class="ion-plus"></i>
   </button>
 </div>
 
-        <ion-tabs class="tabs-icon-top tabs-positive">
+        <ion-tabs class="tabs-icon-top tabs-positive" ng-init="doSomething()">
 
             <ion-tab title="Settings" icon="ion-ios-information" href="#/initial/settings">
                 <ion-nav-view name="settings-tab"></ion-nav-view>
