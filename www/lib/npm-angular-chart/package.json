@@ -1,0 +1,91 @@
+{
+  "name": "npm-angular-chart",
+  "version": "0.9.0",
+  "description": "An angular.js wrapper for Chart.js",
+  "main": "dist/angular-chart.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "gulp check"
+  },
+  "author": {
+    "name": "Jerome Touffe-Blin",
+    "email": "jtblin@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jtblin/angular-chart.js.git"
+  },
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-string": "^1.1.1",
+    "codeclimate-test-reporter": "^0.1.0",
+    "cp": "^0.2.0",
+    "gm": "^1.17.0",
+    "gulp": "^3.9.0",
+    "gulp-bump": "^1.0.0",
+    "gulp-csso": "^1.0.1",
+    "gulp-git": "^1.6.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-istanbul-report": "^0.0.1",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^1.9.2",
+    "gulp-less": "^3.0.3",
+    "gulp-mocha-phantomjs": "^0.10.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-sequence": "^0.4.1",
+    "gulp-shell": "^0.5.1",
+    "gulp-sourcemaps": "^1.0.0",
+    "gulp-spawn-mocha": "^2.0.1",
+    "gulp-tar": "^1.5.0",
+    "gulp-uglify": "^1.4.2",
+    "imgur-node-api": "^0.1.0",
+    "jshint-stylish": "^2.0.1",
+    "mkdirp": "^0.5.0",
+    "mocha": "^2.1.0",
+    "mocha-phantomjs-istanbul": "^0.0.2",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.7.0",
+    "testatic": "^0.1.0",
+    "tmp-sync": "^1.1.0",
+    "webpack": "^1.12.0",
+    "webshot": "^0.16.0"
+  },
+  "dependencies": {
+    "angular": "^1.4.5",
+    "chart.js": "^1.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/jtblin/angular-chart.js/issues"
+  },
+  "homepage": "https://github.com/jtblin/angular-chart.js#readme",
+  "_id": "npm-angular-chart@0.9.0",
+  "_shasum": "cddfc603ccbb893a202b224e398a730d798161ab",
+  "_from": "npm-angular-chart@>=0.9.0 <0.10.0",
+  "_npmVersion": "2.14.12",
+  "_nodeVersion": "4.2.6",
+  "_npmUser": {
+    "name": "daydreamdev",
+    "email": "brayden@daydreamdev.com"
+  },
+  "dist": {
+    "shasum": "cddfc603ccbb893a202b224e398a730d798161ab",
+    "tarball": "https://registry.npmjs.org/npm-angular-chart/-/npm-angular-chart-0.9.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "daydreamdev",
+      "email": "brayden@daydreamdev.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/npm-angular-chart-0.9.0.tgz_1459530233190_0.7546160155907273"
+  },
+  "_resolved": "https://registry.npmjs.org/npm-angular-chart/-/npm-angular-chart-0.9.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

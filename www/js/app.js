@@ -3,7 +3,7 @@
 var firebaseUrl = "https://scramikub.firebaseio.com";
 var userConnected = null;
 
-angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'ngDraggable'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'ngDraggable', 'chart.js'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -48,8 +48,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				views: {
 					'analytics-tab': {
 						cache: false,
-						templateUrl: 'templates/analytics.html'
-						//controller: 'LobbyCtrl'
+						templateUrl: 'templates/analytics.html',
+						controller: 'AnalyticsCtrl'
 					}
 				}
 			})
