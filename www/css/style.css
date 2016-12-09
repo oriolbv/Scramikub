@@ -21,6 +21,9 @@
     width: 50px;
     height: 50px;
     margin: 5px;   
+    background-image: url("../img/casella_mig.png");
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
 }
 
 .square-chip-done {
@@ -36,20 +39,21 @@
 }
 
 .selected-cell {
-    border: 8px solid red !important;
+    border: 5px solid black !important;
     color:blue;
 }
 
 .square-chip {
 
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 200px;
 
     background: rgba(155,222,0, 0.5);
     color:white;
     
     outline: 1px solid;
     float: left;
+    border: 5px solid green !important;
 
 
     
@@ -61,16 +65,16 @@
 }
 
 [ng-drag].square-chip {
-    background: #ef473a;
-    color: white;
-    width: 100%;
-    height: 100%;
+    background: transparent;
+    color: transparent;
+    width: 50px;
+    height: 50px;
 }
 
 
 
 .div-chips {
-    border: solid 1px #000000;  
+    /*border: solid 1px #000000;  */
     height: 15%;
 }
 
@@ -265,6 +269,7 @@ ul.draggable-objects:after {
 .col {
     height: 100%;
     padding: 0 5px; 
+    width: 4000px;
 }
 
 .my-view, .my-other-view {
@@ -274,6 +279,13 @@ ul.draggable-objects:after {
 
 .my-other-view {
     font-size: 20px; 
+}
+
+.gasgas {
+    width: 100%;
+    height: 200px;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Chat */

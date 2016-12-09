@@ -30,7 +30,7 @@ angular.module('starter.controllers')
         console.log($scope.data.userSelected);
         var allChips = [];
         //allChips.push(BlueSuit, RedSuit, YellowSuit, GreenSuit);
-        allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1);
+        allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, Joker1, Joker2, Joker3);
         allChips = shuffle(allChips);
         var player1Chips = [];
         for (var i = 0; i < 15; ++i) {
@@ -156,6 +156,9 @@ angular.module('starter.controllers')
     
 });
 
+var Joker1 = {chipId: "jkr1", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
+var Joker2 = {chipId: "jkr2", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
+var Joker3 = {chipId: "jkr3", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
 
 var BlueSuit1 =  [   {chipId: "1b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
                     {chipId: "1b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 

@@ -19,27 +19,59 @@
             </button>
         </div>
 
-		<!--<div class="div-scroll" ng-drop="true" on-drop="onDropComplete1($data,$event)">
-			
-		</div>
-		<div class="row">
-            <div class="col" ng-repeat="obj in draggableObjects">
-                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true" class="square-chip"> {{obj.name}} </div>
-            </div>
-        </div>
-		<div class="row">
-            <div class="col" ng-repeat="obj in draggableObjects">
-                <div ng-drag="true" ng-drag-data="obj" data-allow-transform="true"> {{obj.name}} </div>
-            </div>
-        </div>
+	
 
-        <span class="title">Drop area #1</span>
-        <div class="row" ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
-            <div class="col" ng-repeat="obj in droppedObjects1">
-                <div ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}"> {{obj.name}} </div>
+           
+<!--
+JQUERY
+            <div id="data-container"  class = "scroll-container div-chips" scroll="true"  horizontalScroll="true" verticalScroll="true">
+                <div class="row" >
+                    <div class="col " ng-repeat="obj in datasource1">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>-->
+
+        <div id="pagination-container"></div>-->
 
 
+
+        <!-- items being paged -->
+            <!--<div ng-repeat="item in items">Item {{item.chipId}}</div>-->
+
+            <!-- PAGER
+                
+                <div id="data-container"  class = "scroll-container div-chips" scroll="true"  horizontalScroll="true" verticalScroll="true">
+                <div class="row" >
+                    <div class="col " ng-repeat="obj in items">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag($data,$event)" ng-drag-scroll  > 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            <ul ng-if="pager.pages.length" class="pagination">
+                <li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(1)">First</a>
+                </li>
+                <li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                    <a ng-click="setPage(page)">{{page}}</a>
+                </li>                
+                <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+
+        <div id="cell-drop" class="square" ng-drop="true" ng-drop-success="onDropComplete1($data,$event,i,j)"></div>-->
 	</ion-content>
 </ion-view>

@@ -4,13 +4,122 @@ angular.module('starter.controllers')
     
     $scope.delegateScroll;
 
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.series = ['Series A', 'Series B'];
-    $scope.data = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90]
-    ];
+    // $scope.dummyItems =  [   {chipId: "1b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
+    //                 {chipId: "1b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 
+    //                 {chipId: "1b3", color: "blue", value: 3, row: "", column: "", imgLink: "img/3b.png"}, 
+    //                 {chipId: "1b4", color: "blue", value: 4, row: "", column: "", imgLink: "img/4b.png"}, 
+    //                 {chipId: "1b5", color: "blue", value: 5, row: "", column: "", imgLink: "img/5b.png"}, 
+    //                 {chipId: "1b6", color: "blue", value: 6, row: "", column: "", imgLink: "img/6b.png"}, 
+    //                 {chipId: "1b7", color: "blue", value: 7, row: "", column: "", imgLink: "img/7b.png"},  
+    //                 {chipId: "1b8", color: "blue", value: 8, row: "", column: "", imgLink: "img/8b.png"},  
+    //                 {chipId: "1b9", color: "blue", value: 9, row: "", column: "", imgLink: "img/9b.png"},  
+    //                 {chipId: "1b10", color: "blue", value: 10, row: "", column: "", imgLink: "img/10b.png"},  
+    //                 {chipId: "1b11", color: "blue", value: 11, row: "", column: "", imgLink: "img/11b.png"},
+    //                 {chipId: "1b12", color: "blue", value: 12, row: "", column: "", imgLink: "img/12b.png"},  
+    //                 {chipId: "1b13", color: "blue", value: 13, row: "", column: "", imgLink: "img/13b.png"},  
+    //                 {chipId: "1b14", color: "blue", value: 14, row: "", column: "", imgLink: "img/14b.png"},  
+    //                 {chipId: "1b15", color: "blue", value: 15, row: "", column: "", imgLink: "img/15b.png"} ];
 
+    //     $scope.pager = {};
+    //     $scope.setPage = setPage;
+
+    //     initController();
+
+    //     function initController() {
+    //         // initialize to page 1
+    //         $scope.setPage(1);
+    //     }
+
+    //     function setPage(page) {
+    //         if (page < 1 || page > $scope.pager.totalPages) {
+    //             return;
+    //         }
+
+    //         // get pager object from service
+    //         $scope.pager = GetPager($scope.dummyItems.length, page);
+
+    //         // get current page of items
+    //         $scope.items = $scope.dummyItems.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
+    //     }
+
+    //     function GetPager(totalItems, currentPage, pageSize) {
+    //         // default to first page
+    //         currentPage = currentPage || 1;
+
+    //         // default page size is 10
+    //         pageSize = pageSize || 5;
+
+    //         // calculate total pages
+    //         var totalPages = Math.ceil(totalItems / pageSize);
+
+    //         var startPage, endPage;
+    //         if (totalPages <= 10) {
+    //             // less than 10 total pages so show all
+    //             startPage = 1;
+    //             endPage = totalPages;
+    //         } else {
+    //             // more than 10 total pages so calculate start and end pages
+    //             if (currentPage <= 6) {
+    //                 startPage = 1;
+    //                 endPage = 10;
+    //             } else if (currentPage + 4 >= totalPages) {
+    //                 startPage = totalPages - 9;
+    //                 endPage = totalPages;
+    //             } else {
+    //                 startPage = currentPage - 5;
+    //                 endPage = currentPage + 4;
+    //             }
+    //         }
+
+    //         // calculate start and end item indexes
+    //         var startIndex = (currentPage - 1) * pageSize;
+    //         var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
+    //         // create an array of pages to ng-repeat in the pager control
+    //         //var pages = _.range(startPage, endPage + 1);
+    //         var pages = [1, 2, 3];
+
+    //         // return object with all pager properties required by the view
+    //         return {
+    //             totalItems: totalItems,
+    //             currentPage: currentPage,
+    //             pageSize: pageSize,
+    //             totalPages: totalPages,
+    //             startPage: startPage,
+    //             endPage: endPage,
+    //             startIndex: startIndex,
+    //             endIndex: endIndex,
+    //             pages: pages
+    //         };
+    //     }
+
+    // jQuery('#pagination-container').pagination({
+    //     dataSource: $scope.datasource1,
+    //     callback: function(data, pagination) {
+    //         console.log("jquery bitches");
+    //         // template method of yourself
+    //         // var html = simpleTemplating(data);
+    //         // $('#data-container').html(html);
+    //     }
+    // })
+
+    // function simpleTemplating(data) {
+    //     var html = '<ul>';
+    //     $.each(data, function(index, item){
+    //         html += '<li>'+ item +'</li>';
+    //     });
+    //     html += '</ul>';
+    //     return html;
+    // }
+    $scope.onDropComplete1 = function($data,$event,i,j) {
+        console.log("hola");
+    }
+
+
+    $scope.onDrag = function($data,$event) {
+        console.log("onDrag");
+        delete $event.currentTarget;
+    }
 
     setTimeout(function() {
                 $scope.delegateScroll = $ionicScrollDelegate.$getByHandle('myScroll');

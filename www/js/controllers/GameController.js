@@ -80,7 +80,7 @@ angular.module('starter.controllers')
     // }
 
     $scope.returnChipsToDock = function($data,$event) {
-        $state.go($state.current, {}, {reload: true});
+        //$state.go($state.current, {}, {reload: true});
         
         //$state.go($state.current, {}, {reload: false});
         
@@ -227,13 +227,15 @@ angular.module('starter.controllers')
                 var cell = table.rows[i].cells[j];
 
                 angular.element(cell).removeClass("square").addClass("square-done");
-                angular.element(evt.element[0]).removeClass("squareChip").addClass("square-chip-done");
+                angular.element(evt.element[0]).removeClass("square-chip").addClass("square-chip-done");
                 cell.appendChild(evt.element[0]);
 
                 printBoard(board);
                 isBoardGameCorrect = checkBoardGame(board);
                 console.log("Is Board Game Correct? ----> " + isBoardGameCorrect);
             }
+
+            $scope.setPage($scope.actualPage);
             
         }
     }
@@ -264,13 +266,13 @@ angular.module('starter.controllers')
                             
                             var previousCell = rowSet[rowSet.length - 1];
                             // STRAIGHT OF SAME COLOR
-                            if (previousCell.color == rightCell.color) {
-                                if (rightCell.value == previousCell.value + 1) {
+                            if ((previousCell.color == rightCell.color) || (rightCell.color == "joker")) {
+                                if ((rightCell.value == previousCell.value + 1) || (rightCell.color == "joker")) {
                                     rowSet.push(rightCell);
                                 }
                             // STRAIGHT OF SAME VALUE DIFFERENT COLOR
                             } else {
-                                if (rightCell.value == previousCell.value) {
+                                if ((rightCell.value == previousCell.value) || (rightCell.color == "joker")) {
                                     rowSet.push(rightCell);
                                 }
                             }
@@ -286,13 +288,13 @@ angular.module('starter.controllers')
                             }
                             var nextCell = rowSet[0];
                             // STRAIGHT OF SAME COLOR
-                            if (nextCell.color == leftCell.color) {
-                                if (leftCell.value == nextCell.value - 1) {
+                            if ((nextCell.color == leftCell.color) || (leftCell.color == "joker")) {
+                                if ((leftCell.value == nextCell.value - 1) || (leftCell.color == "joker")) {
                                     rowSet.unshift(leftCell);
                                 }
                             // STRAIGHT OF SAME VALUE DIFFERENT COLOR
                             } else {
-                                if (leftCell.value == nextCell.value) {
+                                if ((leftCell.value == nextCell.value) || (leftCell.color == "joker")) {
                                     rowSet.unshift(leftCell);
                                 }
                             }
@@ -328,13 +330,13 @@ angular.module('starter.controllers')
                             
                             var previousCell = columnSet[columnSet.length - 1];
                             // STRAIGHT OF SAME COLOR
-                            if (previousCell.color == downCell.color) {
-                                if (downCell.value == previousCell.value + 1) {
+                            if ((previousCell.color == downCell.color) || (downCell.color == "joker")) {
+                                if ((downCell.value == previousCell.value + 1) || (downCell.color == "joker")) {
                                     columnSet.push(downCell);
                                 }
                             // STRAIGHT OF SAME VALUE DIFFERENT COLOR
                             } else {
-                                if (downCell.value == previousCell.value) {
+                                if ((downCell.value == previousCell.value) || (downCell.color == "joker")) {
                                     columnSet.push(downCell);
                                 }
                             }
@@ -351,13 +353,13 @@ angular.module('starter.controllers')
                             }
                             var nextCell = columnSet[0];
                             // STRAIGHT OF SAME COLOR
-                            if (nextCell.color == upCell.color) {
-                                if (upCell.value == nextCell.value - 1) {
+                            if ((nextCell.color == upCell.color) || (upCell.color == "joker")) {
+                                if ((upCell.value == nextCell.value - 1) || (upCell.color == "joker")) {
                                     columnSet.unshift(upCell);
                                 }
                             // STRAIGHT OF SAME VALUE DIFFERENT COLOR
                             } else {
-                                if (upCell.value == nextCell.value) {
+                                if ((upCell.value == nextCell.value) || (upCell.color == "joker")) {
                                     columnSet.unshift(upCell);
                                 }
                             }
@@ -542,6 +544,106 @@ angular.module('starter.controllers')
             }
         });
     };
+
+        $scope.pager = {};
+        $scope.actualPage = 1;
+        $scope.setPage = setPage;
+
+
+        //initController();
+
+        $scope.games.$loaded().then(function (games) {
+            // initialize to page 1
+            $scope.setPage(1);
+        });
+        
+
+        function setPage(page) {
+            if (page < 1 || page > $scope.pager.totalPages) {
+                return;
+            }
+
+            // get pager object from service
+            $scope.pager = GetPager($scope.draggableObjects.length, page);
+
+            // get current page of items
+            $scope.items = $scope.draggableObjects.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
+
+            $scope.actualPage = page;
+        }
+
+        function GetPager(totalItems, currentPage, pageSize) {
+            // default to first page
+            currentPage = currentPage || 1;
+
+            // default page size is 10
+            pageSize = pageSize || 5;
+
+            // calculate total pages
+            var totalPages = Math.ceil(totalItems / pageSize);
+
+            var startPage, endPage;
+            if (totalPages <= 10) {
+                // less than 10 total pages so show all
+                startPage = 1;
+                endPage = totalPages;
+            } else {
+                // more than 10 total pages so calculate start and end pages
+                if (currentPage <= 6) {
+                    startPage = 1;
+                    endPage = 10;
+                } else if (currentPage + 4 >= totalPages) {
+                    startPage = totalPages - 9;
+                    endPage = totalPages;
+                } else {
+                    startPage = currentPage - 5;
+                    endPage = currentPage + 4;
+                }
+            }
+
+            // calculate start and end item indexes
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
+            // create an array of pages to ng-repeat in the pager control
+            //var pages = _.range(startPage, endPage + 1);
+            var pages = [1, 2, 3];
+
+            // return object with all pager properties required by the view
+            return {
+                totalItems: totalItems,
+                currentPage: currentPage,
+                pageSize: pageSize,
+                totalPages: totalPages,
+                startPage: startPage,
+                endPage: endPage,
+                startIndex: startIndex,
+                endIndex: endIndex,
+                pages: pages
+            };
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /* Private Methods */
 

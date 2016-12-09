@@ -16,25 +16,43 @@
                 </table>
             </div>
         </ion-scroll>
-        <div id="chips-div" class="div-chips" ng-drop="true" ng-drop-success="onDropComplete($data,$event)" scroll="true" ng-click="returnChipToDock($data,$event)">
-            <div class = "scroll-container borderScroll">
-                <div class="row">
-                    <div class="col" ng-repeat="obj in draggableObjects">
-                        <div class="square-chip" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
+        <div zooming="false" overflow-scroll="true" direction="" id="chips-div" class="div-chips " ng-drop="true" ng-drop-success="onDropComplete($data,$event)"  ng-click="returnChipToDock($data,$event)" >
+            <div class = "scroll-container" scroll="true"  horizontalScroll="true" verticalScroll="true">
+                <div class="row" >
+                    <div class="col " ng-repeat="obj in items">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
                             <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="row" ng-repeat="obj in draggableObjects">
-                <div class="col" style="overflow:hidden;width: 2000px">
-                    <div class="square-chip" style="float:left; width:50px; height:50px;" ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll horizontalScroll="false" verticalScroll="false"> 
-                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+            
+            <!--<div class = "scroll-container borderScroll" scroll="true"  horizontalScroll="true" verticalScroll="true">
+                <div class="row gasgas" >
+                    <div class="col " ng-repeat="obj in draggableObjects">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
+                        </div>
                     </div>
                 </div>
-            </div>    -->
-
-            
+            </div>-->
+            <ul ng-if="pager.pages.length" class="pagination">
+                <!--<li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(1)">First</a>
+                </li>-->
+                <li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <!--<li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                    <a ng-click="setPage(page)">{{page}}</a>
+                </li>                -->
+                <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <!--<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.totalPages)">Last</a>
+                </li>-->
+            </ul>
             
         </div>
         <!--<div class="div-chips">
