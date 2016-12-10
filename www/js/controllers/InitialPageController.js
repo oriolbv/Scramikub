@@ -1,11 +1,8 @@
 angular.module('starter.controllers')
 
-.controller('InitialPageCtrl', function($scope, $state, $stateParams, $rootScope, $ionicTabsDelegate) {
-	// $scope.selectTabWithIndex = function(index) {
-    // 	$ionicTabsDelegate.select(index);
-  	// }
-	$scope.doSomething = function($ionicTabsDelegate) {
-		//console.log($ionicTabsDelegate.selectedIndex());
-	}
+.controller('InitialPageCtrl', function($scope, $ionicTabsDelegate, $timeout) {
+	$timeout(function(){
+    	$ionicTabsDelegate.select(1);
+  	},0);
 });
 
