@@ -21,17 +21,21 @@
                         <button ng-click="setPage(pager.currentPage - 1)">P</button>
                 </div>
             <div style="float: left; width: 80%;">
-            <div zooming="false" overflow-scroll="true"  direction="" id="chips-div" class="div-chips " ng-drop="true" ng-drop-success="onDropComplete($data,$event)"  ng-click="returnChipToDock($data,$event)" >
-                <div class = "scroll-container" scroll="true"  horizontalScroll="true" verticalScroll="true">
-                    <div class="row" >
-                        <div class="col " ng-repeat="obj in items">
-                            <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
-                                <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
-                            </div>
+            <div style="background:rgba(178, 0, 0, 0.7)" id="chips-div" class="section div-chips">
+                    <div ng-repeat="obj in items">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
                         </div>
                     </div>
-                </div>
+
             </div>
+            <!--<div class="section div-chips" style="background:rgba(178, 0, 0, 0.7)"> 
+                <div ng-repeat="obj in items" > 
+                    <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  >  
+                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/> 
+                    </div>                
+                </div> 
+            </div>-->
             <div>
             <div ng-class="{disabled:pager.currentPage === pager.totalPages}" style="float: right;  width: 10%;">
                     <button ng-click="setPage(pager.currentPage + 1)">N</button>
