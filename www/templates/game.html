@@ -1,12 +1,12 @@
 <ion-view title="Hi Oriol, ready to Play?">
-    <div class="bar bar-header">
-        <div class="h1 title">Board game</div>
-        <button class="button button-clear button-positive" ng-click="gameChat()">
+    <ion-header-bar class="bar-positive">
+		<h1 class="title">Board Game</h1>
+        <button class="button button-clear" ng-click="gameChat()">
             <i class="ion-chatboxes" style="font-size: 20px;"></i>
         </button>
-    </div>
+    </ion-header-bar>
     
-    <ion-content scroll="false">
+    <ion-content scroll="false" style="padding-top: 10px; padding-left:5px; padding-right:5px;">
         <ion-scroll zooming="true" overflow-scroll="false" direction="xy" style = "height: 70%" delegate-handle="myScroll" scroll="false">
             <div class = "scroll-container">
                 <table id="table-board" class="boardgame" >
