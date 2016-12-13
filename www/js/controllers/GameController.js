@@ -508,7 +508,7 @@ angular.module('starter.controllers')
         
         var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
         //scrollView.freezeAllScrolls(true);
-        scrollView.zoomBy(0.2);
+        scrollView.zoomBy(0.1);
 
         $scope.actualGame = angular.fromJson($stateParams.actualGame);
         $scope.actualGame = $scope.actualGame.actualGame;

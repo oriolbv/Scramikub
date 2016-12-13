@@ -7,6 +7,36 @@
     margin-bottom: 40px;
 }
 
+.div-chart {
+    margin-top: 20px;
+    border: 0px transparent;
+}
+
+.chart-win-lose {
+    margin-top: 20px;
+}
+
+
+
+.tabs-titles {
+    color :#3d383a;
+    margin-left: 10px;
+    
+}
+
+.Ranking {
+    margin-top: 20px;
+}
+
+.ranking-title {
+    margin-top: 40px;
+}
+
+.item-settings {
+    height: 60px !important;
+}
+
+
 .section { 
   text-align:center; 
   display: inline-block;
@@ -116,7 +146,9 @@ img {
 }
 
 .selected-cell {
-    border: 5px solid black !important;
+    /*border: 5px solid black !important;*/
+    /*opacity: 0.4 !important;*/
+    filter: saturate(6) !important;
     color:blue;
 }
 
@@ -176,6 +208,11 @@ img {
 
 html, body {
     height: 100%;
+    /*background-color: #fed85d !important;*/
+}
+
+.background .pane{
+    background-color: white !important;
 }
 
 .page-wrap {
@@ -402,14 +439,21 @@ ul.draggable-objects:after {
     border: 1px solid #EADDDD;
     position: relative;
     display: block; 
+    float: left;
+    margin-right: 10px;
 }
 
 .chat-content .chat-msg-items .chat-item .user-info .avatar img {
     max-width: 100%; 
+    width: 42px;
+    height: 42px;
+    
 }
 
 .chat-content .chat-msg-items .chat-item .user-info .name {
-    text-align: center; 
+    text-align: left !important; 
+    font-weight: bold;
+    
 }
 
 .chat-content .chat-msg-items .msg-text {

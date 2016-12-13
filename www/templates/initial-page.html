@@ -1,32 +1,22 @@
-<div class="bar bar-header">
-  <div class="h1 title">Initial Page</div>
-  
-    <i class="ion-plus"></i>
-  </button>
-</div>
 
-        <ion-tabs class="tabs-icon-top tabs-positive" ng-init="doSomething()" delegate-handle="tabsDelegate">
+<ion-view title="Ready to Play?">
+    <ion-header-bar class="bar-positive">
+		<h1 class="title">Scramikub</h1>
+    </ion-header-bar>
+    <ion-tabs class="tabs-icon-top tabs-positive guuus" ng-init="doSomething()" delegate-handle="tabsDelegate">
 
-            <ion-tab title="Settings" icon="ion-ios-information" href="#/initial/settings">
-                <ion-nav-view name="settings-tab"></ion-nav-view>
-            </ion-tab>
+        <ion-tab title="Settings" icon="ion-ios-information" href="#/initial/settings">
+            <ion-nav-view name="settings-tab"></ion-nav-view>
+        </ion-tab>
 
-            <ion-tab title="Lobby" icon="ion-home" href="#/initial/lobby">
-                <ion-nav-view name="lobby-tab"></ion-nav-view>
-            </ion-tab>
+        <ion-tab title="Lobby" icon="ion-home" href="#/initial/lobby">
+            <ion-nav-view name="lobby-tab"></ion-nav-view>
+        </ion-tab>
 
-            <ion-tab title="Analytics" icon="ion-ios-world" href="#/initial/analytics">
-                <ion-nav-view name="analytics-tab"></ion-nav-view>
-            </ion-tab>
-            <!--<ion-tab title="About" icon="ion-ios-information" href="#/create-game">
-                <ion-nav-view name="create-game"></ion-nav-view>
-            </ion-tab>-->
-
-            <!--<ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
-                <ion-nav-view name="contact-tab"></ion-nav-view>
-            </ion-tab>-->
-
-        </ion-tabs>
-
+        <ion-tab title="Analytics" icon="ion-ios-world" href="#/initial/analytics">
+            <ion-nav-view name="analytics-tab"></ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>
 
 

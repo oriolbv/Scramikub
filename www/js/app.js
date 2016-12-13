@@ -38,8 +38,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				views: {
 					'settings-tab': {
 						cache: false,
-						templateUrl: 'templates/settings.html'
-						//controller: 'LobbyCtrl'
+						templateUrl: 'templates/settings.html',
+						controller: 'SettingsCtrl'
 					}
 				}
 			})
@@ -113,9 +113,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 		}
 		if (window.StatusBar) {
 				// org.apache.cordova.statusbar required
-				StatusBar.styleDefault();
+				StatusBar.hide();
 		}
-		
+		// StatusBar.hide();
 		// To Resolve Bug
 		ionic.Platform.fullScreen();
 

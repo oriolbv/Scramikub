@@ -6,19 +6,21 @@
 <ion-view title="Hi Oriol, ready to Play?">
     <ion-content class="has-header">
         <div class="list list-inset">
-			<label class="item item-input">
-				<input type="text" placeholder="Name" ng-model="game.name">
-			</label>
-			<label class="item item-input">
-				<input type="number" placeholder="Number of Players" ng-model="game.nPlayers">
-			</label>
-            <label class="item item-input">
-				<select ng-model="data.userSelected">
-                    <option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
-                <select>
-			</label>
+            <ion-list>
+                <label class="item item-input">
+                    <input type="text" placeholder="Name" ng-model="game.name">
+                </label>
+                <label class="item item-input">
+                    <input type="number" placeholder="Number of Players" ng-model="game.nPlayers">
+                </label>
+                <label class="item item-input">
+                    <select ng-model="data.userSelected">
+                        <option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
+                    <select>
+                </label>
+            </ion-list>
 		</div>
-            Against : {{data.userSelected}}
+            &nbsp; &nbsp; Against : {{data.userSelected}}
         
         <button class="button button-block button-positive" ng-click="createGame()">
             Create new Game
