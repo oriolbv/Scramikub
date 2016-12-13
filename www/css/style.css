@@ -1,6 +1,16 @@
+.title-image {
+    width: 100% !important;
+}
+
+.title-init {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
 .section { 
   text-align:center; 
-  display: inline-block; 
+  display: inline-block;
+  
 } 
  
 .section > div:nth-of-type(5n+1){ 
@@ -11,6 +21,8 @@
   position: relative; 
   float: left; 
   margin: 2px 2px 2px 2px; 
+  min-width: 50px;
+  min-height: 50px;
   /*padding:0px 7px; 
   padding-top:10px; 
   padding-bottom:10px;*/ 

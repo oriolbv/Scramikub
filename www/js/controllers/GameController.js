@@ -610,9 +610,10 @@ angular.module('starter.controllers')
         // default page size is 10
         pageSize = pageSize || 10;
 
-            // default page size is 10
-            pageSize = pageSize || 10;
+        // default page size is 10
+        pageSize = pageSize || 10;
 
+        var totalPages = Math.ceil(totalItems / pageSize); 
         var startPage, endPage;
         if (totalPages <= 10) {
             // less than 10 total pages so show all

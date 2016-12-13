@@ -13,13 +13,13 @@
                 <div class="item item-divider">
                         Play now!
                 </div>
-                <div ng-if="gamesToPlay.length == 0">
+                <!--<div ng-if="gamesToPlay.length == 0">
                     <div style="margin-left: 10px;">
                         <h5 style="margin-left: 10px;">Wait for other users to play, or start a new game! ;)</h5>
                     </div>
                     
-                </div>
-                <div ng-if="gamesToPlay.length != 0">
+                </div>-->
+                <!--<div ng-if="gamesToPlay.length != 0">-->
                     <ion-item ng-repeat="game in gamesToPlay track by $index" ng-click="clickGame(game)">
                      
                     <h2>{{game.name}}</h2>
@@ -28,10 +28,10 @@
                     
                       
                     </ion-item>
-                </div>
+                <!--</div>-->
 
                 
-                <div class="item item-divider">
+                <!--<div class="item item-divider">
                         Waiting for other players
                 </div>
                 <ion-item ng-repeat="game in gamesToWait track by $index" ng-click="clickGame(game)">
@@ -41,7 +41,7 @@
                     <h3>{{game.gameState}}</h3>
                     
                       
-                </ion-item>
+                </ion-item>-->
             </ion-list>
         </div>
 

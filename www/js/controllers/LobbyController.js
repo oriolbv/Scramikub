@@ -6,7 +6,7 @@ angular.module('starter.controllers')
     
     $scope.games = Games;
     $scope.gamesToPlay = [];
-    $scope.gamesToWait = [];
+    //$scope.gamesToWait = [];
 
     $scope.games.$loaded().then(function (games) {
         console.log($scope.games);
@@ -22,7 +22,8 @@ angular.module('starter.controllers')
                     }
                     else {
                         game.gameState = "It's not your turn. Waiting for other users..."
-                        $scope.gamesToWait.push(game);
+                        //$scope.gamesToWait.push(game);
+                        $scope.gamesToPlay.push(game);
                     }
                     auxGames.push(game);
                 }
@@ -30,7 +31,6 @@ angular.module('starter.controllers')
         }
         $scope.games = auxGames;
     });
-
 
     $scope.clickGame = function(game){
         if (game.players[game.userTurn] == userConnected.password.email) {
