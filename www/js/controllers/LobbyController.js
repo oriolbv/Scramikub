@@ -47,6 +47,6 @@ angular.module('starter.controllers')
     };
 
     $scope.addGame = function() {
-    	$state.go('create-game');
+    	$state.go('create-game', { 'players': [userInfo.email]});
   	};
 });

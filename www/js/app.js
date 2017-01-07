@@ -53,13 +53,29 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 					}
 				}
 			})
+			.state('initial.user', {
+				url: '/user',
+				views: {
+					'user-tab': {
+						cache: false,
+						templateUrl: 'templates/user.html',
+						controller: 'UserCtrl'
+					}
+				}
+			})
 
 			.state('create-game', {
-				url: '/create-game',
+				url: '/create-game?players',
 				cache: false,
 				templateUrl: 'templates/create-game.html',
 				controller: 'CreateGameCtrl',
 				// controllerAs: 'vm'
+			})
+			.state('select-players', {
+				url: '/select-players?numPlayers',
+				cache: false,
+				templateUrl: 'templates/select-players.html',
+				controller: 'SelectPlayersCtrl',
 			})
 			.state('game', {
 				url: '/game?actualGame',

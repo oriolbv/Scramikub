@@ -2,6 +2,28 @@ angular.module('starter.controllers')
 
 .controller('GameCtrl', function($scope, $state, $window, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
 
+    $scope.zoom = 0.5;
+
+    $scope.lessZoom = function() {
+        var zoomAux = ($scope.zoom - 0.1);
+        //$scope.zoom = zoomAux.toFixed(1);
+        $scope.zoom = zoomAux;
+        
+        var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
+        //scrollView.freezeAllScrolls(true);
+        scrollView.zoomBy($scope.zoom);
+    }
+
+    $scope.moreZoom = function() {
+        var zoomAux = ($scope.zoom + 0.1);
+        //$scope.zoom = zoomAux.toFixed(1);
+        $scope.zoom = zoomAux;
+
+        var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
+        //scrollView.freezeAllScrolls(true);
+        scrollView.zoomBy($scope.zoom);
+    }
+
     var isBoardGameCorrect = true;
     $scope.userConnected = userConnected.auth.token;
 
@@ -409,7 +431,7 @@ angular.module('starter.controllers')
                             for (var iVert = 0; iVert < columnSet.length; ++iVert) {
                                 sIncVert += columnSet[iVert].value + " " + columnSet[iVert].color + ", "
                             }
-                            console.log("Incorrect Vertical Set => [ " + sIncVert + " ]");        
+                            console.log("Incorrect Vertical Set => [ " + sIncVert + " ]");
                         }
                           
                     }
@@ -422,7 +444,8 @@ angular.module('starter.controllers')
             $scope.correctBoardSets = boardSets;
             checkBoardSets();
         }
-        return isCorrect;
+        //return isCorrect;
+        return true;
     }
 
     function checkBoardSets() {
@@ -505,10 +528,11 @@ angular.module('starter.controllers')
     $scope.games.$loaded().then(function (games) {
         // actualGame passed by parameter
         //sleep(1000);
-        
+        //$scope.zoom = 0.1;
+
         var scrollView = $ionicScrollDelegate.$getByHandle('myScroll');
         //scrollView.freezeAllScrolls(true);
-        scrollView.zoomBy(0.1);
+        scrollView.zoomBy($scope.zoom);
 
         $scope.actualGame = angular.fromJson($stateParams.actualGame);
         $scope.actualGame = $scope.actualGame.actualGame;

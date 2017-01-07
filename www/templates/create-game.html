@@ -14,10 +14,40 @@
                     <input type="number" placeholder="Number of Players" ng-model="game.nPlayers">
                 </label>
                 <label class="item item-input">
-                    <select ng-model="data.userSelected">
+                    <!--<select ng-model="data.userSelected">
                         <option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
-                    <select>
+                    <select>-->
+                    <div class="input-label" style="width: 80%;">
+                        {{playersString}}
+                    </div>
+                    <button class="button button-block button-positive" ng-click="selectPlayers()" style="width: 20%;">
+                        Select
+                    </button>
                 </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Number of chips
+                    </div>
+                    <select>
+                        <option>60</option>
+                        <option selected>90</option>
+                        <option>120</option>
+                        <option>180</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <input type="number" placeholder="Number of Jokers" ng-model="game.nJokers">
+                </label>
+                <label class="item item-input">
+                    <div class="input-label">
+                        Board Size
+                    </div>
+                    <select>
+                        <option>10x10</option>
+                        <option selected>15x15</option>
+                    </select>
+                </label>
+                
             </ion-list>
 		</div>
             &nbsp; &nbsp; Against : {{data.userSelected}}

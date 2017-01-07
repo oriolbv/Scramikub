@@ -1,0 +1,21 @@
+<ion-view title="User">
+    <ion-content>
+		<div class="item-content">
+			<img ng-src="{{img}}" />
+			<div class="item-divider">User Info</div>
+			<div class="item-text-wrap">
+				<ul>
+					<li>Display name:    {{userConnected.displayName}}</li>
+					<li>Email:    {{userConnected.email}}</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="item item-text-wrap div-chart">
+			<canvas id="pie" class="chart chart-pie chart-win-lose"
+				chart-data="data" chart-labels="labels" chart-options="options">
+			</canvas> 
+		</div>
+    </ion-content>
+</ion-view>

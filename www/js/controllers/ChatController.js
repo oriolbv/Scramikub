@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('ChatCtrl', function($scope, $state, $stateParams, $rootScope, Chats, $firebaseArray, $ionicScrollDelegate) {
+.controller('ChatCtrl', function($scope, $state, $rootScope, Chats, $firebaseArray, $ionicScrollDelegate, $stateParams) {
     $scope.chats = Chats;
 
 	$scope.chat = {};

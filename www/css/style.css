@@ -7,8 +7,13 @@
     margin-bottom: 40px;
 }
 
+.item-content {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 .div-chart {
-    margin-top: 20px;
+    margin-top: 50px;
     border: 0px transparent;
 }
 
@@ -85,8 +90,8 @@
 } 
  
 img { 
-  height:100px;
-  width: 100px;
+  height:45px;
+  width: 45px;
 }
 /*div img {
     position: absolute
@@ -95,9 +100,9 @@ img {
 
 
 .boardgame td {
-    border: 2px solid #000;
-    width: 50px;
-    height: 50px;
+    border: 2px solid #A57B5A;
+    width: 45px;
+    height: 45px;
 }
 
 .boardgame {
@@ -106,19 +111,19 @@ img {
 }
 
 .square {
-    padding: 50px;
-    width: 50px;
-    height: 50px;
+    padding: 22.5px;
+    width: 20px !important;
+    height: 20px !important;
     margin: 5px;   
 }
 
 .square-done {
     padding: 0px;
-    width: 50px;
-    height: 50px;
+    width: 20px;
+    height: 20px;
     margin: 5px;   
     background-image: url("../img/casella_mig.png");
-    background-size: 100px 100px;
+    background-size: 45px 45px !important;
     background-repeat: no-repeat;
     
 }
@@ -131,8 +136,8 @@ img {
 
 
 .square-chip-done {
-    width: 100px !important;
-    height: 100px !important;
+    width: 20px !important;
+    height: 20px !important;
 
     background: rgba(155,222,0, 0.5);
     color:white;
@@ -176,15 +181,15 @@ img {
 [ng-drag].square-chip {
     background: transparent;
     color: transparent;
-    width: 50px;
-    height: 50px; 
+    width: 25px;
+    height: 25px; 
 }
 
 [ng-drag].square-chip {
     background: transparent;
     color: transparent;
-    width: 50px;
-    height: 50px; 
+    width: 25px;
+    height: 25px; 
 }
 /*#cell-drop {
     
@@ -193,8 +198,8 @@ img {
 [ng-drag].square-chip-done {
     background: transparent;
     color: transparent;
-    width: 100px !important;
-    height: 100px !important;
+    width: 25px !important;
+    height: 25px !important;
 }
 
 
@@ -304,8 +309,8 @@ ul.draggable-objects:after {
 [ng-drag].dragging {
     opacity: 0.5;
     border: solid 3px #ffc900;
-    width: 50px;
-    height: 50px 
+    width: 45px;
+    height: 45px 
 }
 
 [ng-drop].square {
@@ -313,7 +318,7 @@ ul.draggable-objects:after {
     border-radius: 5px;
     /*background: rgba(0, 255, 0, 0.5);*/
     background-image: url("../img/casella_mig.png");
-    background-size: 100px 100px;
+    background-size: 45px 45px;
     background-repeat: no-repeat;
     text-align: center;
     /*width: 100%;
