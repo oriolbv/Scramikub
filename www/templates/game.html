@@ -28,22 +28,22 @@
             </div>
         </div>
     
-            <div ng-class="{disabled:pager.currentPage === 1}" style="float: left; width: 10%;">
-                <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage - 1)">Previous</button>
-            </div>
-            <div ng-class="{disabled:pager.currentPage === pager.totalPages}" style="float: right;  width: 10%; margin-right:15px;">
-                    <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage + 1)">Next</button>
-            </div>
+        <div ng-class="{disabled:pager.currentPage === 1}" style="float: left; width: 10%;">
+            <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage - 1)">Previous</button>
+        </div>
+        <div ng-class="{disabled:pager.currentPage === pager.totalPages}" style="float: right;  width: 10%; margin-right:15px;">
+                <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage + 1)">Next</button>
+        </div>
 
         <div class="bar bar-footer bar-positive">
             <button class="button button-positive" ng-click="passMove()">Pass</button>
             <button class="button button-positive" ng-click="playMove()">Play!</button>
-            &nbsp;&nbsp;
+            <!--&nbsp;&nbsp;
             <button ng-click="lessZoom()">-</button>
             &nbsp;
             &nbsp;
             <button ng-click="moreZoom()">+</button>
-            &nbsp;&nbsp;
+            &nbsp;&nbsp;-->
             <button class="button button-positive" ng-click="returnChipsToDock()">Return Chips</button>
         </div>
     </ion-content>

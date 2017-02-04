@@ -1,12 +1,12 @@
 <ion-view title="User">
-    <ion-content>
+    <ion-content scroll="false">
 		<div class="item-content">
-			<img ng-src="{{img}}" />
+			<img ng-src="{{img}}" style="width: 120px; height: 120px; margin-bottom: 10px;"/>
 			<div class="item-divider">User Info</div>
-			<div class="item-text-wrap">
+			<div class="item-text-wrap" style="margin-bottom: 15px;">
 				<ul>
-					<li>Display name:    {{userConnected.displayName}}</li>
-					<li>Email:    {{userConnected.email}}</li>
+					<li style="margin-bottom: 5px;">Display name:    {{userConnected.displayName}}</li>
+					<li style="margin-bottom: 5px;">Email:    {{userConnected.email}}</li>
 				</ul>
 			</div>
 		</div>

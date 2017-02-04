@@ -65,14 +65,14 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 			})
 
 			.state('create-game', {
-				url: '/create-game?players',
+				url: '/create-game?players?name?numPlayers',
 				cache: false,
 				templateUrl: 'templates/create-game.html',
 				controller: 'CreateGameCtrl',
 				// controllerAs: 'vm'
 			})
 			.state('select-players', {
-				url: '/select-players?numPlayers',
+				url: '/select-players?numPlayers?name',
 				cache: false,
 				templateUrl: 'templates/select-players.html',
 				controller: 'SelectPlayersCtrl',

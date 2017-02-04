@@ -14,7 +14,14 @@ angular.module('starter.controllers')
     $scope.playersString = "";
 
     $scope.data = {
-        userSelected: []
+        name : "",
+        userSelected: [],
+        nPlayers: 0,
+        numChips: 90,
+        nJokers: 3,
+        horizontalSize: 15,
+        verticalSize: 15
+
     };
 
     $scope.game = {};
@@ -27,11 +34,13 @@ angular.module('starter.controllers')
     $scope.users.$loaded().then(function (user) {
         $scope.users = $scope.users[0];
         if (angular.fromJson($stateParams.players) instanceof Array) {
-            $scope.players = angular.fromJson($stateParams.players);     
+            $scope.players = angular.fromJson($stateParams.players);
+            $scope.data.name = $stateParams.name;
+            $scope.data.numPlayers = angular.fromJson($stateParams.numPlayers);   
         } else {
             $scope.players.push(angular.fromJson($stateParams.players));
         }
-        
+        $scope.data.nPlayers = $scope.players.length;
         for (var i = 0; i < $scope.players.length; ++i) {
             if (i != $scope.players.length - 1) {
                 $scope.playersString += $scope.players[i] + " vs ";
@@ -45,28 +54,71 @@ angular.module('starter.controllers')
 
     $scope.selectPlayers = function() {
         // $state.go('chat', { 'actualGame': actualGame });
-        $state.go('select-players', { 'numPlayers': 3 });
+        $state.go('select-players', { 'numPlayers': $scope.data.nPlayers, 'name' : $scope.data.name });
     }
 
     $scope.createGame = function() {
         console.log($scope.data.userSelected);
         var allChips = [];
-        allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, OrangeSuit1, PurpleSuit1, Joker1, Joker2, Joker3);
+        if ($scope.data.numChips == 60) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1);
+        } else if ($scope.data.numChips == 90) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, OrangeSuit1, PurpleSuit1);
+        } else if ($scope.data.numChips == 120) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, BlueSuit2, RedSuit2, YellowSuit2, GreenSuit2);
+        } else {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, OrangeSuit1, PurpleSuit1, BlueSuit2, RedSuit2, YellowSuit2, GreenSuit2, OrangeSuit2, PurpleSuit2);
+        }
+        if ($scope.data.nJokers == 0) {
+
+        } else if ($scope.data.nJokers == 1) {
+            allChips.concat(Joker1);
+        } else if ($scope.data.nJokers == 2) {
+            allChips.concat(Joker1, Joker2);
+        } else if ($scope.data.nJokers == 3) {
+            allChips = allChips.concat(Joker1, Joker2, Joker3);
+        } else if ($scope.data.nJokers == 4) {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4);
+        } else if ($scope.data.nJokers == 5) {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4, Joker5);
+        } else  {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4, Joker6);
+        }
+
+
+
         allChips = shuffle(allChips);
-        var player1Chips = [];
-        for (var i = 0; i < 15; ++i) {
-            player1Chips.push(allChips[i]);
-            allChips.shift();
-        }
-        var player2Chips =  [];
-        for (var i = 0; i < 15; ++i) {
-            player2Chips.push(allChips[i]);
-            allChips.shift();
-        }
-        var board = [];
-        for (var i = 0; i < 15; ++i) {
-            var row = [];
+
+        allChips = allChips.filter(function(item, pos) {
+            return allChips.indexOf(item) == pos;
+        });
+
+        var finalPlayersChips = [];
+
+        for (var i = 0; i < $scope.data.nPlayers; ++i) {
+            finalPlayersChips.push([]);
             for (var j = 0; j < 15; ++j) {
+                finalPlayersChips[i].push(allChips[i]);
+                allChips.shift();
+            }
+        }
+
+        // var player1Chips = [];
+        // for (var i = 0; i < 15; ++i) {
+        //     player1Chips.push(allChips[i]);
+        //     allChips.shift();
+        // }
+        // var player2Chips =  [];
+        // for (var i = 0; i < 15; ++i) {
+        //     player2Chips.push(allChips[i]);
+        //     allChips.shift();
+        // }
+
+        // Size of board
+        var board = [];
+        for (var i = 0; i < $scope.data.verticalSize; ++i) {
+            var row = [];
+            for (var j = 0; j < $scope.data.horizontalSize; ++j) {
                 row.push({
                     "chipId" : "",
                     "color" : "",
@@ -83,14 +135,54 @@ angular.module('starter.controllers')
         /* Workarround to implement the checker algorithm */
         //player1Chips = [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}];
 
-        // Checking chips
+        // Checking chips if repited
         var playerChips = [];
-        for (var i = 0; i < 15; i++) {
-            playerChips.push(player1Chips[i]);
+        // for (var i = 0; i < 15; i++) {
+        //     playerChips.push(player1Chips[i]);
+        // }
+        // for (var i = 0; i < 15; i++) {
+        //     playerChips.push(player2Chips[i]);
+        // }
+        for (var i = 0; i < $scope.data.nPlayers; ++i) {
+            for (var j = 0; j < 15; ++j) {
+                playerChips.push(finalPlayersChips[i][j]);
+            }
         }
-        for (var i = 0; i < 15; i++) {
-            playerChips.push(player2Chips[i]);
+
+
+
+        var repitedChips = 0;
+        for (var iChips = 0; iChips < 30; ++iChips) {
+            var chip = playerChips[iChips];
+            for (var jChips = 0; jChips < 30; ++jChips) {
+                if (allChips[jChips] != null) {
+                    if (chip.chipId == allChips[jChips].chipId) {
+                        repitedChips++;
+                        console.log(allChips[jChips]);
+                        var index = allChips.indexOf(allChips[jChips]);
+                        if (index > -1) {
+                            allChips.splice(index, 1);
+                        }
+                    }
+                }
+                
+            }
         }
+        console.log("Repited Chips: " + repitedChips);
+
+        var repitedChips = 0;
+        for (var iChips = 0; iChips < 30; ++iChips) {
+            var chip = playerChips[iChips];
+            for (var jChips = 0; jChips < 30; ++jChips) {
+                if (allChips[jChips] != null) {
+                    if (chip.chipId == allChips[jChips].chipId) {
+                        repitedChips++;
+                        console.log(allChips[jChips]);
+                    }
+                }
+            }
+        }
+        console.log("New Repited Chips: " + repitedChips);
 
         var repitedChips = 0;
         for (var iChips = 0; iChips < 30; ++iChips) {
@@ -127,19 +219,19 @@ angular.module('starter.controllers')
 
         if ($scope.data.userSelected != null) {
             $scope.games.$add({
-                "name": $scope.game.name,
-                "players": [$scope.userConnected.email, $scope.data.userSelected],
+                "name": $scope.data.name,
+                "players": $scope.players,
                 "userTurn": 0,
                 "gameState": "",
                 "board": board,
-                "playersChips": [player1Chips, player2Chips],
+                "playersChips": finalPlayersChips,
                 "gameChips": allChips,
                 "winner": ""
             });
 
             $scope.chats.$add({
-                "gameName" : $scope.game.name,
-                "users" : [$scope.userConnected.email, $scope.data.userSelected],
+                "gameName" : $scope.data.name,
+                "users" : $scope.players,
                 "messages" : [{
                     "sender_username" : $scope.userConnected.email,
                     "content" : "Hello! Hello"
@@ -180,6 +272,9 @@ angular.module('starter.controllers')
 var Joker1 = {chipId: "jkr1", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
 var Joker2 = {chipId: "jkr2", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
 var Joker3 = {chipId: "jkr3", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker4 = {chipId: "jkr4", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker5 = {chipId: "jkr5", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker6 = {chipId: "jkr6", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
 
 var BlueSuit1 =  [   {chipId: "1b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
                     {chipId: "1b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 

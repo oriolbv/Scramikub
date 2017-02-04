@@ -2,6 +2,9 @@ angular.module('starter.controllers')
 
 .controller('GameCtrl', function($scope, $state, $window, $stateParams, $rootScope, $ionicScrollDelegate, Games, $ionicPopup) {
 
+    var horizontalSize = 15;
+    var verticalSize = 15;
+
     $scope.zoom = 0.5;
 
     $scope.lessZoom = function() {
@@ -49,83 +52,83 @@ angular.module('starter.controllers')
     $scope.ChipInitialPosition = null;
     $scope.ElementSelected = null;
 
-    // $scope.returnChipToDock = function($data,$event) {
-    //     console.log("DOCK");
-    //     var elemSelected = document.getElementById("cell-drop-selected");
-    //     // If some element of the board is selected ...
-    //     if (elemSelected != null) {
-    //         var row = elemSelected.parentNode.rowIndex;
-    //         var col = elemSelected.cellIndex;
-    //         var chip = $scope.board[row][col];
-    //         chip.row = "";
-    //         chip.column = "";
-    //         var chipClone = (JSON.parse(JSON.stringify(chip)));
+    $scope.returnChipToDock = function($data,$event) {
+        console.log("DOCK");
+        var elemSelected = document.getElementById("cell-drop-selected");
+        // If some element of the board is selected ...
+        if (elemSelected != null) {
+            var row = elemSelected.parentNode.rowIndex;
+            var col = elemSelected.cellIndex;
+            var chip = $scope.board[row][col];
+            chip.row = "";
+            chip.column = "";
+            var chipClone = (JSON.parse(JSON.stringify(chip)));
 
-    //         $scope.actualGame.playersChips[$scope.actualGame.userTurn].push(chipClone);
-    //         delete chip;
-    //         elemSelected.remove();
-    //         //$scope.draggableObjects.push(chip);
-    //         $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
-    //         angular.element(elemSelected).removeClass("selected-cell");
-    //         $scope.ChipInitialPosition = null;
-    //         elemSelected.id = "cell-drop";
-    //         $scope.ElementSelected = elemSelected;
+            $scope.actualGame.playersChips[$scope.actualGame.userTurn].push(chipClone);
+            delete chip;
+            elemSelected.remove();
+            //$scope.draggableObjects.push(chip);
+            $scope.draggableObjects = $scope.actualGame.playersChips[$scope.actualGame.userTurn];
+            angular.element(elemSelected).removeClass("selected-cell");
+            $scope.ChipInitialPosition = null;
+            elemSelected.id = "cell-drop";
+            $scope.ElementSelected = elemSelected;
 
-    //         var obj = {chipId: "", color: "", value: 0, imgLink: "", row: "", column: ""};
+            var obj = {chipId: "", color: "", value: 0, imgLink: "", row: "", column: ""};
             
             
 
-    //         // var table = document.getElementById("table-board");
-    //         // var cell = table.rows[row].cells[col];
-    //         // angular.element(cell).removeClass("square").addClass("square-done");
-    //         // angular.element($scope.ElementSelected.childNodes[0]).removeClass("squareChip").addClass("square-chip-done");
-    //         // cell.appendChild($scope.ElementSelected.childNodes[0]);
+            // var table = document.getElementById("table-board");
+            // var cell = table.rows[row].cells[col];
+            // angular.element(cell).removeClass("square").addClass("square-done");
+            // angular.element($scope.ElementSelected.childNodes[0]).removeClass("squareChip").addClass("square-chip-done");
+            // cell.appendChild($scope.ElementSelected.childNodes[0]);
 
-    //         //var obj = {chipId: "", color: "", value: 0};
-    //         $scope.actualGame.board[row][col]= obj;
-    //         // $scope.board[row][col].chipId = "";
-    //         // $scope.board[row][col].color = "";
-    //         // $scope.board[row][col].value = 0;
-    //         // $scope.board[row][col].imgLink = "";
-    //         // $scope.board[row][col].row = "";
-    //         // $scope.board[row][col].column = "";
+            //var obj = {chipId: "", color: "", value: 0};
+            $scope.actualGame.board[row][col]= obj;
+            // $scope.board[row][col].chipId = "";
+            // $scope.board[row][col].color = "";
+            // $scope.board[row][col].value = 0;
+            // $scope.board[row][col].imgLink = "";
+            // $scope.board[row][col].row = "";
+            // $scope.board[row][col].column = "";
 
-    //         $scope.ChipInitialPosition = null;
+            $scope.ChipInitialPosition = null;
 
-    //         //delete $scope.board[row][col];
-    //         //$scope.actualGame.board = $scope.board;
-    //         ///deleteChip(row, col);
+            //delete $scope.board[row][col];
+            //$scope.actualGame.board = $scope.board;
+            ///deleteChip(row, col);
             
-    //         printBoard($scope.board);
-    //         refreshGame($scope.board);
-    //     }
-    // }
+            printBoard($scope.board);
+            refreshGame($scope.board);
+        }
+    }
 
     $scope.returnChipsToDock = function($data,$event) {
-        //$state.go($state.current, {}, {reload: true});
+        // $state.go($state.current, {}, {reload: true});
         
-        //$state.go($state.current, {}, {reload: false});
+        // $state.go($state.current, {}, {reload: false});
         
-        // $scope.board = $scope.previousBoard;
-        // $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
-        // for (var i = 0; i < $scope.board.length; ++i) {
-        //     for (var j = 0; j < $scope.board[0].length; ++j) {
-        //         if ($scope.board[i][j].chipId != "") {
-        //             insertChipToCell($scope.board[i][j], i, j)
-        //         }
-        //     }
-        // }
-        // $scope.board = $scope.previousBoard;
-        // $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
+        $scope.board = $scope.previousBoard;
+        $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
+        for (var i = 0; i < $scope.board.length; ++i) {
+            for (var j = 0; j < $scope.board[0].length; ++j) {
+                if ($scope.board[i][j].chipId != "") {
+                    insertChipToCell($scope.board[i][j], i, j)
+                }
+            }
+        }
+        $scope.board = $scope.previousBoard;
+        $scope.actualGame.playersChips[$scope.actualGame.userTurn] = $scope.previousChips;
 
 
-        // passActualGameWithRefresh()
+        passActualGameWithRefresh()
 
-        //  setTimeout(function(){
-            //$state.go($state.current, {}, {reload: true});
-        // }, 100);  
+         setTimeout(function(){
+            $state.go($state.current, {}, {reload: true});
+        }, 100);  
         
-        //$window.location.reload();
+        $window.location.reload();
     }
 
     function refreshGame(board) {
@@ -267,8 +270,8 @@ angular.module('starter.controllers')
     function checkBoardGame(boardgame) {
         var isCorrect = true;
         var boardSets = [];
-        for (var i = 0; i < 15; ++i) {
-            for (var j = 0; j < 15; ++j) {
+        for (var i = 0; i < verticalSize; ++i) {
+            for (var j = 0; j < horizontalSize; ++j) {
                 // If there is a chip in actual position...
                 if (boardgame[i][j].value != 0) {
                     var actualCell = {
@@ -278,33 +281,36 @@ angular.module('starter.controllers')
                     // Check all the row positions
                     var rowSet = [actualCell];
                     // ---->
-                    for (var rowRight = j+1; rowRight < 15; ++rowRight) {
+                    var isFirstColumn = false;
+                    for (var rowRight = j+1; rowRight < verticalSize; ++rowRight) {
                         if (boardgame[i][rowRight].value == 0) { break; }
                         else {
                             var rightCell = {
                                 "color" : boardgame[i][rowRight].color,
                                 "value" : boardgame[i][rowRight].value
                             };
-                            
+
                             var previousCell = rowSet[rowSet.length - 1];
                             // STRAIGHT OF SAME COLOR
                             if ((previousCell.color == rightCell.color) || (rightCell.color == "joker")) {
                                 if (previousCell.value != 15) {
-                                    if ((rightCell.value == previousCell.value + 1) || (rightCell.color == "joker")) {
+                                    if ((rightCell.value == previousCell.value + 1) || (rightCell.value == previousCell.value - 1) || (rightCell.color == "joker")) {
                                         rowSet.push(rightCell);
                                     }
                                 } else {
-                                    // TO-DO : If the joker is a 15...
                                     if ((rightCell.value == 1) || (rightCell.color == "joker")) {
                                         rowSet.push(rightCell);
                                     }
                                 }
-                                
                             // STRAIGHT OF SAME VALUE DIFFERENT COLOR
                             } else {
                                 if ((rightCell.value == previousCell.value) || (rightCell.color == "joker")) {
                                     rowSet.push(rightCell);
                                 }
+                            }
+                            // 
+                            if (j == verticalSize - 1) {
+                                rowRight = 0;
                             }
                         }
                     }
@@ -320,11 +326,10 @@ angular.module('starter.controllers')
                             // STRAIGHT OF SAME COLOR
                             if ((nextCell.color == leftCell.color) || (leftCell.color == "joker")) {
                                 if (nextCell.value != 1) {
-                                    if ((leftCell.value == nextCell.value - 1) || (leftCell.color == "joker")) {
+                                    if ((leftCell.value == nextCell.value - 1) || (leftCell.value == nextCell.value + 1) || (leftCell.color == "joker")) {
                                         rowSet.unshift(leftCell);
                                     }
                                 } else {
-                                    // TO-DO : If the joker is a 1...
                                     if ((leftCell.value == 15) || (leftCell.color == "joker")) {
                                         rowSet.unshift(leftCell);
                                     }
@@ -358,7 +363,7 @@ angular.module('starter.controllers')
                     // Check all the column positions
                     var columnSet = [actualCell];
                     // DOWN
-                    for (var columnDown = i+1; columnDown < 15; ++columnDown) {
+                    for (var columnDown = i+1; columnDown < horizontalSize; ++columnDown) {
                         if (boardgame[columnDown][j].value == 0) { break; }
                         else {
                             var downCell = {
@@ -370,11 +375,10 @@ angular.module('starter.controllers')
                             // STRAIGHT OF SAME COLOR
                             if ((previousCell.color == downCell.color) || (downCell.color == "joker")) {
                                 if (previousCell != 15) {
-                                    if ((downCell.value == previousCell.value + 1) || (downCell.color == "joker")) {
+                                    if ((downCell.value == previousCell.value + 1) || (downCell.value == previousCell.value - 1) || (downCell.color == "joker")) {
                                         columnSet.push(downCell);
                                     }
                                 } else {
-                                    // TO-DO : If the joker is a 15...
                                     if ((downCell.value == 1) || (downCell.color == "joker")) {
                                         columnSet.push(downCell);
                                     }
@@ -401,12 +405,11 @@ angular.module('starter.controllers')
                             // STRAIGHT OF SAME COLOR
                             if ((nextCell.color == upCell.color) || (upCell.color == "joker")) {
                                 if (nextCell != 1) {
-                                    if ((upCell.value == nextCell.value - 1) || (upCell.color == "joker")) {
+                                    if ((upCell.value == nextCell.value - 1) || (upCell.value == nextCell.value + 1) || (upCell.color == "joker")) {
                                         columnSet.unshift(upCell);
                                     }
                                 }
                                 else {
-                                    // TO-DO : If the joker is a 1...
                                     if ((upCell.value == 15) || (upCell.color == "joker")) {
                                         columnSet.unshift(upCell);
                                     }
@@ -444,8 +447,8 @@ angular.module('starter.controllers')
             $scope.correctBoardSets = boardSets;
             checkBoardSets();
         }
-        //return isCorrect;
-        return true;
+        isCorrect = true;
+        return isCorrect;
     }
 
     function checkBoardSets() {
@@ -761,13 +764,17 @@ angular.module('starter.controllers')
             // Normalize board
             $scope.actualGame.board = $scope.board;
             $scope.actualGame = angular.copy($scope.actualGame);
+            var playersChips = [];
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                playersChips.push($scope.actualGame.playersChips[i]);
+            }
             games.$ref().child($scope.actualGame.$id).set({
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
                 "userTurn": userTurnPos,
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
-                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "playersChips": playersChips,
                 "gameChips": $scope.actualGame.gameChips,
                 "winner": "",
                 "element": $scope.elem
@@ -795,13 +802,17 @@ angular.module('starter.controllers')
             // Normalize board
             $scope.actualGame.board = $scope.board;
             $scope.actualGame = angular.copy($scope.actualGame);
+            var playersChips = [];
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                playersChips.push($scope.actualGame.playersChips[i]);
+            }
             games.$ref().child($scope.actualGame.$id).set({
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
                 "userTurn": $scope.actualGame.userTurn,
                 "gameState": "The game has finished. Winner : " + $scope.userConnected.email,
                 "board": $scope.actualGame.board,
-                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "playersChips": playersChips,
                 "gameChips": $scope.actualGame.gameChips,
                 "winner": $scope.userConnected.email
             });
@@ -831,13 +842,17 @@ angular.module('starter.controllers')
             // Normalize board
             $scope.actualGame.board = $scope.board;
             $scope.actualGame = angular.copy($scope.actualGame);
+            var playersChips = [];
+            for (var i = 0; i < $scope.actualGame.players.length; ++i) {
+                playersChips.push($scope.actualGame.playersChips[i]);
+            }
             games.$ref().child($scope.actualGame.$id).set({
                 "name": $scope.actualGame.name,
                 "players": $scope.actualGame.players,
                 "userTurn": userTurnPos,
                 "gameState": $scope.actualGame.gameState,
                 "board": $scope.actualGame.board,
-                "playersChips": [$scope.actualGame.playersChips[0], $scope.actualGame.playersChips[1]],
+                "playersChips": playersChips,
                 "gameChips": $scope.actualGame.gameChips,
                 "winner": "",
                 "element": $scope.elem

@@ -23,7 +23,8 @@
                     <ion-item ng-repeat="game in gamesToPlay track by $index" ng-click="clickGame(game)">
                      
                     <h2>{{game.name}}</h2>
-                    <h3>{{game.players[0]}} VS {{game.players[1]}}</h3>
+                    <h3 ng-if="game.players.length == 2">{{game.players[0]}} VS {{game.players[1]}}</h3>
+                    <h3 ng-if="game.players.length == 3">{{game.players[0]}} VS {{game.players[1]}} VS {{game.players[2]}}</h3>
                     <h3>{{game.gameState}}</h3>
                     
                       

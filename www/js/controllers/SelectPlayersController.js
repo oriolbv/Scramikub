@@ -7,11 +7,14 @@ angular.module('starter.controllers')
 
 	$scope.usersSelected = [userInfo.email];
 
+	$scope.name = "";
+
 	$scope.numPlayers = 0;
 
 	$scope.users.$loaded().then(function (user) {
         $scope.users = $scope.users[0];
 		$scope.numPlayers = angular.fromJson($stateParams.numPlayers);
+		$scope.name = $stateParams.name;
         console.log($scope.users);
     });
 
@@ -40,7 +43,7 @@ angular.module('starter.controllers')
 				template: 'You are not selecting the players correctly!'
 			});
 		} else {
-			$state.go('create-game', {'players' : $scope.usersSelected});
+			$state.go('create-game', {'players' : $scope.usersSelected, 'name' : $scope.name, 'numPlayers' : $scope.numPlayers});
 		}
 	}
 });
