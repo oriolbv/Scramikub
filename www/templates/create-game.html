@@ -1,24 +1,68 @@
-<div class="bar bar-header">
-    <div class="h1 title">Create new game!</div>
-</div>
-
+<ion-header-bar class="bar-positive">
+	<h1 class="h1 title">Create new game!</h1>
+</ion-header-bar>
 
 <ion-view title="Hi Oriol, ready to Play?">
     <ion-content class="has-header">
         <div class="list list-inset">
-			<label class="item item-input">
-				<input type="text" placeholder="Name" ng-model="game.name">
-			</label>
-			<label class="item item-input">
-				<input type="number" placeholder="Number of Players" ng-model="game.nPlayers">
-			</label>
-            <label class="item item-input">
-				<select ng-model="data.userSelected">
-                    <option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
-                <select>
-			</label>
+            <ion-list>
+                <label class="item item-input">
+                    <input type="text" placeholder="Name" ng-model="data.name">
+                </label>
+                
+                <label class="item item-input">
+                    <div class="input-label">
+                        Number of Players
+                    </div>
+                    <input type="number" placeholder="Number of Players" ng-model="data.nPlayers">
+                </label>
+                <label class="item item-input">
+                    <!--<select ng-model="data.userSelected">
+                        <option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
+                    <select>-->
+                    <div style="width: 320px">
+                        <div class="input-label" placeholder="Select players..." style="width: 90%; float: left; display: inline-block; margin-top:15px; overflow-x: auto; white-space: nowrap;">
+                            {{playersString}}
+                        </div>
+                        <div style="width: 10%; float: right; margin-right: 23px; display: inline-block;">
+                            <button class="button button-block button-positive" ng-click="selectPlayers()" >
+                            Add
+                        </button>
+                        </div>
+                        
+                    </div>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Number of chips
+                    </div>
+                    <select ng-model="data.numChips"> 
+                        <option>60</option>
+                        <option selected>90</option>
+                        <option>120</option>
+                        <option>180</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <div class="input-label">
+                        Number of Jokers
+                    </div>
+                    <input type="number" placeholder="Number of Jokers" ng-model="data.nJokers">
+                </label>
+                <label class="item item-input">
+                    <div class="input-label">
+                        Board Size
+                    </div>
+                    <select>
+                        <option>10x10</option>
+                        <option selected>15x15</option>
+                    </select>
+                </label>
+                
+            </ion-list>
 		</div>
-            Against : {{data.userSelected}}
+        &nbsp; &nbsp;
+            <!--&nbsp; &nbsp; Against : {{data.userSelected}}-->
         
         <button class="button button-block button-positive" ng-click="createGame()">
             Create new Game

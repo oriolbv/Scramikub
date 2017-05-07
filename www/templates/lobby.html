@@ -6,32 +6,33 @@
 </div>-->
 
 <ion-view>
-    <ion-content class="has-header">
+    <ion-content >
         <button class="button button-clear button-positive" ng-click="addGame()">Create new game!</button>
         <div>
             <ion-list class="list list-inset" show-delete="shouldShowDelete" style="width:80px">
                 <div class="item item-divider">
-                        Play now!
+                        Games
                 </div>
-                <div ng-if="gamesToPlay.length == 0">
+                <!--<div ng-if="gamesToPlay.length == 0">
                     <div style="margin-left: 10px;">
                         <h5 style="margin-left: 10px;">Wait for other users to play, or start a new game! ;)</h5>
                     </div>
                     
-                </div>
-                <div ng-if="gamesToPlay.length != 0">
+                </div>-->
+                <!--<div ng-if="gamesToPlay.length != 0">-->
                     <ion-item ng-repeat="game in gamesToPlay track by $index" ng-click="clickGame(game)">
                      
                     <h2>{{game.name}}</h2>
-                    <h3>{{game.players[0]}} VS {{game.players[1]}}</h3>
+                    <h3 ng-if="game.players.length == 2">{{game.players[0]}} VS {{game.players[1]}}</h3>
+                    <h3 ng-if="game.players.length == 3">{{game.players[0]}} VS {{game.players[1]}} VS {{game.players[2]}}</h3>
                     <h3>{{game.gameState}}</h3>
                     
                       
                     </ion-item>
-                </div>
+                <!--</div>-->
 
                 
-                <div class="item item-divider">
+                <!--<div class="item item-divider">
                         Waiting for other players
                 </div>
                 <ion-item ng-repeat="game in gamesToWait track by $index" ng-click="clickGame(game)">
@@ -41,7 +42,7 @@
                     <h3>{{game.gameState}}</h3>
                     
                       
-                </ion-item>
+                </ion-item>-->
             </ion-list>
         </div>
 

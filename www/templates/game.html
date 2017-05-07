@@ -1,6 +1,4 @@
 
-
-
 <ion-view title="Hi Oriol, ready to Play?">
     <ion-header-bar class="bar-positive">
 		<h1 class="title">Board Game</h1>
@@ -10,7 +8,7 @@
     </ion-header-bar>
     
     <ion-content scroll="false" style="padding-top: 10px; padding-left:5px; padding-right:5px;">
-        <ion-scroll zooming="true" overflow-scroll="false" direction="xy" style = "height: 70%" delegate-handle="myScroll" scroll="false">
+        <ion-scroll zooming="true" overflow-scroll="false" direction="xy" style = "height: 67%" delegate-handle="myScroll" scroll="false">
             <div class = "scroll-container">
                 <table id="table-board" class="boardgame" >
                     <tr ng-repeat="(i,squares) in board" on-finish-render="ngRepeatFinished">
@@ -19,42 +17,33 @@
                 </table>
             </div>
         </ion-scroll>
-        <div style="width: 100%; margin: 0 auto;">
-            <div ng-class="{disabled:pager.currentPage === 1}" style="float: left; width: 10%;">
-                <button ng-click="setPage(pager.currentPage - 1)">P</button>
-            </div>
-            <!--<div style="float: left; width: 80%;">
-                <div zooming="false" overflow-scroll="true"  direction="" id="chips-div" class="div-chips " ng-drop="true" ng-drop-success="onDropComplete($data,$event)"  ng-click="returnChipToDock($data,$event)" >
-                    <div class = "scroll-container section" scroll="true"  horizontalScroll="true" verticalScroll="true">
-                        <div class="row" >
-                            <div class="col " ng-repeat="obj in items">
-                                <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
-                                    <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
-                                </div>
-                                <br ng-if="!(($index + 1) % 4)" />
-                            </div>
+        <div style="width: 100%; min-width:100%; display: block; margin-left: 40px; margin-right: auto;">
+            <div style="background:rgba(78, 0, 0, 0.7); min-height:120px; min-width:290px; margin-bottom:-10px;" id="chips-div" class="section div-chips">
+                    <div ng-repeat="obj in items">
+                        <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
+                            <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
                         </div>
                     </div>
-                </div>
-            <div>-->
-            <div class="section div-chips" style="background:rgba(178, 0, 0, 0.7)">
-                <div ng-repeat="obj in items" >
-                    <div class="square-chip " ng-drag="true" ng-drag-data="obj" data-allow-transform="false" on-drag="onDrag()" ng-drag-scroll  > 
-                        <img ng-src="{{obj.imgLink}}" height="100%" width="100%"/>
-                    </div>               
-                </div>
-            </div>    
-            <div ng-class="{disabled:pager.currentPage === pager.totalPages}" style="float: right;  width: 10%;">
-                    <button ng-click="setPage(pager.currentPage + 1)">N</button>
+
             </div>
         </div>
-        </br></br>
-            
-            
+    
+        <div ng-class="{disabled:pager.currentPage === 1}" style="float: left; width: 10%;">
+            <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage - 1)">Previous</button>
+        </div>
+        <div ng-class="{disabled:pager.currentPage === pager.totalPages}" style="float: right;  width: 10%; margin-right:15px;">
+                <button class="button button-clear button-positive" ng-click="setPage(pager.currentPage + 1)">Next</button>
+        </div>
 
         <div class="bar bar-footer bar-positive">
             <button class="button button-positive" ng-click="passMove()">Pass</button>
             <button class="button button-positive" ng-click="playMove()">Play!</button>
+            <!--&nbsp;&nbsp;
+            <button ng-click="lessZoom()">-</button>
+            &nbsp;
+            &nbsp;
+            <button ng-click="moreZoom()">+</button>
+            &nbsp;&nbsp;-->
             <button class="button button-positive" ng-click="returnChipsToDock()">Return Chips</button>
         </div>
     </ion-content>

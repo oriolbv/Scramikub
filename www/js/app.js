@@ -38,8 +38,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 				views: {
 					'settings-tab': {
 						cache: false,
-						templateUrl: 'templates/settings.html'
-						//controller: 'LobbyCtrl'
+						templateUrl: 'templates/settings.html',
+						controller: 'SettingsCtrl'
 					}
 				}
 			})
@@ -53,13 +53,29 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 					}
 				}
 			})
+			.state('initial.user', {
+				url: '/user',
+				views: {
+					'user-tab': {
+						cache: false,
+						templateUrl: 'templates/user.html',
+						controller: 'UserCtrl'
+					}
+				}
+			})
 
 			.state('create-game', {
-				url: '/create-game',
+				url: '/create-game?players?name?numPlayers',
 				cache: false,
 				templateUrl: 'templates/create-game.html',
 				controller: 'CreateGameCtrl',
 				// controllerAs: 'vm'
+			})
+			.state('select-players', {
+				url: '/select-players?numPlayers?name',
+				cache: false,
+				templateUrl: 'templates/select-players.html',
+				controller: 'SelectPlayersCtrl',
 			})
 			.state('game', {
 				url: '/game?actualGame',
@@ -113,9 +129,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 		}
 		if (window.StatusBar) {
 				// org.apache.cordova.statusbar required
-				StatusBar.styleDefault();
+				StatusBar.hide();
 		}
-		
+		// StatusBar.hide();
 		// To Resolve Bug
 		ionic.Platform.fullScreen();
 

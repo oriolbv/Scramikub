@@ -1,0 +1,25 @@
+
+<ion-header-bar class="bar-positive">
+	<h1 class="h1 title">Select players!</h1>
+	<button class="button button-positive" ng-click="selectPlayers()">
+            <i style="font-size: 15px;">OK</i>
+        </button>
+</ion-header-bar>
+
+
+<ion-view title="Hi Oriol, ready to Play?">
+    <ion-content class="has-header">
+        <div class="list list-inset">
+            <ion-list ng-repeat="user in users track by $index">
+                <div ng-if="user.email == userInfo.email">
+                    <ion-checkbox ng-model="val" ng-checked="true" ng-disabled="true">{{user.displayName}}</ion-checkbox>
+                </div>
+                <div ng-if="user.email != userInfo.email">
+                    <ion-checkbox ng-model="val" ng-change="onChange(user)" onchange="">{{user.displayName}}</ion-checkbox>
+                </div>
+                
+				
+            </ion-list>
+		</div>
+    </ion-content>
+</ion-view>

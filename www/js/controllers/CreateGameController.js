@@ -10,8 +10,18 @@ angular.module('starter.controllers')
 
     $scope.chats = Chats;
 
+    $scope.players = [];
+    $scope.playersString = "";
+
     $scope.data = {
-        userSelected: []
+        name : "",
+        userSelected: [],
+        nPlayers: 0,
+        numChips: 90,
+        nJokers: 3,
+        horizontalSize: 15,
+        verticalSize: 15
+
     };
 
     $scope.game = {};
@@ -23,29 +33,92 @@ angular.module('starter.controllers')
 
     $scope.users.$loaded().then(function (user) {
         $scope.users = $scope.users[0];
+        if (angular.fromJson($stateParams.players) instanceof Array) {
+            $scope.players = angular.fromJson($stateParams.players);
+            $scope.data.name = $stateParams.name;
+            $scope.data.numPlayers = angular.fromJson($stateParams.numPlayers);   
+        } else {
+            $scope.players.push(angular.fromJson($stateParams.players));
+        }
+        $scope.data.nPlayers = $scope.players.length;
+        for (var i = 0; i < $scope.players.length; ++i) {
+            if (i != $scope.players.length - 1) {
+                $scope.playersString += $scope.players[i] + " vs ";
+            } else {
+                $scope.playersString += $scope.players[i];
+            }
+        }
+        
         console.log($scope.users);
     });
+
+    $scope.selectPlayers = function() {
+        // $state.go('chat', { 'actualGame': actualGame });
+        $state.go('select-players', { 'numPlayers': $scope.data.nPlayers, 'name' : $scope.data.name });
+    }
 
     $scope.createGame = function() {
         console.log($scope.data.userSelected);
         var allChips = [];
-        //allChips.push(BlueSuit, RedSuit, YellowSuit, GreenSuit);
-        allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, Joker1, Joker2, Joker3);
+        if ($scope.data.numChips == 60) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1);
+        } else if ($scope.data.numChips == 90) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, OrangeSuit1, PurpleSuit1);
+        } else if ($scope.data.numChips == 120) {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, BlueSuit2, RedSuit2, YellowSuit2, GreenSuit2);
+        } else {
+            allChips = allChips.concat(BlueSuit1, RedSuit1, YellowSuit1, GreenSuit1, OrangeSuit1, PurpleSuit1, BlueSuit2, RedSuit2, YellowSuit2, GreenSuit2, OrangeSuit2, PurpleSuit2);
+        }
+        if ($scope.data.nJokers == 0) {
+
+        } else if ($scope.data.nJokers == 1) {
+            allChips.concat(Joker1);
+        } else if ($scope.data.nJokers == 2) {
+            allChips.concat(Joker1, Joker2);
+        } else if ($scope.data.nJokers == 3) {
+            allChips = allChips.concat(Joker1, Joker2, Joker3);
+        } else if ($scope.data.nJokers == 4) {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4);
+        } else if ($scope.data.nJokers == 5) {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4, Joker5);
+        } else  {
+            allChips.concat(Joker1, Joker2, Joker3, Joker4, Joker6);
+        }
+
+
+
         allChips = shuffle(allChips);
-        var player1Chips = [];
-        for (var i = 0; i < 15; ++i) {
-            player1Chips.push(allChips[i]);
-            allChips.shift();
-        }
-        var player2Chips =  [];
-        for (var i = 0; i < 15; ++i) {
-            player2Chips.push(allChips[i]);
-            allChips.shift();
-        }
-        var board = [];
-        for (var i = 0; i < 15; ++i) {
-            var row = [];
+
+        allChips = allChips.filter(function(item, pos) {
+            return allChips.indexOf(item) == pos;
+        });
+
+        var finalPlayersChips = [];
+
+        for (var i = 0; i < $scope.data.nPlayers; ++i) {
+            finalPlayersChips.push([]);
             for (var j = 0; j < 15; ++j) {
+                finalPlayersChips[i].push(allChips[i]);
+                allChips.shift();
+            }
+        }
+
+        // var player1Chips = [];
+        // for (var i = 0; i < 15; ++i) {
+        //     player1Chips.push(allChips[i]);
+        //     allChips.shift();
+        // }
+        // var player2Chips =  [];
+        // for (var i = 0; i < 15; ++i) {
+        //     player2Chips.push(allChips[i]);
+        //     allChips.shift();
+        // }
+
+        // Size of board
+        var board = [];
+        for (var i = 0; i < $scope.data.verticalSize; ++i) {
+            var row = [];
+            for (var j = 0; j < $scope.data.horizontalSize; ++j) {
                 row.push({
                     "chipId" : "",
                     "color" : "",
@@ -62,14 +135,54 @@ angular.module('starter.controllers')
         /* Workarround to implement the checker algorithm */
         //player1Chips = [{color: "red", value: "1"}, {color: "red", value: "2"}, {color: "red", value: "3"}];
 
-        // Checking chips
+        // Checking chips if repited
         var playerChips = [];
-        for (var i = 0; i < 15; i++) {
-            playerChips.push(player1Chips[i]);
+        // for (var i = 0; i < 15; i++) {
+        //     playerChips.push(player1Chips[i]);
+        // }
+        // for (var i = 0; i < 15; i++) {
+        //     playerChips.push(player2Chips[i]);
+        // }
+        for (var i = 0; i < $scope.data.nPlayers; ++i) {
+            for (var j = 0; j < 15; ++j) {
+                playerChips.push(finalPlayersChips[i][j]);
+            }
         }
-        for (var i = 0; i < 15; i++) {
-            playerChips.push(player2Chips[i]);
+
+
+
+        var repitedChips = 0;
+        for (var iChips = 0; iChips < 30; ++iChips) {
+            var chip = playerChips[iChips];
+            for (var jChips = 0; jChips < 30; ++jChips) {
+                if (allChips[jChips] != null) {
+                    if (chip.chipId == allChips[jChips].chipId) {
+                        repitedChips++;
+                        console.log(allChips[jChips]);
+                        var index = allChips.indexOf(allChips[jChips]);
+                        if (index > -1) {
+                            allChips.splice(index, 1);
+                        }
+                    }
+                }
+                
+            }
         }
+        console.log("Repited Chips: " + repitedChips);
+
+        var repitedChips = 0;
+        for (var iChips = 0; iChips < 30; ++iChips) {
+            var chip = playerChips[iChips];
+            for (var jChips = 0; jChips < 30; ++jChips) {
+                if (allChips[jChips] != null) {
+                    if (chip.chipId == allChips[jChips].chipId) {
+                        repitedChips++;
+                        console.log(allChips[jChips]);
+                    }
+                }
+            }
+        }
+        console.log("New Repited Chips: " + repitedChips);
 
         var repitedChips = 0;
         for (var iChips = 0; iChips < 30; ++iChips) {
@@ -106,19 +219,19 @@ angular.module('starter.controllers')
 
         if ($scope.data.userSelected != null) {
             $scope.games.$add({
-                "name": $scope.game.name,
-                "players": [$scope.userConnected.email, $scope.data.userSelected],
+                "name": $scope.data.name,
+                "players": $scope.players,
                 "userTurn": 0,
                 "gameState": "",
                 "board": board,
-                "playersChips": [player1Chips, player2Chips],
+                "playersChips": finalPlayersChips,
                 "gameChips": allChips,
                 "winner": ""
             });
 
             $scope.chats.$add({
-                "gameName" : $scope.game.name,
-                "users" : [$scope.userConnected.email, $scope.data.userSelected],
+                "gameName" : $scope.data.name,
+                "users" : $scope.players,
                 "messages" : [{
                     "sender_username" : $scope.userConnected.email,
                     "content" : "Hello! Hello"
@@ -156,9 +269,12 @@ angular.module('starter.controllers')
     
 });
 
-var Joker1 = {chipId: "jkr1", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
-var Joker2 = {chipId: "jkr2", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
-var Joker3 = {chipId: "jkr3", color: "joker", value: 0, row: "", column: "", imgLink: "img/joker.png"};
+var Joker1 = {chipId: "jkr1", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker2 = {chipId: "jkr2", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker3 = {chipId: "jkr3", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker4 = {chipId: "jkr4", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker5 = {chipId: "jkr5", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
+var Joker6 = {chipId: "jkr6", color: "joker", value: 100, row: "", column: "", imgLink: "img/joker.png"};
 
 var BlueSuit1 =  [   {chipId: "1b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
                     {chipId: "1b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 
@@ -224,6 +340,38 @@ var GreenSuit1 =  [ {chipId: "1g1", color: "green", value: 1, row: "", column: "
                     {chipId: "1g14", color: "green", value: 14, row: "", column: "", imgLink: "img/14g.png"},  
                     {chipId: "1g15", color: "green", value: 15, row: "", column: "", imgLink: "img/15g.png"} ];
 
+var OrangeSuit1 =  [{chipId: "1o1", color: "orange", value: 1, row: "", column: "", imgLink: "img/1o.png"}, 
+                    {chipId: "1o2", color: "orange", value: 2, row: "", column: "", imgLink: "img/2o.png"}, 
+                    {chipId: "1o3", color: "orange", value: 3, row: "", column: "", imgLink: "img/3o.png"}, 
+                    {chipId: "1o4", color: "orange", value: 4, row: "", column: "", imgLink: "img/4o.png"}, 
+                    {chipId: "1o5", color: "orange", value: 5, row: "", column: "", imgLink: "img/5o.png"}, 
+                    {chipId: "1o6", color: "orange", value: 6, row: "", column: "", imgLink: "img/6o.png"}, 
+                    {chipId: "1o7", color: "orange", value: 7, row: "", column: "", imgLink: "img/7o.png"},  
+                    {chipId: "1o8", color: "orange", value: 8, row: "", column: "", imgLink: "img/8o.png"},  
+                    {chipId: "1o9", color: "orange", value: 9, row: "", column: "", imgLink: "img/9o.png"},  
+                    {chipId: "1o10", color: "orange", value: 10, row: "", column: "", imgLink: "img/10o.png"},  
+                    {chipId: "1o11", color: "orange", value: 11, row: "", column: "", imgLink: "img/11o.png"},
+                    {chipId: "1o12", color: "orange", value: 12, row: "", column: "", imgLink: "img/12o.png"},  
+                    {chipId: "1o13", color: "orange", value: 13, row: "", column: "", imgLink: "img/13o.png"},  
+                    {chipId: "1o14", color: "orange", value: 14, row: "", column: "", imgLink: "img/14o.png"},  
+                    {chipId: "1o15", color: "orange", value: 15, row: "", column: "", imgLink: "img/15o.png"} ];
+
+var PurpleSuit1 =  [{chipId: "1p1", color: "purple", value: 1, row: "", column: "", imgLink: "img/1p.png"}, 
+                    {chipId: "1p2", color: "purple", value: 2, row: "", column: "", imgLink: "img/2p.png"}, 
+                    {chipId: "1p3", color: "purple", value: 3, row: "", column: "", imgLink: "img/3p.png"}, 
+                    {chipId: "1p4", color: "purple", value: 4, row: "", column: "", imgLink: "img/4p.png"}, 
+                    {chipId: "1p5", color: "purple", value: 5, row: "", column: "", imgLink: "img/5p.png"}, 
+                    {chipId: "1p6", color: "purple", value: 6, row: "", column: "", imgLink: "img/6p.png"}, 
+                    {chipId: "1p7", color: "purple", value: 7, row: "", column: "", imgLink: "img/7p.png"},  
+                    {chipId: "1p8", color: "purple", value: 8, row: "", column: "", imgLink: "img/8p.png"},  
+                    {chipId: "1p9", color: "purple", value: 9, row: "", column: "", imgLink: "img/9p.png"},  
+                    {chipId: "1p10", color: "purple", value: 10, row: "", column: "", imgLink: "img/10p.png"},  
+                    {chipId: "1p11", color: "purple", value: 11, row: "", column: "", imgLink: "img/11p.png"},
+                    {chipId: "1p12", color: "purple", value: 12, row: "", column: "", imgLink: "img/12p.png"},  
+                    {chipId: "1p13", color: "purple", value: 13, row: "", column: "", imgLink: "img/13p.png"},  
+                    {chipId: "1p14", color: "purple", value: 14, row: "", column: "", imgLink: "img/14p.png"},  
+                    {chipId: "1p15", color: "purple", value: 15, row: "", column: "", imgLink: "img/15p.png"} ];
+
 var BlueSuit2 =  [  {chipId: "2b1", color: "blue", value: 1, row: "", column: "", imgLink: "img/1b.png"}, 
                     {chipId: "2b2", color: "blue", value: 2, row: "", column: "", imgLink: "img/2b.png"}, 
                     {chipId: "2b3", color: "blue", value: 3, row: "", column: "", imgLink: "img/3b.png"}, 
@@ -287,3 +435,35 @@ var GreenSuit2 =  [ {chipId: "2g1", color: "green", value: 1, row: "", column: "
                     {chipId: "2g13", color: "green", value: 13, row: "", column: "", imgLink: "img/13g.png"},  
                     {chipId: "2g14", color: "green", value: 14, row: "", column: "", imgLink: "img/14g.png"},  
                     {chipId: "2g15", color: "green", value: 15, row: "", column: "", imgLink: "img/15g.png"} ];
+
+var OrangeSuit2 =  [{chipId: "2o1", color: "orange", value: 1, row: "", column: "", imgLink: "img/1o.png"}, 
+                    {chipId: "2o2", color: "orange", value: 2, row: "", column: "", imgLink: "img/2o.png"}, 
+                    {chipId: "2o3", color: "orange", value: 3, row: "", column: "", imgLink: "img/3o.png"}, 
+                    {chipId: "2o4", color: "orange", value: 4, row: "", column: "", imgLink: "img/4o.png"}, 
+                    {chipId: "2o5", color: "orange", value: 5, row: "", column: "", imgLink: "img/5o.png"}, 
+                    {chipId: "2o6", color: "orange", value: 6, row: "", column: "", imgLink: "img/6o.png"}, 
+                    {chipId: "2o7", color: "orange", value: 7, row: "", column: "", imgLink: "img/7o.png"},  
+                    {chipId: "2o8", color: "orange", value: 8, row: "", column: "", imgLink: "img/8o.png"},  
+                    {chipId: "2o9", color: "orange", value: 9, row: "", column: "", imgLink: "img/9o.png"},  
+                    {chipId: "2o10", color: "orange", value: 10, row: "", column: "", imgLink: "img/10o.png"},  
+                    {chipId: "2o11", color: "orange", value: 11, row: "", column: "", imgLink: "img/11o.png"},
+                    {chipId: "2o12", color: "orange", value: 12, row: "", column: "", imgLink: "img/12o.png"},  
+                    {chipId: "2o13", color: "orange", value: 13, row: "", column: "", imgLink: "img/13o.png"},  
+                    {chipId: "2o14", color: "orange", value: 14, row: "", column: "", imgLink: "img/14o.png"},  
+                    {chipId: "2o15", color: "orange", value: 15, row: "", column: "", imgLink: "img/15o.png"} ];
+
+var PurpleSuit2 =  [{chipId: "2p1", color: "purple", value: 1, row: "", column: "", imgLink: "img/1p.png"}, 
+                    {chipId: "2p2", color: "purple", value: 2, row: "", column: "", imgLink: "img/2p.png"}, 
+                    {chipId: "2p3", color: "purple", value: 3, row: "", column: "", imgLink: "img/3p.png"}, 
+                    {chipId: "2p4", color: "purple", value: 4, row: "", column: "", imgLink: "img/4p.png"}, 
+                    {chipId: "2p5", color: "purple", value: 5, row: "", column: "", imgLink: "img/5p.png"}, 
+                    {chipId: "2p6", color: "purple", value: 6, row: "", column: "", imgLink: "img/6p.png"}, 
+                    {chipId: "2p7", color: "purple", value: 7, row: "", column: "", imgLink: "img/7p.png"},  
+                    {chipId: "2p8", color: "purple", value: 8, row: "", column: "", imgLink: "img/8p.png"},  
+                    {chipId: "2p9", color: "purple", value: 9, row: "", column: "", imgLink: "img/9p.png"},  
+                    {chipId: "2p10", color: "purple", value: 10, row: "", column: "", imgLink: "img/10p.png"},  
+                    {chipId: "2p11", color: "purple", value: 11, row: "", column: "", imgLink: "img/11p.png"},
+                    {chipId: "2p12", color: "purple", value: 12, row: "", column: "", imgLink: "img/12p.png"},  
+                    {chipId: "2p13", color: "purple", value: 13, row: "", column: "", imgLink: "img/13p.png"},  
+                    {chipId: "2p14", color: "purple", value: 14, row: "", column: "", imgLink: "img/14p.png"},  
+                    {chipId: "2p15", color: "purple", value: 15, row: "", column: "", imgLink: "img/15p.png"} ];

@@ -7,6 +7,7 @@
   "dependencies": {
     "firebase-simple-login": "^1.6.4",
     "firebase": "^3.3.0",
-    "angularfire": "^2.0.2"
+    "angularfire": "^2.0.2",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }
