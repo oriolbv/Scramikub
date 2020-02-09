@@ -1,4 +1,7 @@
 # Scramikub
+Table game developed in Ionic.
+
+## Usage
 
 > npm install
 
